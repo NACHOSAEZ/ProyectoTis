@@ -1,7 +1,5 @@
-# ProyectoTis
-```
-**MODO AVION**
-```
+#**MODO AVION**
+
 Somos Cristina Hernando e Ignacio Sáez.
 
 Nuestro proyecto se basa en desarrollar una aplicación con su base de datos sobre un aeropuerto.
