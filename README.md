@@ -9,5 +9,6 @@ Esta base de datos incluye la lista de todos los vuelos disponibles para que los
 Aquí puedes encontrar nuestro Diagrama de casos de uso y su respectivo Diagrama "Entidad-Relación":
 
 
+doc/DiagramaE-R.png
 
 
