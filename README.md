@@ -12,3 +12,4 @@ Aquí puedes encontrar nuestro Diagrama de casos de uso y su respectivo Diagrama
 
 
 ![CasosdeUso_page-0001](https://user-images.githubusercontent.com/72651303/224125287-aced36de-06a5-485c-b65e-973a738bfa9d.jpg)
+![DiagramaE-R](https://user-images.githubusercontent.com/72651303/224125505-5f8f2522-35b6-4edc-8d58-550219675176.png)
