@@ -9,6 +9,6 @@ Esta base de datos incluye la lista de todos los vuelos disponibles para que los
 Aquí puedes encontrar nuestro Diagrama de casos de uso y su respectivo Diagrama "Entidad-Relación":
 
 
-!(https://raw.githubusercontent.com/NACHOSAEZ/ProyectoTis/blob/main/doc/CasosdeUso_page-0001.jpg)
 
 
+![CasosdeUso_page-0001](https://user-images.githubusercontent.com/72651303/224125287-aced36de-06a5-485c-b65e-973a738bfa9d.jpg)
