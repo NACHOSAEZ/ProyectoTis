@@ -6,7 +6,7 @@ Nuestro proyecto se basa en desarrollar una aplicación con su base de datos sob
 
 Esta base de datos incluye la lista de todos los vuelos disponibles para que los clientes puedan elegir su vuelo junto con su asiento, reservar el billete, pagarlo y más tarde, confirmarlo; además, se registrarán los clientes que utilicen nuestra aplicación.
 
-##DIAGRAMA UML
+## **DIAGRAMA UML**
 
 Aquí puedes encontrar nuestro Diagrama de casos de uso y su respectivo Diagrama "Entidad-Relación":
 
