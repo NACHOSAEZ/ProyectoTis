@@ -10,7 +10,8 @@ Esta base de datos incluye la lista de todos los vuelos disponibles para que los
 
 Aquí puedes encontrar nuestro Diagrama de casos de uso y su respectivo Diagrama "Entidad-Relación":
 
-![CasosdeUso_page-0001](https://user-images.githubusercontent.com/72651303/224125287-aced36de-06a5-485c-b65e-973a738bfa9d.jpg)
+![Captura de pantalla 2023-03-10 094120](https://user-images.githubusercontent.com/72651303/224269435-0ec7b577-3add-4ccf-b2c0-1d091ce7f20a.png)
+
 En nuestro diagrama puedes observar dos actores que desempeñan diferentes papeles:
 
 Los clientes: Para nuestro proyecto son necesarios clientes que compren vuelos. Para ello, se registrarán en nuestra base de datos y buscarán vuelos a sus destinos favoritos; comprarán billetes y tendrán la opción de cancelarlos o confirmarlos ("Check-in").
