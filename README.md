@@ -21,4 +21,4 @@ Los vendedores: Serán los encargados de actualizar los vuelos en la lista de vu
 En cuanto a los casos de uso, podemos encontrar ocho casos que consisten en: Registro de los usuarios, compra de billetes por parte de los clientes que implica la elección del asiento y su posible cancelación o check-in ; venta de billetes por parte de los vendedores. Y por último, todo lo relacionado con los vuelos: la búsqueda de ellos y su actualización.
 
 
-![DiagramaE-R](https://user-images.githubusercontent.com/72651303/224261439-36138ba8-d250-431d-9ffa-236615226d86.png)
+![DiagramaE-R](https://user-images.githubusercontent.com/72651303/224279100-6cc42d11-a8aa-4768-a6e3-999d5c735026.png)
