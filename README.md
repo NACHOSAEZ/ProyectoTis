@@ -9,4 +9,5 @@ Esta base de datos incluye la lista de todos los vuelos disponibles para que los
 Aquí puedes encontrar nuestro Diagrama de casos de uso y su respectivo Diagrama "Entidad-Relación":
 
 
-![CasosdeUso_page-0001](https://user-images.githubusercontent.com/72651303/224125287-aced36de-06a5-485c-b65e-973a738bfa9d.jpg)![DiagramaE-R](https://user-images.githubusercontent.com/72651303/224260631-91d022c0-468c-4101-8061-0d3289e04766.png)
+![CasosdeUso_page-0001](https://user-images.githubusercontent.com/72651303/224125287-aced36de-06a5-485c-b65e-973a738bfa9d.jpg)
+![DiagramaE-R](https://user-images.githubusercontent.com/72651303/224261439-36138ba8-d250-431d-9ffa-236615226d86.png)
