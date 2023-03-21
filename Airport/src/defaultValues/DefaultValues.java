@@ -1,6 +1,9 @@
 package defaultValues;
 
+import pojos.Aeropuerto;
 import pojos.Cliente;
+import pojos.Empleado;
+
 import java.util.*;
 
 public class DefaultValues {
@@ -12,6 +15,7 @@ public class DefaultValues {
 	private final static String [] CATEGORIA = {"Business Class", "Tourist Class"};
 	//PROGRAMAR MAS TARDE COMO UN ENUM, PARA ASOCIAR EL ID DE VUELOS (IB1292)
 	private final static String [] PUESTOEMPLEADO = {"Tecnico administrativo", "Auxiliar de vuelo", "Controlador aero", "Piloto", "Operario de logistica"};
+	private final static String [] AEROPUERTOS = {"Aeropuerto Adolfo Suárez Madrid-Barajas", "Aeropuerto Josep Tarradellas Barcelona-El Prat", "Aeropuerto de Málaga-Costa del Sol"};
 	private final static String [] CORREOS = {"@gmail.com", "@hotmail.com", "@usp.ceu.es", "@yahoo.es", "@outlook.com"};
 	
 	public static Cliente generarCliente() {
@@ -25,6 +29,22 @@ public class DefaultValues {
 		
 		return cliente;
 		
+	}
+	
+	//generarVuelosAleatorios
+	
+	public static Empleado generarEmpleado() {
+		Aeropuerto aeropuerto = new Aeropuerto();
+		String nombreAeropuerto = randomString(AEROPUERTOS);
+		aeropuerto.setNombre(nombreAeropuerto);
+		aeropuerto.setId(nombreAeropuerto);
+		aeropuerto.setCiudad(nombreAeropuerto);
+				
+		Empleado empleado = new Empleado();
+		empleado.setTipo(randomString(PUESTOEMPLEADO));
+		empleado.setAeropuerto(aeropuerto);
+		
+		return empleado;
 	}
 
 	

@@ -3,7 +3,7 @@ package pojos;
 public class Aeropuerto {
 
 	
-	private int id;
+	private String id;
 	private String nombre;
 	private String ciudad;
 	
@@ -13,7 +13,7 @@ public class Aeropuerto {
 	}
 	
 	
-	public Aeropuerto(int id, String nombre, String ciudad, String pais) {
+	public Aeropuerto(String id, String nombre, String ciudad, String pais) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -21,12 +21,20 @@ public class Aeropuerto {
 	}
 
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-
-	public void setId(int id) {
-		this.id = id;
+//metodo para seleccionar el id del aeropuerto (MAD,AGP, BCN)
+	public void setId(String id) {
+		if(id == "Aeropuerto Josep Tarradellas Barcelona-El Prat") {
+			this.id = "BCN";
+		}
+		if(id == "Aeropuerto de Málaga-Costa del Sol") {
+			this.id = "AGP";
+		}
+		if(id == "Aeropuerto Adolfo Suárez Madrid-Barajas") {
+			this.id = "MAD";
+		}
 	}
 
 	public String getNombre() {
@@ -42,8 +50,15 @@ public class Aeropuerto {
 	}
 
 	public void setCiudad(String ciudad) {
-		this.ciudad = ciudad;
-	}
+		if(id == "Aeropuerto Josep Tarradellas Barcelona-El Prat") {
+			this.id = "Barcelona";
+		}
+		if(id == "Aeropuerto de Málaga-Costa del Sol") {
+			this.id = "Malaga";
+		}
+		if(id == "Aeropuerto Adolfo Suárez Madrid-Barajas") {
+			this.id = "Madrid";
+		}	}
 
 
 	@Override
