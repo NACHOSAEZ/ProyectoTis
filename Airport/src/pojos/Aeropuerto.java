@@ -6,7 +6,6 @@ public class Aeropuerto {
 	private int id;
 	private String nombre;
 	private String ciudad;
-	private String pais;
 	
 	public Aeropuerto() {
 		super();
@@ -19,7 +18,6 @@ public class Aeropuerto {
 		this.id = id;
 		this.nombre = nombre;
 		this.ciudad = ciudad;
-		this.pais = pais;
 	}
 
 
@@ -47,18 +45,10 @@ public class Aeropuerto {
 		this.ciudad = ciudad;
 	}
 
-	public String getPais() {
-		return pais;
-	}
-
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
-
 
 	@Override
 	public String toString() {
-		return "Aeropuerto [id=" + id + ", nombre=" + nombre + ", ciudad=" + ciudad + ", pais=" + pais + "]";
+		return "Aeropuerto [id=" + id + ", nombre=" + nombre + ", ciudad=" + ciudad  + "]";
 	}
 	
 	

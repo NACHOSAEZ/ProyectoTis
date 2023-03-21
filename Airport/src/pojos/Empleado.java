@@ -4,10 +4,8 @@ public class Empleado {
 
 	
 	private int id;
-	private String nombre;
-	private String apellido;
-	private String dni;
-	private int sueldo;
+	private String tipo;
+	private Aeropuerto aeropuerto;
 	
 	
 	public Empleado() {
@@ -15,16 +13,12 @@ public class Empleado {
 
 	}
 
-
-	public Empleado(int id, String nombre, String apellido, String dni, int sueldo) {
+	public Empleado(int id, String tipo, Aeropuerto aeropuerto) {
 		super();
 		this.id = id;
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.dni = dni;
-		this.sueldo = sueldo;
+		this.tipo = tipo;
+		this.aeropuerto = aeropuerto;
 	}
-
 
 	public int getId() {
 		return id;
@@ -36,51 +30,36 @@ public class Empleado {
 	}
 
 
-	public String getNombre() {
-		return nombre;
+	public String getTipo() {
+		return tipo;
 	}
 
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 
-	public String getApellido() {
-		return apellido;
+	public Aeropuerto getAeropuerto() {
+		return aeropuerto;
 	}
 
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
+	public void setAeropuerto(Aeropuerto aeropuerto) {
+		this.aeropuerto = aeropuerto;
 	}
 
-
-	public String getDni() {
-		return dni;
-	}
-
-
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
-
-
-	public int getSueldo() {
-		return sueldo;
-	}
-
-
-	public void setSueldo(int sueldo) {
-		this.sueldo = sueldo;
-	}
-
-
+	
 	@Override
 	public String toString() {
-		return "Empleado [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", sueldo="
-				+ sueldo + "]";
+		return "Empleado [id=" + id + ", tipo=" + tipo + ", aeropuerto=" + aeropuerto + "]";
 	}
-	
+
+
+
+
+
+
+
 	
 }
