@@ -7,7 +7,7 @@ public class Cliente {
 	private String dni;
 	private String correo;
 	private String contraseña;
-	private int numtelf;
+	private String numtelf;
 	
 	
 	public Cliente() {
@@ -15,7 +15,7 @@ public class Cliente {
 	}
 
 
-	public Cliente(String nombre, String apellido, String dni, String correo, String contraseña, int numtelf) {
+	public Cliente(String nombre, String apellido, String dni, String correo, String contraseña, String numtelf) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -76,13 +76,13 @@ public class Cliente {
 	}
 
 
-	public int getNumtelf() {
+	public String getNumtelf() {
 		return numtelf;
 	}
 
 
-	public void setNumtelf(int numtelf) {
-		this.numtelf = numtelf;
+	public void setNumtelf(String string) {
+		this.numtelf = string;
 	}
 
 

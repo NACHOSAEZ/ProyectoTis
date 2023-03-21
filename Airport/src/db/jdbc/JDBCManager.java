@@ -1,6 +1,8 @@
 package db.jdbc;
 
+import java.io.*;
 import java.sql.*;
+import java.util.*;
 import java.util.logging.Logger;
 
 import db.interfaces.DBManager;
@@ -34,6 +36,7 @@ public class JDBCManager implements DBManager{
 		}
 	}
 
+
 	public void disconnect() {
 		try {
 			stmt.close();
@@ -44,15 +47,35 @@ public class JDBCManager implements DBManager{
 		}
 	}
 
+	//metodo para introducir valores a la base de datos
 	private void startTables() {
 		// TODO Auto-generated method stub
 		
 	}
-
-
-
+	
+	//metodo para crear las tablas en la base de datos
 	private void createTables() {
-		// TODO Auto-generated method stub
+		File file = new File(ficheroStart);
+		try (Scanner scanner = new Scanner(file)){
+			
+			String sqlStart = "";
+			
+			while( scanner.hasNextLine()) {
+				sqlStart += scanner.nextLine();
+			}
+			
+			stmt.executeUpdate(sqlStart);
+			TERM.info("Tablas iniciales creadas correctamente");
+			
+		}catch(FileNotFoundException e) {
+			TERM.info("Error al leer el fichero para inicializar las tablas\n" + e);
+		}catch(SQLException e) {
+			TERM.info("Error al leer el codigo SQL del fichero de inicializacion de tablas\n" + e);
+		}
+	}
+	
+	
+	
 		
 	}
-}
+
