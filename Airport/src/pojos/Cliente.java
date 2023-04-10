@@ -6,7 +6,7 @@ public class Cliente {
 	private String apellido;
 	private String dni;
 	private String correo;
-	private String contraseña;
+	private String password;
 	private String numtelf;
 	
 	
@@ -15,13 +15,13 @@ public class Cliente {
 	}
 
 
-	public Cliente(String nombre, String apellido, String dni, String correo, String contraseña, String numtelf) {
+	public Cliente(String nombre, String apellido, String dni, String correo, String password, String numtelf) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
 		this.correo = correo;
-		this.contraseña = contraseña;
+		this.password = password;
 		this.numtelf = numtelf;
 	}
 
@@ -66,13 +66,13 @@ public class Cliente {
 	}
 
 
-	public String getContraseña() {
-		return contraseña;
+	public String getPassword() {
+		return password;
 	}
 
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setPassword(String contraseña) {
+		this.password = contraseña;
 	}
 
 
@@ -89,7 +89,7 @@ public class Cliente {
 	@Override
 	public String toString() {
 		return "Cliente [nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", correo=" + correo
-				+ ", contraseña=" + contraseña + ", numtelf=" + numtelf + "]";
+				+ ", contraseña=" + password + ", numtelf=" + numtelf + "]";
 	}
 	
 	

@@ -13,11 +13,11 @@ public class Aeropuerto {
 	}
 	
 	
-	public Aeropuerto(String id, String nombre, String ciudad, String pais) {
+	public Aeropuerto(String id, String nombre, String ciudad) {
 		super();
-		this.id = id;
 		this.nombre = nombre;
 		this.ciudad = ciudad;
+
 	}
 
 
@@ -26,15 +26,7 @@ public class Aeropuerto {
 	}
 //metodo para seleccionar el id del aeropuerto (MAD,AGP, BCN)
 	public void setId(String id) {
-		if(id == "Aeropuerto Josep Tarradellas Barcelona-El Prat") {
-			this.id = "BCN";
-		}
-		if(id == "Aeropuerto de Málaga-Costa del Sol") {
-			this.id = "AGP";
-		}
-		if(id == "Aeropuerto Adolfo Suárez Madrid-Barajas") {
-			this.id = "MAD";
-		}
+		this.id=id;
 	}
 
 	public String getNombre() {
@@ -51,13 +43,13 @@ public class Aeropuerto {
 
 	public void setCiudad(String ciudad) {
 		if(id == "Aeropuerto Josep Tarradellas Barcelona-El Prat") {
-			this.id = "Barcelona";
+			this.id = "BCN";
 		}
 		if(id == "Aeropuerto de Málaga-Costa del Sol") {
 			this.id = "Malaga";
 		}
 		if(id == "Aeropuerto Adolfo Suárez Madrid-Barajas") {
-			this.id = "Madrid";
+			this.id = "MAD";
 		}	}
 
 

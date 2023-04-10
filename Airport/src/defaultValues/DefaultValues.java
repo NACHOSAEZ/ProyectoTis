@@ -10,7 +10,7 @@ public class DefaultValues {
 
 	
 	private final static String [] NOMBRES = {"Nacho","Cristina", "Francisco", "Mercedes", "Luis", "Maria", "Isabel", "Javier", "Jesus", "Laura"};
-	private final static String [] APELLIDOS = {"Perez", "Martin", "Martinez", "Lopez", "Calero", "Almenta", "Hernando", "Garcia", "Saenz", "Vega"};
+	private final static String [] APELLIDOS = {"Perez", "Martin", "Martinez", "Lopez", "Calero", "Almenta", "Hernando", "Garcia", "Saez", "Vega"};
 	//PROGRAMAR MAS TARDE COMO UN ENUM!!!! PARA ASOCIAR LOS ASIENTOS PARA CADA CATEGORIA
 	private final static String [] CATEGORIA = {"Business Class", "Tourist Class"};
 	//PROGRAMAR MAS TARDE COMO UN ENUM, PARA ASOCIAR EL ID DE VUELOS (IB1292)
