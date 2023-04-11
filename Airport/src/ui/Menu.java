@@ -47,6 +47,7 @@ public class Menu {
 
 		int bucle=-1;
 		do {
+			System.out.println("Seleccione uno de los siguientes roles para registrarse\n");
 			bucle = showmenu(MENU_ROL);
 			LOGGER.info("USTED HA ELEGIDO " + bucle + "\n");
 
@@ -131,17 +132,28 @@ public class Menu {
 
 	private static int showmenu(String[] opciones) {
 		int bucle=-1;
+		
 		do {
+			
 			System.out.println("ELIGA UNA OPCION:\n");
+			
 			for(int i=1; i<opciones.length;i++) {
 				System.out.println(i + "." + opciones[i]);
 			}
+			
 			System.out.println("0." + opciones[0]);
+			
 			try {
 				bucle = Integer.parseInt(br.readLine());
-			}catch(IOException e) {}
-		}while(bucle != 0);
+			}catch(IOException e) {
+			}catch(NumberFormatException e){
+			}
+			
+		}while(bucle >= opciones.length || bucle < 0);
+		
 		return bucle;
 	}
+
+	
 
 }
