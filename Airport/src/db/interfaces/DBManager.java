@@ -1,5 +1,6 @@
 package db.interfaces;
 
+import pojos.Aeropuerto;
 import pojos.Cliente;
 
 public interface DBManager {
@@ -12,5 +13,7 @@ public interface DBManager {
 	
 	void createTables();
 	
-	void addCliente(Cliente cliente);	
+	boolean addCliente(Cliente cliente);
+	
+	boolean addAeropuerto(Aeropuerto aeropuerto);
 }

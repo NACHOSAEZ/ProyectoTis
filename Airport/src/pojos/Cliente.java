@@ -2,12 +2,14 @@ package pojos;
 
 public class Cliente {
 	
+	private int id;
 	private String nombre;
 	private String apellido;
 	private String dni;
 	private String correo;
-	private String password;
 	private String numtelf;
+	private String password;
+
 	
 	
 	public Cliente() {
@@ -15,14 +17,25 @@ public class Cliente {
 	}
 
 
-	public Cliente(String nombre, String apellido, String dni, String correo, String password, String numtelf) {
+	public Cliente(int id, String nombre, String apellido, String dni, String correo, String numtelf, String password) {
 		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.dni = dni;
 		this.correo = correo;
 		this.password = password;
 		this.numtelf = numtelf;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
@@ -71,8 +84,8 @@ public class Cliente {
 	}
 
 
-	public void setPassword(String contraseña) {
-		this.password = contraseña;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 
@@ -81,18 +94,17 @@ public class Cliente {
 	}
 
 
-	public void setNumtelf(String string) {
-		this.numtelf = string;
+	public void setNumtelf(String numtelf) {
+		this.numtelf = numtelf;
 	}
 
 
 	@Override
 	public String toString() {
-		return "Cliente [nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", correo=" + correo
-				+ ", contraseña=" + password + ", numtelf=" + numtelf + "]";
+		return "Cliente [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", correo="
+				+ correo + ", password=" + password + ", numtelf=" + numtelf + "]";
 	}
-	
-	
-	
 
+
+	
 }

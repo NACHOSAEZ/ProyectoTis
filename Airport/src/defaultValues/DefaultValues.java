@@ -25,14 +25,14 @@ public class DefaultValues {
 		cliente.setCorreo(randomString(NOMBRES)+ randomString(APELLIDOS) + randomString(CORREOS));
 		cliente.setNumtelf(generarNumeroTelefono());
 		cliente.setDni(generarDNI());
-		cliente.setContraseña(generarContrasena(10)); //contraseña de 10 caracteres por defecto
+		cliente.setPassword(generarContrasena(10)); //contraseña de 10 caracteres por defecto
 		
 		return cliente;
 		
 	}
 	
 	//generarVuelosAleatorios
-	
+	/*
 	public static Empleado generarEmpleado() {
 		Aeropuerto aeropuerto = new Aeropuerto();
 		String nombreAeropuerto = randomString(AEROPUERTOS);
@@ -41,13 +41,13 @@ public class DefaultValues {
 		aeropuerto.setCiudad(nombreAeropuerto);
 				
 		Empleado empleado = new Empleado();
-		empleado.setTipo(randomString(PUESTOEMPLEADO));
+		empleado.setPuesto(randomString(PUESTOEMPLEADO));
 		empleado.setAeropuerto(aeropuerto);
 		
 		return empleado;
 	}
 
-	
+	*/
 	  public static String generarContrasena(int longitud) {
 		    Random rand = new Random();
 		    String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>/?";

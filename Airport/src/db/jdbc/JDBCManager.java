@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.logging.Logger;
 
 import db.interfaces.DBManager;
+import pojos.Aeropuerto;
 import pojos.Cliente;
 import pojos.Empleado;
 
@@ -14,21 +15,32 @@ public class JDBCManager implements DBManager{
 	
 	private static Connection c;
 	private static Statement stmt;
+	private PreparedStatement prepAddCliente;
+	private PreparedStatement prepAddAeropuerto;
+	private PreparedStatement prepAddCompañia;
+	
 	final static Logger TERM = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	//informacion en la terminal
 	private static final String LOCATION = "./db/Aeropuerto.db";
 	private static final String ficheroStart = "./db/ddl.sql";
 	private static final String ficheroStartAeropuerto = "./db/ficheroStartAeropuertos.sql";
-	private static final String ficheroStartVuelo = "./db/ficheroStartVuelos";
+	private static final String ficheroStartCompañia = "./db/ficheroCompañias";
 	
-    private static final String sqlAddCliente = "INSERT INTO Clientes('e-mail',Nombre,Apellido,Contraseña, DNI, NumTelefono) VALUES (?,?,?,?,?,?);";
-    private static final String sqlAddEmpleado = "INSERT INTO Empleados('e-mail',Nombre,Apellido,Contraseña, Puesto, Sueldo, Aeropuerto) VALUES (?,?,?,?,?,?,?);";
+    private static final String sqlAddCliente = "INSERT INTO Clientes(Nombre,Apellido,DNI, Email, NumTelefono, Password) VALUES (?,?,?,?,?,?);";
+    private static final String sqlAddEmpleado = "INSERT INTO Empleado(Nombre,Apellido,DNI, Email, NumTelefono, Password) VALUES (?,?,?,?,?,?);";
+
+    private static final String sqlAddAeropuerto = "INSERT INTO Aeropuertos(Nombre,Codigo) VALUES (?,?);";
+    private static final String sqlAddCompañia = "INSERT INTO Compañias(Nombre,PaginaWeb,Pais, NumTelefono, Email) VALUES (?,?,?,?,?);";
+    
+    private static final String sqlCountElements = "SELECT count(*) FROM ";
+    private static final String sqlBuscarEmailCliente = "SELECT * FROM Clientes WHERE Email=";
+    private static final String sqlBuscarCodigoAeropuerto = "SELECT * FROM Aeropuertos WHERE Codigo=";
+
+
 
 	/*
-	private static final String sqlNumerosElementos = "SELECT COUNT(*) FROM";
 	private static final String sqlBuscarVuelosId = "SELECT * FROM Vuelos WHERE IdVuelo = ?;";
 	private static final String sqlAnadirVuelo= "INSERT INTO Vuelos(NumVuelo, fecha, hora, asiento) VALUES (?,?,?,?);";
-			//fin ficheros sql
 	*/
 	
 	
@@ -38,12 +50,13 @@ public class JDBCManager implements DBManager{
 			Class.  forName("org.sqlite.JDBC");
 	        c = DriverManager.getConnection("jdbc:sqlite:" + LOCATION);
 	        stmt = c.createStatement();
-	        createTables();
-	        startTables();
+
 	        TERM.info("Se ha inicializado la base de datos");
 		}catch (SQLException  | ClassNotFoundException e) {
 			TERM.severe("ERROR al iniciar la base de datos de la aplicacion\n" + e.toString());
 		}
+        createTables();
+        startTables();
 	}
 
 
@@ -57,66 +70,119 @@ public class JDBCManager implements DBManager{
 		}
 	}
 
-	//metodo para introducir valores a la base de datos
+	public int countElements(String nombreTabla) {
+		int numElementos = 0;
+		try {
+			ResultSet rs = stmt.executeQuery(sqlCountElements + nombreTabla + ";");
+			numElementos = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return numElementos;
+	}
+	//metodo para introducir valores predeterminados  a la base de datos
 	public void startTables() {
-		
+		try {
+			if(countElements("Compañias") == 0) {
+				stmt.executeUpdate(archivo(ficheroStartCompañia));
+				TERM.info("Se ha introducido los datos predeterminado a la tabla de compañias");
+			}else {
+				TERM.info("La tabla de compañias ya esta iniciada");
+			}
+			if(countElements("Aeropuertos") == 0) {
+				stmt.executeUpdate(archivo(ficheroStartAeropuerto));
+				TERM.info("Se ha introducido los datos predeterminado a la tabla de aeropuertos");
+			}else {
+				TERM.info("La tabla de aeropuertos ya esta iniciada");
+			}
+			
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		TERM.info("Tablas inicializadas");
 	}
 	
 	//metodo para crear las tablas en la base de datos
 	public void createTables() {
-		File file = new File(ficheroStart);
-		try (Scanner scanner = new Scanner(file)){
+		try{
+			stmt.executeUpdate(archivo(ficheroStart));
+			TERM.info("Tablas inicializadas correctamente");
 			
-			String sqlStart = "";
-			
-			while( scanner.hasNextLine()) {
-				sqlStart += scanner.nextLine();
-			}
-			
-			stmt.executeUpdate(sqlStart);
-			TERM.info("Tablas iniciales creadas correctamente");
-			
-		}catch(FileNotFoundException e) {
-			TERM.info("Error al leer el fichero para inicializar las tablas\n" + e);
 		}catch(SQLException e) {
 			TERM.info("Error al leer el codigo SQL del fichero de inicializacion de tablas\n" + e);
 		}
 	}
 	
+	public String archivo(String nombreArchivo) {
+		String contenido ="";
+		File archivo= new File(nombreArchivo);
+		
+		try(Scanner scanner = new Scanner(archivo)){
+			
+			while(scanner.hasNext()) {
+				
+				contenido += scanner.nextLine();
+			}
+		}catch(FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return contenido;
+	}
 	
-	public void addCliente(Cliente cliente) {
+	
+	public boolean addCliente(Cliente cliente) {
+		ArrayList<Cliente> clientes = new ArrayList<>();
+		try {
+			ResultSet rs = stmt.executeQuery(sqlBuscarEmailCliente + cliente.getCorreo()+ "';");
+			while(rs.next()) {
+				return false;
+			}	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		try {
 			PreparedStatement prep = c.prepareStatement(sqlAddCliente);
-			prep.setString(1, cliente.getCorreo());
-			prep.setString(2, cliente.getNombre());
-			prep.setString(3, cliente.getApellido());
-			prep.setString(4, cliente.getPassword());
-			prep.setString(5, cliente.getDni());
-			prep.setString(6, cliente.getNumtelf());
+			prep.setString(1, cliente.getNombre());
+			prep.setString(2, cliente.getApellido());
+			prep.setString(3, cliente.getDni());
+			prep.setString(4, cliente.getCorreo());
+			prep.setString(5, cliente.getNumtelf());
+			prep.setString(6, cliente.getPassword());
 			prep.executeUpdate();
 			prep.close();
 		}catch(SQLException e) {
 			TERM.warning("Error al añadir un cliente\n" + e.toString());
 		}
+		return true;
 		}
-	//   ('e-mail',Nombre,Apellido,Contraseña, Puesto, Sueldo, Aeropuerto) VALUES (?,?,?,?,?,?,?);";
+	
 
-	public void addEmpleado(Empleado empleado) {
+	public boolean addAeropuerto(Aeropuerto aeropuerto) {
+		ArrayList<Aeropuerto> aeropuertos = new ArrayList<>();
 		try {
-			PreparedStatement prep = c.prepareStatement(sqlAddEmpleado);
-			prep.setString(1, empleado.getCorreo());
-			prep.setString(2, empleado.getNombre());
-			prep.setString(3, empleado.getApellido());
-			prep.setString(4, empleado.getPassword());
-			prep.setString(5, empleado.getPuesto());
-			prep.setInt(6, empleado.getSueldo());
-			//prep.setString(7, empleado.getAeropuerto());
+			ResultSet rs = stmt.executeQuery(sqlBuscarCodigoAeropuerto + aeropuerto.getCodigo()+ "';");
+			while(rs.next()) {
+				return false;
+			}	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			PreparedStatement prep = c.prepareStatement(sqlAddAeropuerto);
+			prep.setString(1, aeropuerto.getNombre());;
+			prep.setString(2, aeropuerto.getCodigo());
 			prep.executeUpdate();
 			prep.close();
 		}catch(SQLException e) {
-			TERM.warning("Error al añadir un empleado\n" + e.toString());
+			TERM.warning("Error al añadir un aeropuerto\n" + e.toString());
 		}
+		return true;
 		}
-		
+	
+	
 	}
+
+	
 

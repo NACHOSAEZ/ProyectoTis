@@ -35,7 +35,7 @@ public class Menu {
 			switch(bucle) {
 			
 			case 1 : registrarse();
-			//case 2 : inicioSesion();
+			case 2 : inicioSesion();
 			}
 		}while(bucle != 0);
 		
@@ -43,6 +43,11 @@ public class Menu {
 		dbman.disconnect();
 	}
 	
+	private static void inicioSesion() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private static void registrarse() {
 
 		int bucle=-1;
@@ -59,6 +64,11 @@ public class Menu {
 		}while(bucle != 0);
 	}
 
+	private static void registroEmpleado() {
+		// TODO Auto-generated method stub
+		
+	}
+/*
 	private static void registroEmpleado(){
 		try {
 		System.out.println("Indique su nombre:\n");
@@ -100,6 +110,7 @@ public class Menu {
 
 	}
 	
+	*/
 	private static void registroCliente(){
 		try {
 		System.out.println("Indique su nombre:\n");
@@ -120,15 +131,14 @@ public class Menu {
 		System.out.println("Indique su telefono:\n");
 		String telefono = br.readLine();
 		
-		Cliente cliente = new Cliente(nombre, apellido, dni, correo, password, telefono);
+		Cliente cliente = new Cliente(0,nombre, apellido, dni, correo, password, telefono);
 		dbman.addCliente(cliente);
 		}catch(IOException e) {
 			LOGGER.warning("ERROR" + e);
 		}
-
-
-
 	}
+	
+
 
 	private static int showmenu(String[] opciones) {
 		int bucle=-1;
