@@ -4,13 +4,20 @@ import pojos.Aeropuerto;
 import pojos.Cliente;
 import pojos.Empleado;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.logging.Logger;
 
 public class DefaultValues {
-
+	private final static Logger TERM = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private String[] nombres;
+	private String[] apellidos;
+	private int id = 0;
 	
-	private final static String [] NOMBRES = {"Nacho","Cristina", "Francisco", "Mercedes", "Luis", "Maria", "Isabel", "Javier", "Jesus", "Laura"};
-	private final static String [] APELLIDOS = {"Perez", "Martin", "Martinez", "Lopez", "Calero", "Almenta", "Hernando", "Garcia", "Saez", "Vega"};
+	private final String F_NOMBRES = "./db/nombres.csv";
+	private final String F_APELLIDOS = "./db/apellidos.csv";
+	
 	//PROGRAMAR MAS TARDE COMO UN ENUM!!!! PARA ASOCIAR LOS ASIENTOS PARA CADA CATEGORIA
 	private final static String [] CATEGORIA = {"Business Class", "Tourist Class"};
 	//PROGRAMAR MAS TARDE COMO UN ENUM, PARA ASOCIAR EL ID DE VUELOS (IB1292)
@@ -18,19 +25,43 @@ public class DefaultValues {
 	private final static String [] AEROPUERTOS = {"Aeropuerto Adolfo Suárez Madrid-Barajas", "Aeropuerto Josep Tarradellas Barcelona-El Prat", "Aeropuerto de Málaga-Costa del Sol"};
 	private final static String [] CORREOS = {"@gmail.com", "@hotmail.com", "@usp.ceu.es", "@yahoo.es", "@outlook.com"};
 	
-	public static Cliente generarCliente() {
+	
+	public DefaultValues() {
+		nombres = readFile(F_NOMBRES);
+		apellidos = readFile(F_APELLIDOS);
+	}
+	
+	private String[] readFile(String fileName) {
+		String fileContent = "";
+		File file = new File(fileName);
+		try (Scanner scanner = new Scanner(file)){
+			while (scanner.hasNext()) {
+				fileContent += scanner.nextLine() + "\n";
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String[] lineas = fileContent.split("\\r?\\n");
+		TERM.info("Lineas leidas:  " + lineas.length + " lineas del fichero " + fileName);
+		return lineas;
+	}
+	public Cliente generarCliente() {
 		Cliente cliente = new Cliente();
-		cliente.setNombre(randomString(NOMBRES));
-		cliente.setApellido(randomString(APELLIDOS));
-		cliente.setCorreo(randomString(NOMBRES)+ randomString(APELLIDOS) + randomString(CORREOS));
+		String nombre = nombres[randomInt(nombres.length)];
+		cliente.setNombre(nombre);
+		String apellido = apellidos[randomInt(apellidos.length)] + "" + apellidos[randomInt(apellidos.length)];
+		cliente.setApellido(apellido);
+		cliente.setCorreo(nombre + apellido + id + randomString(CORREOS));
 		cliente.setNumtelf(generarNumeroTelefono());
 		cliente.setDni(generarDNI());
 		cliente.setPassword(generarContrasena(10)); //contraseña de 10 caracteres por defecto
+		id++;
 		
 		return cliente;
 		
 	}
-	
+
 	//generarVuelosAleatorios
 	/*
 	public static Empleado generarEmpleado() {

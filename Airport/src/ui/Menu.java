@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import db.interfaces.DBManager;
 import db.jdbc.JDBCManager;
+import logging.MyLogger;
 import pojos.Aeropuerto;
 import pojos.Cliente;
 import pojos.Empleado;
@@ -18,12 +19,15 @@ public class Menu {
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private static DBManager dbman = new JDBCManager();
+	
 	private static final String[] MENU_START = {"Salir", "Registrarse", "Iniciar Sesion"};
 	private static final String[] MENU_ROL = {"Salir", "Empleado", "Cliente"};
-
+	private static final String[] MENU_EMPLEADO = {"Salir", "Consultar informacion aeropuerto", "Listar vuelo", "Listar compañias", "Consular vuelo por codigo", "Añadir vuelo",
+			"Retrasar vuelo", "Añadir compañia", "Listar empleado", "Añadir empleado"};
 
 
 	public static void main (String[] args) throws IOException{
+		MyLogger.setupFromFile();
 		dbman.connect();
 		
 		System.out.println("\n *** BIENVENIDO A LA BASE DE DATOS DE LOS AEROPUERTOS DE ESPAÑA *** \n");
@@ -60,8 +64,40 @@ public class Menu {
 			
 			case 1: registroEmpleado();
 			case 2: registroCliente();
+			case 3: menuEmpleado();
 			}
 		}while(bucle != 0);
+	}
+
+	private static void menuEmpleado() {
+		// TODO Auto-generated method stub
+		System.out.println("\nMENU EMPLEADO\n");
+		int bucle;
+		do {
+			bucle = showmenu(MENU_EMPLEADO);
+			switch(bucle) {
+			case 1 -> consultarInformacionAeropuerto();
+			case 2 -> listarVuelos();
+			case 3 -> listarCompañias();
+			
+			}
+		}while(bucle != 0);
+		
+	}
+
+	private static String listarCompañias() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private static String listarVuelos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private static String consultarInformacionAeropuerto() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	private static void registroEmpleado() {

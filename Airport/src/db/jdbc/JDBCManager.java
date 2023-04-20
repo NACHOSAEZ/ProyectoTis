@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.logging.Logger;
 
 import db.interfaces.DBManager;
+import defaultValues.DefaultValues;
 import pojos.Aeropuerto;
 import pojos.Cliente;
 import pojos.Empleado;
@@ -15,34 +16,40 @@ public class JDBCManager implements DBManager{
 	
 	private static Connection c;
 	private static Statement stmt;
+	
 	private PreparedStatement prepAddCliente;
+	private PreparedStatement prepAddEmpleado;
 	private PreparedStatement prepAddAeropuerto;
 	private PreparedStatement prepAddCompañia;
 	
+	final static DefaultValues defaultvalues= new DefaultValues();
 	final static Logger TERM = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	//informacion en la terminal
+
+	
 	private static final String LOCATION = "./db/Aeropuerto.db";
 	private static final String ficheroStart = "./db/ddl.sql";
-	private static final String ficheroStartAeropuerto = "./db/ficheroStartAeropuertos.sql";
-	private static final String ficheroStartCompañia = "./db/ficheroCompañias";
+	private static final String ficheroStartAeropuerto = "./db/dml_aeropuertos.sql";
+	private static final String ficheroStartCompañia = "./db/dml_companias.sql";
+	
 	
     private static final String sqlAddCliente = "INSERT INTO Clientes(Nombre,Apellido,DNI, Email, NumTelefono, Password) VALUES (?,?,?,?,?,?);";
-    private static final String sqlAddEmpleado = "INSERT INTO Empleado(Nombre,Apellido,DNI, Email, NumTelefono, Password) VALUES (?,?,?,?,?,?);";
-
+    private static final String sqlAddEmpleado = "INSERT INTO Empleado(Nombre,Apellido,Puesto,Sueldo,DNI) VALUES (?,?,?,?,?);";
     private static final String sqlAddAeropuerto = "INSERT INTO Aeropuertos(Nombre,Codigo) VALUES (?,?);";
     private static final String sqlAddCompañia = "INSERT INTO Compañias(Nombre,PaginaWeb,Pais, NumTelefono, Email) VALUES (?,?,?,?,?);";
+    
     
     private static final String sqlCountElements = "SELECT count(*) FROM ";
     private static final String sqlBuscarEmailCliente = "SELECT * FROM Clientes WHERE Email=";
     private static final String sqlBuscarCodigoAeropuerto = "SELECT * FROM Aeropuertos WHERE Codigo=";
-
-
-
+    
+    
 	/*
 	private static final String sqlBuscarVuelosId = "SELECT * FROM Vuelos WHERE IdVuelo = ?;";
 	private static final String sqlAnadirVuelo= "INSERT INTO Vuelos(NumVuelo, fecha, hora, asiento) VALUES (?,?,?,?);";
 	*/
 	
+    
+    
 	
 	//conexion base de datos
 	public void connect() {
@@ -83,17 +90,30 @@ public class JDBCManager implements DBManager{
 	//metodo para introducir valores predeterminados  a la base de datos
 	public void startTables() {
 		try {
+			
+			prepAddAeropuerto = c.prepareStatement(sqlAddAeropuerto);
+			prepAddCompañia = c.prepareStatement(sqlAddCompañia);
+			prepAddCliente = c.prepareStatement(sqlAddCliente);
+			
 			if(countElements("Compañias") == 0) {
 				stmt.executeUpdate(archivo(ficheroStartCompañia));
 				TERM.info("Se ha introducido los datos predeterminado a la tabla de compañias");
 			}else {
 				TERM.info("La tabla de compañias ya esta iniciada");
 			}
+			
 			if(countElements("Aeropuertos") == 0) {
 				stmt.executeUpdate(archivo(ficheroStartAeropuerto));
 				TERM.info("Se ha introducido los datos predeterminado a la tabla de aeropuertos");
 			}else {
 				TERM.info("La tabla de aeropuertos ya esta iniciada");
+			}
+			
+			if(countElements("Clientes") == 0) {
+				for(int i = 0 ; i < 50 ; i++) {
+					Cliente cliente = defaultvalues.generarCliente();
+					addCliente(cliente);
+				}
 			}
 			
 		}catch (SQLException e) {
@@ -129,12 +149,11 @@ public class JDBCManager implements DBManager{
 		return contenido;
 	}
 	
-	
+	@Override
 	public boolean addCliente(Cliente cliente) {
-		ArrayList<Cliente> clientes = new ArrayList<>();
 		try {
-			ResultSet rs = stmt.executeQuery(sqlBuscarEmailCliente + cliente.getCorreo()+ "';");
-			while(rs.next()) {
+			ResultSet rs = stmt.executeQuery(sqlBuscarEmailCliente + cliente.getCorreo() + "\";");
+			if(rs.next()) {
 				return false;
 			}	
 		} catch (SQLException e) {
@@ -157,7 +176,7 @@ public class JDBCManager implements DBManager{
 		return true;
 		}
 	
-
+	@Override
 	public boolean addAeropuerto(Aeropuerto aeropuerto) {
 		ArrayList<Aeropuerto> aeropuertos = new ArrayList<>();
 		try {
