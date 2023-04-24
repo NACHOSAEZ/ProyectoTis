@@ -22,6 +22,7 @@ public class JDBCManager implements DBManager{
 	private PreparedStatement prepAddAeropuerto;
 	private PreparedStatement prepAddCompañia;
 	
+	
 	final static DefaultValues defaultvalues= new DefaultValues();
 	final static Logger TERM = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -39,7 +40,7 @@ public class JDBCManager implements DBManager{
     
     
     private static final String sqlCountElements = "SELECT count(*) FROM ";
-    private static final String sqlBuscarEmailCliente = "SELECT * FROM Clientes WHERE Email=";
+    private static final String sqlBuscarEmailCliente = "SELECT * FROM Clientes WHERE Email='";
     private static final String sqlBuscarCodigoAeropuerto = "SELECT * FROM Aeropuertos WHERE Codigo=";
     
     
@@ -152,7 +153,7 @@ public class JDBCManager implements DBManager{
 	@Override
 	public boolean addCliente(Cliente cliente) {
 		try {
-			ResultSet rs = stmt.executeQuery(sqlBuscarEmailCliente + cliente.getCorreo() + "\";");
+			ResultSet rs = stmt.executeQuery(sqlBuscarEmailCliente + cliente.getCorreo() + "';");
 			if(rs.next()) {
 				return false;
 			}	

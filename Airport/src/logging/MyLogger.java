@@ -11,7 +11,7 @@ public class MyLogger {
     private final static Level LOGGER_LVL = Level.FINEST;
     private final static Level CONSOLE_LVL = Level.FINEST;
     private final static Level FILE_LVL = Level.INFO;
-    private final static String LOGGING_FILE = "/Airport/src/lib/logging.properties";
+    private final static String LOGGING_FILE = "./lib/logging.properties";
     
     static public void setup(){
     	Logger rootLogger = Logger.getLogger("");
@@ -31,10 +31,8 @@ public class MyLogger {
 			try {
 				fileH = new FileHandler("./log/log_"+ ldt.format(formatter) +".log");
 			} catch (SecurityException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	    XMLFormatter formatterXML = new XMLFormatter();

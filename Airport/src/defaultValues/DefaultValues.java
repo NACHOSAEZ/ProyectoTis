@@ -48,11 +48,11 @@ public class DefaultValues {
 	}
 	public Cliente generarCliente() {
 		Cliente cliente = new Cliente();
-		String nombre = nombres[randomInt(nombres.length)];
+		String nombre = "" + nombres[randomInt(nombres.length)];
 		cliente.setNombre(nombre);
-		String apellido = apellidos[randomInt(apellidos.length)] + "" + apellidos[randomInt(apellidos.length)];
+		String apellido = "" + apellidos[randomInt(apellidos.length)]+ " " + apellidos[randomInt(apellidos.length)];
 		cliente.setApellido(apellido);
-		cliente.setCorreo(nombre + apellido + id + randomString(CORREOS));
+		cliente.setCorreo(getCorreo(nombre, apellido) + id + "@gmail.com");
 		cliente.setNumtelf(generarNumeroTelefono());
 		cliente.setDni(generarDNI());
 		cliente.setPassword(generarContrasena(10)); //contraseña de 10 caracteres por defecto
@@ -62,6 +62,7 @@ public class DefaultValues {
 		
 	}
 
+	
 	//generarVuelosAleatorios
 	/*
 	public static Empleado generarEmpleado() {
@@ -79,6 +80,15 @@ public class DefaultValues {
 	}
 
 	*/
+	
+	public static String getCorreo(String nombre, String apellido) {
+		String nombreCorreo=nombre.replace(" ", ".");
+		String apellidoCorreo=apellido.replace(" ", ".");
+		String correo= nombreCorreo+apellidoCorreo + " @gmail.com";
+		
+		
+		return correo;
+	}
 	  public static String generarContrasena(int longitud) {
 		    Random rand = new Random();
 		    String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>/?";
