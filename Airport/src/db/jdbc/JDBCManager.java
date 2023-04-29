@@ -9,6 +9,7 @@ import db.interfaces.DBManager;
 import defaultValues.DefaultValues;
 import pojos.Aeropuerto;
 import pojos.Cliente;
+import pojos.Compañia;
 import pojos.Empleado;
 
 public class JDBCManager implements DBManager{
@@ -41,7 +42,13 @@ public class JDBCManager implements DBManager{
     
     private static final String sqlCountElements = "SELECT count(*) FROM ";
     private static final String sqlBuscarEmailCliente = "SELECT * FROM Clientes WHERE Email='";
-    private static final String sqlBuscarCodigoAeropuerto = "SELECT * FROM Aeropuertos WHERE Codigo=";
+    private static final String sqlBuscarCodigoAeropuerto = "SELECT * FROM Aeropuertos WHERE Codigo='";
+    private static final String sqlBuscarNombreCompañia = "SELECT * FROM Compañias WHERE Nombre='";
+    
+
+
+    
+
     
     
 	/*
@@ -150,6 +157,7 @@ public class JDBCManager implements DBManager{
 		return contenido;
 	}
 	
+	
 	@Override
 	public boolean addCliente(Cliente cliente) {
 		try {
@@ -201,6 +209,117 @@ public class JDBCManager implements DBManager{
 		return true;
 		}
 	
+	@Override
+	
+	public ArrayList<Aeropuerto> getAeropuertos(){
+		String sql = "SELECT * FROM Aeropuertos;";
+		ArrayList<Aeropuerto> aeropuertos = new ArrayList<>();
+		try {
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				
+				int id = rs.getInt("Id");
+				String nombre = rs.getString("Nombre");
+				String codigo = rs.getString("Codigo");
+				aeropuertos.add(new Aeropuerto(id, nombre, codigo));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return aeropuertos;
+	}
+	
+	@Override
+	public ArrayList<Compañia> getCompañias(){
+		String sql = "SELECT * FROM Compañias;";
+		ArrayList<Compañia> compañias = new ArrayList<>();
+		try {
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				
+				int id = rs.getInt("Id");
+				String nombre = rs.getString("Nombre");
+				String paginaWeb = rs.getString("PaginaWeb");
+				String pais = rs.getString("Pais");
+				String numTelefono = rs.getString("NumTelefono");
+				String email = rs.getString("Email");
+				compañias.add(new Compañia(id, nombre, paginaWeb, pais, numTelefono, email));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return compañias;
+	}
+	
+	@Override
+	public boolean addCompañia(Compañia compañia) {
+		String nombre = compañia.getNombre().toUpperCase(); //cambia el nombre introducido por el usuario en mayusculas
+		try {
+			ResultSet rs = stmt.executeQuery(sqlBuscarNombreCompañia + nombre + "';");
+			while(rs.next()) {
+				return false;
+			}	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			PreparedStatement prep = c.prepareStatement(sqlAddCompañia);
+			prep.setString(1, nombre);;
+			prep.setString(2, compañia.getPaginaweb());
+			prep.setString(3, compañia.getPais());
+			prep.setString(4, compañia.getNumtelf());
+			prep.setString(5, compañia.getCorreo());
+			prep.executeUpdate();
+			prep.close();
+		}catch(SQLException e) {
+			TERM.warning("Error al añadir una compañia\n" + e.toString());
+		}
+		return true;
+	}
+	
+	
+	@Override
+	
+	public Compañia getCompañiaPorNombre(String idNombre) {
+		Compañia compañia = null;
+		try {
+			String nombreM = idNombre.toUpperCase(); //cambia el nombre introducido por el usuario en mayusculas
+			ResultSet rs = stmt.executeQuery(sqlBuscarNombreCompañia + nombreM + "';"); 
+			if(rs.next()) {
+				int id = rs.getInt("Id");
+				String nombre = rs.getString("Nombre");
+				String paginaWeb = rs.getString("PaginaWeb");
+				String pais = rs.getString("Pais");
+				String numtelf = rs.getString("NumTelefono");
+				String correo = rs.getString("Email");
+				compañia = new Compañia(id, nombre, paginaWeb, pais, numtelf, correo);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return compañia;
+	}
+	
+	
+	@Override
+	
+	public Aeropuerto getAeropuertoPorCodigo(String idCodigo) {
+		Aeropuerto aeropuerto = null;
+		try {
+			ResultSet rs = stmt.executeQuery(sqlBuscarCodigoAeropuerto + idCodigo + "';"); 
+			if(rs.next()) {
+				int id = rs.getInt("Id");
+				String nombre = rs.getString("Nombre");
+				String codigo = rs.getString("Codigo");
+				aeropuerto = new Aeropuerto(id, nombre, codigo);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return aeropuerto;
+	}
+
 	
 	}
 

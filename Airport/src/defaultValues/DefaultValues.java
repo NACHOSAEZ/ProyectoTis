@@ -52,7 +52,7 @@ public class DefaultValues {
 		cliente.setNombre(nombre);
 		String apellido = "" + apellidos[randomInt(apellidos.length)]+ " " + apellidos[randomInt(apellidos.length)];
 		cliente.setApellido(apellido);
-		cliente.setCorreo(getCorreo(nombre, apellido) + id + "@gmail.com");
+		cliente.setCorreo(getCorreo(nombre, apellido) + id);
 		cliente.setNumtelf(generarNumeroTelefono());
 		cliente.setDni(generarDNI());
 		cliente.setPassword(generarContrasena(10)); //contraseña de 10 caracteres por defecto
@@ -84,7 +84,7 @@ public class DefaultValues {
 	public static String getCorreo(String nombre, String apellido) {
 		String nombreCorreo=nombre.replace(" ", ".");
 		String apellidoCorreo=apellido.replace(" ", ".");
-		String correo= nombreCorreo+apellidoCorreo + " @gmail.com";
+		String correo= nombreCorreo+apellidoCorreo + " @gmail.com"; //CAMBIAR @GMAIL.COM A ARRAY
 		
 		
 		return correo;

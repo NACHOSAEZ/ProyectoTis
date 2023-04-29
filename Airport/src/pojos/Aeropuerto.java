@@ -3,7 +3,7 @@ package pojos;
 public class Aeropuerto {
 
 	
-	private String id;
+	private int id;
 	private String nombre;
 	private String codigo;
 	
@@ -12,18 +12,19 @@ public class Aeropuerto {
 
 	}
 
-	public Aeropuerto(String id, String nombre, String codigo) {
+	public Aeropuerto(int id, String nombre, String codigo) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.codigo = codigo;
 	}
 
-	public String getId() {
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -45,7 +46,7 @@ public class Aeropuerto {
 
 	@Override
 	public String toString() {
-		return "Aeropuerto [id=" + id + ", nombre=" + nombre + ", codigo=" + codigo + "]";
+		return "\n" + id + ". " + nombre + "(" + codigo + ")\n";
 	}
 	
 	

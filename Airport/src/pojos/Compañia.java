@@ -5,7 +5,7 @@ public class Compañia {
 	
 	private int id;
 	private String correo;
-	private int numtelf;
+	private String numtelf;
 	private String nombre;
 	private String paginaweb;
 	private String pais;
@@ -16,7 +16,7 @@ public class Compañia {
 	}
 
 
-	public Compañia(int id, String correo, int numtelf, String nombre, String paginaweb, String pais) {
+	public Compañia(int id, String nombre, String paginaWeb, String pais, String numtelf, String correo) {
 		super();
 		this.id = id;
 		this.correo = correo;
@@ -47,12 +47,12 @@ public class Compañia {
 	}
 
 
-	public int getNumtelf() {
+	public String getNumtelf() {
 		return numtelf;
 	}
 
 
-	public void setNumtelf(int numtelf) {
+	public void setNumtelf(String numtelf) {
 		this.numtelf = numtelf;
 	}
 
@@ -89,8 +89,11 @@ public class Compañia {
 
 	@Override
 	public String toString() {
-		return "Compañia [id=" + id + ", correo=" + correo + ", numtelf=" + numtelf + ", nombre=" + nombre
-				+ ", paginaweb=" + paginaweb + ", pais=" + pais + "]";
+		return id + ". Compañia: " + nombre +
+				"\nPagina Web: " + paginaweb + 
+				"\nPais: " + pais + 
+				"\nNumero de telefono: " + numtelf + 
+				"\nEmail de contacto: " + correo;
 	}
 	
 	
