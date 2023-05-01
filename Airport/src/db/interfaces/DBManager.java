@@ -30,4 +30,9 @@ public interface DBManager {
 
 	Compañia getCompañiaPorNombre(String idNombre);
 
+	int eliminarAeropuerto(Aeropuerto aeropuerto);
+
+	int eliminarCompañia(Compañia compañia);
+
+
 }

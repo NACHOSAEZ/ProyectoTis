@@ -22,6 +22,9 @@ public class JDBCManager implements DBManager{
 	private PreparedStatement prepAddEmpleado;
 	private PreparedStatement prepAddAeropuerto;
 	private PreparedStatement prepAddCompañia;
+	private PreparedStatement prepEliminarAeropuerto;
+	private PreparedStatement prepEliminarCompañia;
+
 	
 	
 	final static DefaultValues defaultvalues= new DefaultValues();
@@ -44,6 +47,11 @@ public class JDBCManager implements DBManager{
     private static final String sqlBuscarEmailCliente = "SELECT * FROM Clientes WHERE Email='";
     private static final String sqlBuscarCodigoAeropuerto = "SELECT * FROM Aeropuertos WHERE Codigo='";
     private static final String sqlBuscarNombreCompañia = "SELECT * FROM Compañias WHERE Nombre='";
+    
+    private static final String sqlEliminarAeropuerto = "DELETE FROM Aeropuertos WHERE Id= ?;";
+    private static final String sqlEliminarCompañia = "DELETE FROM Compañias WHERE Id= ?;";
+
+
     
 
 
@@ -318,6 +326,46 @@ public class JDBCManager implements DBManager{
 			e.printStackTrace();
 		}
 		return aeropuerto;
+	}
+	
+	@Override
+	public int eliminarAeropuerto(Aeropuerto aeropuerto) {
+		int result = 0;
+		try {
+			prepEliminarAeropuerto = c.prepareStatement(sqlEliminarAeropuerto);
+
+			prepEliminarAeropuerto.setInt(1, aeropuerto.getId());
+			result = prepEliminarAeropuerto.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(result == 1) {
+			TERM.info(aeropuerto + " eliminado con éxito");
+		} else {
+			TERM.info("No existe el " + aeropuerto);
+		}
+		return result;
+	}
+	
+	@Override
+	public int eliminarCompañia(Compañia compañia) {
+		int result = 0;
+		try {
+			prepEliminarAeropuerto = c.prepareStatement(sqlEliminarCompañia);
+
+			prepEliminarAeropuerto.setInt(1, compañia.getId());
+			result = prepEliminarAeropuerto.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(result == 1) {
+			TERM.info(compañia + " eliminado con éxito");
+		} else {
+			TERM.info("No existe el " + compañia);
+		}
+		return result;
 	}
 
 	

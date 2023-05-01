@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2023-04-29T09:49:13.837762300Z</date>
-  <millis>1682761753837</millis>
-  <nanos>762300</nanos>
+  <date>2023-05-01T01:10:22.292707800Z</date>
+  <millis>1682903422292</millis>
+  <nanos>707800</nanos>
   <sequence>2</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -14,9 +14,9 @@
   <message>Logger is configured</message>
 </record>
 <record>
-  <date>2023-04-29T09:49:14.085761300Z</date>
-  <millis>1682761754085</millis>
-  <nanos>761300</nanos>
+  <date>2023-05-01T01:10:22.499710800Z</date>
+  <millis>1682903422499</millis>
+  <nanos>710800</nanos>
   <sequence>3</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -26,9 +26,9 @@
   <message>Se ha inicializado la base de datos</message>
 </record>
 <record>
-  <date>2023-04-29T09:49:14.090717Z</date>
-  <millis>1682761754090</millis>
-  <nanos>717000</nanos>
+  <date>2023-05-01T01:10:22.503723800Z</date>
+  <millis>1682903422503</millis>
+  <nanos>723800</nanos>
   <sequence>4</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -38,9 +38,9 @@
   <message>Tablas inicializadas correctamente</message>
 </record>
 <record>
-  <date>2023-04-29T09:49:14.095717400Z</date>
-  <millis>1682761754095</millis>
-  <nanos>717400</nanos>
+  <date>2023-05-01T01:10:22.508713800Z</date>
+  <millis>1682903422508</millis>
+  <nanos>713800</nanos>
   <sequence>5</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -50,9 +50,9 @@
   <message>La tabla de compañias ya esta iniciada</message>
 </record>
 <record>
-  <date>2023-04-29T09:49:14.096720100Z</date>
-  <millis>1682761754096</millis>
-  <nanos>720100</nanos>
+  <date>2023-05-01T01:10:22.509709800Z</date>
+  <millis>1682903422509</millis>
+  <nanos>709800</nanos>
   <sequence>6</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -62,9 +62,9 @@
   <message>La tabla de aeropuertos ya esta iniciada</message>
 </record>
 <record>
-  <date>2023-04-29T09:49:14.097717Z</date>
-  <millis>1682761754097</millis>
-  <nanos>717000</nanos>
+  <date>2023-05-01T01:10:22.510708800Z</date>
+  <millis>1682903422510</millis>
+  <nanos>708800</nanos>
   <sequence>7</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -74,9 +74,9 @@
   <message>Tablas inicializadas</message>
 </record>
 <record>
-  <date>2023-04-29T09:49:17.572300300Z</date>
-  <millis>1682761757572</millis>
-  <nanos>300300</nanos>
+  <date>2023-05-01T01:10:23.830808800Z</date>
+  <millis>1682903423830</millis>
+  <nanos>808800</nanos>
   <sequence>8</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -87,9 +87,9 @@
 </message>
 </record>
 <record>
-  <date>2023-04-29T09:49:18.943267Z</date>
-  <millis>1682761758943</millis>
-  <nanos>267000</nanos>
+  <date>2023-05-01T01:10:24.328237800Z</date>
+  <millis>1682903424328</millis>
+  <nanos>237800</nanos>
   <sequence>9</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -98,4 +98,18 @@
   <thread>1</thread>
   <message>USTED HA ELEGIDO 3
 </message>
+</record>
+<record>
+  <date>2023-05-01T01:10:34.224936300Z</date>
+  <millis>1682903434224</millis>
+  <nanos>936300</nanos>
+  <sequence>10</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>db.jdbc.JDBCManager</class>
+  <method>eliminarAeropuerto</method>
+  <thread>1</thread>
+  <message>
+1. Aeropuerto Josep Tarradellas Barcelona-El Prat(BCN)
+ eliminado con éxito</message>
 </record>
