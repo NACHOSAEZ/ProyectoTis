@@ -22,7 +22,7 @@ public class Compañia {
 		this.correo = correo;
 		this.numtelf = numtelf;
 		this.nombre = nombre;
-		this.paginaweb = paginaweb;
+		this.paginaweb = paginaWeb;
 		this.pais = pais;
 	}
 

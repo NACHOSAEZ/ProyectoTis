@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import pojos.Aeropuerto;
 import pojos.Cliente;
 import pojos.Compañia;
+import pojos.Empleado;
 
 public interface DBManager {
 
@@ -34,5 +35,14 @@ public interface DBManager {
 
 	int eliminarCompañia(Compañia compañia);
 
+	ArrayList<Empleado> getEmpleados();
+
+	boolean addEmpleado(Empleado empleado);
+
+	Aeropuerto getAeropuertoPorId(int idAeropuerto);
+
+	int eliminarEmpleado(Empleado empleado);
+
+	Empleado getEmpleadoPorId(String idEmpleado);
 
 }

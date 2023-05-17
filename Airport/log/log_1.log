@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2023-05-01T01:17:51.866397200Z</date>
-  <millis>1682903871866</millis>
-  <nanos>397200</nanos>
+  <date>2023-05-17T14:38:21.349045600Z</date>
+  <millis>1684334301349</millis>
+  <nanos>45600</nanos>
   <sequence>2</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -14,9 +14,9 @@
   <message>Logger is configured</message>
 </record>
 <record>
-  <date>2023-05-01T01:17:52.070591200Z</date>
-  <millis>1682903872070</millis>
-  <nanos>591200</nanos>
+  <date>2023-05-17T14:38:21.761959100Z</date>
+  <millis>1684334301761</millis>
+  <nanos>959100</nanos>
   <sequence>3</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -26,9 +26,9 @@
   <message>Se ha inicializado la base de datos</message>
 </record>
 <record>
-  <date>2023-05-01T01:17:52.074591Z</date>
-  <millis>1682903872074</millis>
-  <nanos>591000</nanos>
+  <date>2023-05-17T14:38:21.768991400Z</date>
+  <millis>1684334301768</millis>
+  <nanos>991400</nanos>
   <sequence>4</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -38,9 +38,9 @@
   <message>Tablas inicializadas correctamente</message>
 </record>
 <record>
-  <date>2023-05-01T01:17:52.078574300Z</date>
-  <millis>1682903872078</millis>
-  <nanos>574300</nanos>
+  <date>2023-05-17T14:38:21.775964200Z</date>
+  <millis>1684334301775</millis>
+  <nanos>964200</nanos>
   <sequence>5</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -50,9 +50,9 @@
   <message>La tabla de compañias ya esta iniciada</message>
 </record>
 <record>
-  <date>2023-05-01T01:17:52.079548200Z</date>
-  <millis>1682903872079</millis>
-  <nanos>548200</nanos>
+  <date>2023-05-17T14:38:21.778971200Z</date>
+  <millis>1684334301778</millis>
+  <nanos>971200</nanos>
   <sequence>6</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -62,9 +62,9 @@
   <message>La tabla de aeropuertos ya esta iniciada</message>
 </record>
 <record>
-  <date>2023-05-01T01:17:52.080547400Z</date>
-  <millis>1682903872080</millis>
-  <nanos>547400</nanos>
+  <date>2023-05-17T14:38:21.779967500Z</date>
+  <millis>1684334301779</millis>
+  <nanos>967500</nanos>
   <sequence>7</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -74,9 +74,9 @@
   <message>Tablas inicializadas</message>
 </record>
 <record>
-  <date>2023-05-01T01:17:53.934774700Z</date>
-  <millis>1682903873934</millis>
-  <nanos>774700</nanos>
+  <date>2023-05-17T14:38:22.609919900Z</date>
+  <millis>1684334302609</millis>
+  <nanos>919900</nanos>
   <sequence>8</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -87,9 +87,9 @@
 </message>
 </record>
 <record>
-  <date>2023-05-01T01:17:54.612276200Z</date>
-  <millis>1682903874612</millis>
-  <nanos>276200</nanos>
+  <date>2023-05-17T14:38:23.349220300Z</date>
+  <millis>1684334303349</millis>
+  <nanos>220300</nanos>
   <sequence>9</sequence>
   <logger>global</logger>
   <level>INFO</level>

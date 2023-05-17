@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2023-05-01T01:18:15.455794600Z</date>
-  <millis>1682903895455</millis>
-  <nanos>794600</nanos>
+  <date>2023-05-17T14:39:12.760127100Z</date>
+  <millis>1684334352760</millis>
+  <nanos>127100</nanos>
   <sequence>2</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -14,9 +14,9 @@
   <message>Logger is configured</message>
 </record>
 <record>
-  <date>2023-05-01T01:18:15.662843100Z</date>
-  <millis>1682903895662</millis>
-  <nanos>843100</nanos>
+  <date>2023-05-17T14:39:13.132598200Z</date>
+  <millis>1684334353132</millis>
+  <nanos>598200</nanos>
   <sequence>3</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -26,9 +26,9 @@
   <message>Se ha inicializado la base de datos</message>
 </record>
 <record>
-  <date>2023-05-01T01:18:15.666803200Z</date>
-  <millis>1682903895666</millis>
-  <nanos>803200</nanos>
+  <date>2023-05-17T14:39:13.138590800Z</date>
+  <millis>1684334353138</millis>
+  <nanos>590800</nanos>
   <sequence>4</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -38,9 +38,9 @@
   <message>Tablas inicializadas correctamente</message>
 </record>
 <record>
-  <date>2023-05-01T01:18:15.671802700Z</date>
-  <millis>1682903895671</millis>
-  <nanos>802700</nanos>
+  <date>2023-05-17T14:39:13.144899700Z</date>
+  <millis>1684334353144</millis>
+  <nanos>899700</nanos>
   <sequence>5</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -50,9 +50,9 @@
   <message>La tabla de compañias ya esta iniciada</message>
 </record>
 <record>
-  <date>2023-05-01T01:18:15.671802700Z</date>
-  <millis>1682903895671</millis>
-  <nanos>802700</nanos>
+  <date>2023-05-17T14:39:13.145899600Z</date>
+  <millis>1684334353145</millis>
+  <nanos>899600</nanos>
   <sequence>6</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -62,9 +62,9 @@
   <message>La tabla de aeropuertos ya esta iniciada</message>
 </record>
 <record>
-  <date>2023-05-01T01:18:15.672803800Z</date>
-  <millis>1682903895672</millis>
-  <nanos>803800</nanos>
+  <date>2023-05-17T14:39:13.147900500Z</date>
+  <millis>1684334353147</millis>
+  <nanos>900500</nanos>
   <sequence>7</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -74,9 +74,9 @@
   <message>Tablas inicializadas</message>
 </record>
 <record>
-  <date>2023-05-01T01:18:16.570140500Z</date>
-  <millis>1682903896570</millis>
-  <nanos>140500</nanos>
+  <date>2023-05-17T14:39:14.089586600Z</date>
+  <millis>1684334354089</millis>
+  <nanos>586600</nanos>
   <sequence>8</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -87,9 +87,9 @@
 </message>
 </record>
 <record>
-  <date>2023-05-01T01:18:17.713458300Z</date>
-  <millis>1682903897713</millis>
-  <nanos>458300</nanos>
+  <date>2023-05-17T14:39:15.772557800Z</date>
+  <millis>1684334355772</millis>
+  <nanos>557800</nanos>
   <sequence>9</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -98,20 +98,4 @@
   <thread>1</thread>
   <message>USTED HA ELEGIDO 3
 </message>
-</record>
-<record>
-  <date>2023-05-01T01:18:24.162229700Z</date>
-  <millis>1682903904162</millis>
-  <nanos>229700</nanos>
-  <sequence>10</sequence>
-  <logger>global</logger>
-  <level>INFO</level>
-  <class>db.jdbc.JDBCManager</class>
-  <method>eliminarCompañia</method>
-  <thread>1</thread>
-  <message>4. Compañia: TAP
-Pagina Web: null
-Pais: Portugal
-Numero de telefono: (+351) 211 234 400
-Email de contacto: customer@tapmilesandgo.com eliminado con éxito</message>
 </record>

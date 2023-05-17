@@ -9,6 +9,9 @@ import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.logging.Logger;
 
+import db.interfaces.DBManager;
+import db.jdbc.JDBCManager;
+
 public class DefaultValues {
 	private final static Logger TERM = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private String[] nombres;
@@ -24,6 +27,11 @@ public class DefaultValues {
 	private final static String [] PUESTOEMPLEADO = {"Tecnico administrativo", "Auxiliar de vuelo", "Controlador aero", "Piloto", "Operario de logistica"};
 	private final static String [] AEROPUERTOS = {"Aeropuerto Adolfo Suárez Madrid-Barajas", "Aeropuerto Josep Tarradellas Barcelona-El Prat", "Aeropuerto de Málaga-Costa del Sol"};
 	private final static String [] CORREOS = {"@gmail.com", "@hotmail.com", "@usp.ceu.es", "@yahoo.es", "@outlook.com"};
+	
+	private static DBManager dbman = new JDBCManager();
+	private static Random rand = new Random();
+
+
 	
 	
 	public DefaultValues() {
@@ -52,7 +60,7 @@ public class DefaultValues {
 		cliente.setNombre(nombre);
 		String apellido = "" + apellidos[randomInt(apellidos.length)]+ " " + apellidos[randomInt(apellidos.length)];
 		cliente.setApellido(apellido);
-		cliente.setCorreo(getCorreo(nombre, apellido) + id);
+		cliente.setCorreo(getCorreo(nombre, apellido));
 		cliente.setNumtelf(generarNumeroTelefono());
 		cliente.setDni(generarDNI());
 		cliente.setPassword(generarContrasena(10)); //contraseña de 10 caracteres por defecto
@@ -61,30 +69,48 @@ public class DefaultValues {
 		return cliente;
 		
 	}
+	
+	public ArrayList<Aeropuerto> listaAeropuertos(){
+		ArrayList<Aeropuerto> listadoDeAeropuertos= dbman.getAeropuertos();
+		return listadoDeAeropuertos;
+	}
+	
+	public Aeropuerto aeropuertoAleatorio(ArrayList<Aeropuerto>listadoAeropuertos) {
+		int tamano = listadoAeropuertos.size();
+		Aeropuerto aeropuerto = new Aeropuerto();
+		int numeroAleatorio = rand.nextInt(tamano);
+		return listadoAeropuertos.get(numeroAleatorio);
 
+	}
+	
+	
+	public Empleado generarEmpleado() {
+		Random rand = new Random();
+		Empleado empleado = new Empleado();		 
+		String nombre = "" + nombres[randomInt(nombres.length)];
+		empleado.setNombre(nombre);
+		String apellido = "" + apellidos[randomInt(apellidos.length)]+ " " + apellidos[randomInt(apellidos.length)];
+		empleado.setApellido(apellido);
+		empleado.setCorreo(getCorreo(nombre, apellido) + id);
+		id++;
+		empleado.setDni(generarDNI());
+
+		empleado.setPassword(generarContrasena(10)); //contraseña de 10 caracteres por defecto
+		empleado.setPuesto(randomString(PUESTOEMPLEADO));
+		empleado.setSueldo(rand.nextInt(2001) + 1000);
+		empleado.setAeropuerto(aeropuertoAleatorio(listaAeropuertos()));
+		return empleado;
+		
+	}
+	
 	
 	//generarVuelosAleatorios
-	/*
-	public static Empleado generarEmpleado() {
-		Aeropuerto aeropuerto = new Aeropuerto();
-		String nombreAeropuerto = randomString(AEROPUERTOS);
-		aeropuerto.setNombre(nombreAeropuerto);
-		aeropuerto.setId(nombreAeropuerto);
-		aeropuerto.setCiudad(nombreAeropuerto);
-				
-		Empleado empleado = new Empleado();
-		empleado.setPuesto(randomString(PUESTOEMPLEADO));
-		empleado.setAeropuerto(aeropuerto);
-		
-		return empleado;
-	}
 
-	*/
 	
 	public static String getCorreo(String nombre, String apellido) {
 		String nombreCorreo=nombre.replace(" ", ".");
 		String apellidoCorreo=apellido.replace(" ", ".");
-		String correo= nombreCorreo+apellidoCorreo + " @gmail.com"; //CAMBIAR @GMAIL.COM A ARRAY
+		String correo= nombreCorreo+apellidoCorreo + "@gmail.com"; //CAMBIAR @GMAIL.COM A ARRAY
 		
 		
 		return correo;
@@ -104,7 +130,6 @@ public class DefaultValues {
 
 
 	private static String generarDNI() {
-	    Random rand = new Random();
 	    String dni = "";
 	    for (int i = 0; i < 8; i++) {
 	      int digito = rand.nextInt(10);

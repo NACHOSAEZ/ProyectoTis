@@ -1,16 +1,20 @@
 package pojos;
 
+import java.util.ArrayList;
+
 public class Aeropuerto {
 
 	
 	private int id;
 	private String nombre;
 	private String codigo;
+	private ArrayList<Empleado> listaEmpeados;
 	
 	public Aeropuerto() {
 		super();
 
 	}
+	
 
 	public Aeropuerto(int id, String nombre, String codigo) {
 		super();
@@ -44,11 +48,15 @@ public class Aeropuerto {
 		this.codigo = codigo;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "\n" + id + ". " + nombre + "(" + codigo + ")\n";
+		return "" + id + "." + nombre + 
+				"\n Codigo: " + codigo;
 	}
-	
+
+
 	
 	
 	

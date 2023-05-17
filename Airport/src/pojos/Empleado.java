@@ -2,13 +2,14 @@ package pojos;
 
 public class Empleado {
 
-	
+	private int id;
 	private String nombre;
 	private String apellido;
 	private String correo;
 	private String password;
 	private String puesto;
 	private int sueldo;
+	private String dni;
 	private Aeropuerto aeropuerto;
 
 	
@@ -18,20 +19,33 @@ public class Empleado {
 	}
 
 
-	public Empleado(String nombre, String apellido, String correo, String password, String puesto, int sueldo,
-			Aeropuerto aeropuerto) {
+	public Empleado(int id,String nombre, String apellido, String correo, String password, String puesto, int sueldo,
+			String dni, Aeropuerto aeropuerto) {
 		super();
+		this.id=id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.correo = correo;
 		this.password = password;
 		this.puesto = puesto;
 		this.sueldo = sueldo;
+		this.dni = dni;
 		this.aeropuerto = aeropuerto;
 	}
 
+
 	public String getNombre() {
 		return nombre;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
@@ -90,6 +104,16 @@ public class Empleado {
 	}
 
 
+	public String getDni() {
+		return dni;
+	}
+
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+
 	public Aeropuerto getAeropuerto() {
 		return aeropuerto;
 	}
@@ -102,17 +126,20 @@ public class Empleado {
 
 	@Override
 	public String toString() {
-		return "Empleado [nombre=" + nombre + ", apellido=" + apellido + ", correo=" + correo
-				+ ", password=" + password + ", puesto=" + puesto + ", sueldo=" + sueldo + ", aeropuerto=" + aeropuerto
-				+ "]";
+		return "Empleado [id=" + id + " " +
+				nombre + apellido + "\n"+ 
+				" Correo: " + correo + "\n"
+				+ " Password: " + password + "\n" + 
+				"  Puesto: " + puesto + "\n"+ 
+				" Sueldo: " + sueldo + "\n" + 
+				" Dni: " + dni + "\n" ;
+				//+ aeropuerto.getNombre() + "]";
 	}
 
 
 
 
 
-
-
-
+	
 	
 }

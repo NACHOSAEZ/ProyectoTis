@@ -24,10 +24,11 @@ public class Menu {
 	
 	private static final String[] MENU_START = {"Salir", "Registrarse", "Iniciar Sesion"};
 	private static final String[] MENU_ROL = {"Salir", "Empleado", "Cliente", "menuEmpleado"};
-	private static final String[] MENU_EMPLEADO = {"Salir", "Aeropuertos", "Compañias", "Consular vuelo por codigo", "Añadir vuelo",
-			"Retrasar vuelo", "Añadir compañia", "Listar empleado", "Añadir empleado"};
+	private static final String[] MENU_EMPLEADO = {"Salir", "Aeropuertos", "Compañias", "Empleado"};
 	private static final String[] MENU_AEROPUERTO = {"Salir", "Listar aeropuertos", "Añadir aeropuerto", "Consultar aeropuerto por codigo", "Eliminar aeropuerto"};
 	private static final String[] MENU_COMPAÑIAS = {"Salir", "Listar compañias", "Añadir compañia", "Consultar compañia por nombre", "Eliminar compañia"};
+	private static final String[] MENU_EMPLEADOS = {"Salir", "Añadir Empleado", "Eliminar empleado", "Listar Empleados", "Buscar empleado por Id"};
+
 
 
 
@@ -84,10 +85,114 @@ public class Menu {
 			switch(bucle) {
 			case 1 -> aeropuertos();
 			case 2 -> compañias();
+			case 3 -> empleados();
 			}
 		}while(bucle != 0);
 		
 	}
+	
+	//"Salir", "Listar empleados", "Añadir empleado", "Eliminar empleado", "Buscar Empleado por Id"
+	private static void empleados() {
+		int bucle =-1;
+		do {
+			bucle = showmenu(MENU_EMPLEADOS);
+			switch(bucle) {
+			case 1 -> añadirEmpleado();
+			case 2 -> eliminarEmpleado();
+			case 3 -> listarEmpleados();
+			case 4 -> buscarEmpleadoPorId();
+
+			}
+		}while(bucle!=0);
+	}
+
+
+	private static void buscarEmpleadoPorId() {
+		try {
+			System.out.println("Introduzca el id del empleado: \n");
+			String idCodigo = br.readLine();
+			Empleado empleado = dbman.getEmpleadoPorId(idCodigo);
+			System.out.println(empleado);
+
+		}catch(IOException e) {
+			LOGGER.warning("ERROR" + e);
+		}		
+	}
+
+	private static void listarEmpleados() {
+		ArrayList<Empleado> empleados = dbman.getEmpleados();
+		int size=empleados.size();
+		for(int i = 0; i < size ; i++) {
+			System.out.println("\n" + empleados.get(i) + "\n");
+		}
+	}
+	
+	private static Empleado seleccionarEmpleado(ArrayList<Empleado> empleados) {
+		String[] opciones = new String[empleados.size() + 1];
+		opciones[0] = "Cancelar";
+		for(int i=0; i<empleados.size();i++) {
+			opciones[i+1] = empleados.get(i).getNombre();
+		}
+		int resultado = showmenu(opciones);
+		if(resultado == 0) {
+			return null;
+		}
+		return empleados.get(resultado-1);
+	}
+
+
+	private static void añadirEmpleado() {
+		try {
+		System.out.println("Indique el nombre del empleado:\n");
+		String nombre = br.readLine();
+		
+		System.out.println("Indique el apellido del empleado:\n");
+		String apellido = br.readLine();
+
+		System.out.println("Indique el correo del empleado:\n");
+		String correo = br.readLine();
+
+		System.out.println("Indique la contraseña del empleado:\n");
+		String password = br.readLine();
+		
+		System.out.println("Indique el puesto del empleado:\n");
+		String puesto = br.readLine();
+
+		System.out.println("Indique el sueldo del empleado:\n");
+		int sueldo = Integer.parseInt(br.readLine());
+		
+		System.out.println("Indique el dni del empleado:\n");
+		String dni = br.readLine();
+		
+		System.out.println("Seleccione el id del aeropuerto del empleado:\n");
+		ArrayList<Aeropuerto> aeropuertos = dbman.getAeropuertos();
+		Aeropuerto aeropuerto = seleccionarAeropuerto(aeropuertos);
+
+		Empleado empleado = new Empleado(0, nombre, apellido, correo, password, puesto, sueldo, dni, aeropuerto);
+		
+		dbman.addEmpleado(empleado);
+		}catch(IOException e) {
+			LOGGER.warning("ERROR" + e);
+		}
+	}
+	
+	/*
+	 
+	 	private static void eliminarCompañia() {
+		ArrayList<Compañia> compañias = dbman.getCompañias();
+		System.out.println("\nSeleccione el id de la compañia que desea eliminar: \n");
+		Compañia compañia = seleccionarCompañia(compañias);
+		int result1 = dbman.eliminarCompañia(compañia);
+		
+		if(result1 == 1) {
+			System.out.println("\nLa compañia " + compañia.getNombre() + " se ha eliminado\n");
+		}else {
+			LOGGER.warning("Error al intentar eliminar la compañia " + compañia);
+		}	
+	}
+	 
+	 */
+
 	private static void compañias() {
 		int bucle =-1;
 		do {
@@ -113,6 +218,21 @@ public class Menu {
 			LOGGER.warning("Error al intentar eliminar la compañia " + compañia);
 		}	
 	}
+	
+	private static void eliminarEmpleado() {
+		ArrayList<Empleado> empleados = dbman.getEmpleados();
+		System.out.println("\nSeleccione el id del aeropuerto que desea eliminar: \n");
+		Empleado empleado = seleccionarEmpleado(empleados);
+		int result1 = dbman.eliminarEmpleado(empleado);
+		
+		if(result1 == 1) {
+			System.out.println("\nLa compañia " + empleado.getNombre() + " se ha eliminado\n");
+		}else {
+			LOGGER.warning("Error al intentar eliminar la compañia " + empleado);
+		} 
+
+	}
+	
 	private static Compañia seleccionarCompañia(ArrayList<Compañia> compañias) {
 		String[] opciones = new String[compañias.size() + 1];
 		opciones[0] = "Cancelar";
@@ -126,9 +246,8 @@ public class Menu {
 		return compañias.get(resultado-1);
 	}
 
-	/*
-	 * 
-*/
+
+	
 	private static Aeropuerto seleccionarAeropuerto(ArrayList<Aeropuerto> aeropuertos) {
 		String[] opciones = new String[aeropuertos.size() + 1];
 		opciones[0] = "Cancelar";
@@ -218,6 +337,7 @@ public class Menu {
 
 	private static void consultarInformacionAeropuerto() {
 		ArrayList<Aeropuerto> pedidos = dbman.getAeropuertos();
+		//pedidos.indexOf(pedidos)//devuelve el objetivo
 		int size = pedidos.size();
 		for (int i = 0; i < size; i++) {
 			System.out.println("\n" + pedidos.get(i) + "\n");
@@ -227,7 +347,7 @@ public class Menu {
 	private static void buscarAeropuertoCodigo() {
 		try {
 			System.out.println("Introduzca el codigo del aeropuerto: \n");
-			String idCodigo = br.readLine();
+			String idCodigo = br.readLine().toUpperCase();
 			Aeropuerto aeropuerto = dbman.getAeropuertoPorCodigo(idCodigo);
 			System.out.println(aeropuerto);
 
@@ -271,48 +391,7 @@ public class Menu {
 		// TODO Auto-generated method stub
 		
 	}
-/*
-	private static void registroEmpleado(){
-		try {
-		System.out.println("Indique su nombre:\n");
-		String nombre = br.readLine();
-		
-		System.out.println("Indique su apellido:\n");
-		String apellido = br.readLine();
-		
-		System.out.println("Indique su correo:\n");
-		String correo = br.readLine();
 
-		System.out.println("Indique su contraseña:\n");
-		String password = br.readLine(); //poner metodo para ocultar la contraseña
-
-		
-		System.out.println("Indique su sueldo:\n");
-		int sueldo = Integer.parseInt(br.readLine());
-		
-		System.out.println("Indique su aeropuerto:\n");
-		String nombreAeropuerto = br.readLine();
-		String ciudad = br.readLine();
-		String pais = br.readLine();
-
-		//mirar como añadir aeropuerto con sus id
-		//metodo elegir aeropuerto
-		Aeropuerto aeropuerto = new Aeropuerto(nombreAeropuerto, ciudad, pais);
-		
-		String puesto = br.readLine();
-		
-		Empleado empleado = new Empleado(nombre, apellido, correo, password, puesto, sueldo, aeropuerto);
-
-		//añadir empleado al dbmanager
-		}catch(IOException e) {
-			LOGGER.warning("ERROR" + e);
-		}
-
-
-
-	}
-	
-	*/
 	private static void registroCliente(){
 		try {
 		System.out.println("Indique su nombre:\n");

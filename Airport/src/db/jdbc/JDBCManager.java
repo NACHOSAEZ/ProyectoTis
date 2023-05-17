@@ -24,6 +24,9 @@ public class JDBCManager implements DBManager{
 	private PreparedStatement prepAddCompañia;
 	private PreparedStatement prepEliminarAeropuerto;
 	private PreparedStatement prepEliminarCompañia;
+	private PreparedStatement prepEliminarEmpleado;
+
+	
 
 	
 	
@@ -38,34 +41,35 @@ public class JDBCManager implements DBManager{
 	
 	
     private static final String sqlAddCliente = "INSERT INTO Clientes(Nombre,Apellido,DNI, Email, NumTelefono, Password) VALUES (?,?,?,?,?,?);";
-    private static final String sqlAddEmpleado = "INSERT INTO Empleado(Nombre,Apellido,Puesto,Sueldo,DNI) VALUES (?,?,?,?,?);";
+    private static final String sqlAddEmpleado = "INSERT INTO Empleados(Nombre,Apellido,Correo,Password,Puesto,Sueldo,DNI,IdAeropuerto) VALUES (?,?,?,?,?,?,?,?);";
     private static final String sqlAddAeropuerto = "INSERT INTO Aeropuertos(Nombre,Codigo) VALUES (?,?);";
     private static final String sqlAddCompañia = "INSERT INTO Compañias(Nombre,PaginaWeb,Pais, NumTelefono, Email) VALUES (?,?,?,?,?);";
     
     
     private static final String sqlCountElements = "SELECT count(*) FROM ";
     private static final String sqlBuscarEmailCliente = "SELECT * FROM Clientes WHERE Email='";
+    private static final String sqlBuscarEmailEmpleado = "SELECT * FROM Empleados WHERE Correo='";
+
+    private static final String sqlBuscarIdAeropuerto = "SELECT * FROM Aeropuertos WHERE Id='";
     private static final String sqlBuscarCodigoAeropuerto = "SELECT * FROM Aeropuertos WHERE Codigo='";
     private static final String sqlBuscarNombreCompañia = "SELECT * FROM Compañias WHERE Nombre='";
+    private static final String sqlBuscarIdEmpleado = "SELECT * FROM Empleados WHERE Id='";
+
     
     private static final String sqlEliminarAeropuerto = "DELETE FROM Aeropuertos WHERE Id= ?;";
     private static final String sqlEliminarCompañia = "DELETE FROM Compañias WHERE Id= ?;";
+    private static final String sqlEliminarEmpleado = "DELETE FROM Empleados WHERE Id= ?;";
 
 
-    
-
-
-    
 
     
-    
+ 
 	/*
 	private static final String sqlBuscarVuelosId = "SELECT * FROM Vuelos WHERE IdVuelo = ?;";
 	private static final String sqlAnadirVuelo= "INSERT INTO Vuelos(NumVuelo, fecha, hora, asiento) VALUES (?,?,?,?);";
 	*/
 	
-    
-    
+
 	
 	//conexion base de datos
 	public void connect() {
@@ -132,12 +136,101 @@ public class JDBCManager implements DBManager{
 				}
 			}
 			
+			if(countElements("Empleados") == 0) {
+				for(int i = 0 ; i < 50 ; i++) {
+					Empleado empleado = defaultvalues.generarEmpleado();
+					addEmpleado(empleado);
+				}
+			}
+			
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 		TERM.info("Tablas inicializadas");
 	}
 	
+	@Override
+	public boolean addEmpleado(Empleado empleado) {
+		try {
+			ResultSet rs = stmt.executeQuery(sqlBuscarEmailEmpleado + empleado.getCorreo() + "';");
+			if(rs.next()) {
+				return false;
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			PreparedStatement prep = c.prepareStatement(sqlAddEmpleado);
+			prep.setString(1, empleado.getNombre());
+			prep.setString(2, empleado.getApellido());
+			prep.setString(3, empleado.getCorreo());
+			prep.setString(4, empleado.getPassword());
+			prep.setString(5, empleado.getPuesto());
+			prep.setInt(6, empleado.getSueldo());
+			prep.setString(7, empleado.getDni());
+			prep.setInt(8,empleado.getAeropuerto().getId());
+			prep.executeUpdate();
+			prep.close();
+		}catch(SQLException e) {
+			TERM.warning("Error al añadir un empleado\n" + e.toString());
+		}
+		return true;
+		}
+	
+	@Override
+	public ArrayList<Empleado> getEmpleados(){
+		String sql = "SELECT * FROM Empleados;";
+
+		ArrayList<Empleado> empleados = new ArrayList<>();
+		try {
+	        Statement stmt1 = c.createStatement();
+			ResultSet rs = stmt1.executeQuery(sql);
+
+			while(rs.next()) {
+				
+				int id = rs.getInt("Id");
+				String nombre = rs.getString("Nombre");
+				String apellido = rs.getString("Apellido");
+				String correo = rs.getString("Correo");
+				String password = rs.getString("Password");
+				String puesto = rs.getString("Puesto");
+				int sueldo = rs.getInt("Sueldo");
+				String dni = rs.getString("DNI");
+				Aeropuerto aeropuerto = new Aeropuerto();
+				int idAeropuerto = rs.getInt("IdAeropuerto");
+				aeropuerto = getAeropuertoPorId(idAeropuerto);
+				
+				empleados.add(new Empleado(id, nombre, apellido, correo, password, puesto, sueldo, dni, aeropuerto));
+				}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return empleados;
+	}
+	
+	@Override
+	public ArrayList<Compañia> getCompañias(){
+		String sql = "SELECT * FROM Compañias;";
+		ArrayList<Compañia> compañias = new ArrayList<>();
+		try {
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				
+				int id = rs.getInt("Id");
+				String nombre = rs.getString("Nombre");
+				String paginaWeb = rs.getString("PaginaWeb");
+				String pais = rs.getString("Pais");
+				String numTelefono = rs.getString("NumTelefono");
+				String email = rs.getString("Email");
+				compañias.add(new Compañia(id, nombre, paginaWeb, pais, numTelefono, email));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return compañias;
+	}
+
+
 	//metodo para crear las tablas en la base de datos
 	public void createTables() {
 		try{
@@ -169,12 +262,12 @@ public class JDBCManager implements DBManager{
 	@Override
 	public boolean addCliente(Cliente cliente) {
 		try {
-			ResultSet rs = stmt.executeQuery(sqlBuscarEmailCliente + cliente.getCorreo() + "';");
+			String query = sqlBuscarEmailCliente + cliente.getCorreo() + "';";
+			ResultSet rs = stmt.executeQuery(query);
 			if(rs.next()) {
 				return false;
 			}	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
@@ -195,14 +288,12 @@ public class JDBCManager implements DBManager{
 	
 	@Override
 	public boolean addAeropuerto(Aeropuerto aeropuerto) {
-		ArrayList<Aeropuerto> aeropuertos = new ArrayList<>();
 		try {
 			ResultSet rs = stmt.executeQuery(sqlBuscarCodigoAeropuerto + aeropuerto.getCodigo()+ "';");
 			while(rs.next()) {
 				return false;
 			}	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
@@ -218,7 +309,6 @@ public class JDBCManager implements DBManager{
 		}
 	
 	@Override
-	
 	public ArrayList<Aeropuerto> getAeropuertos(){
 		String sql = "SELECT * FROM Aeropuertos;";
 		ArrayList<Aeropuerto> aeropuertos = new ArrayList<>();
@@ -237,27 +327,6 @@ public class JDBCManager implements DBManager{
 		return aeropuertos;
 	}
 	
-	@Override
-	public ArrayList<Compañia> getCompañias(){
-		String sql = "SELECT * FROM Compañias;";
-		ArrayList<Compañia> compañias = new ArrayList<>();
-		try {
-			ResultSet rs = stmt.executeQuery(sql);
-			while(rs.next()) {
-				
-				int id = rs.getInt("Id");
-				String nombre = rs.getString("Nombre");
-				String paginaWeb = rs.getString("PaginaWeb");
-				String pais = rs.getString("Pais");
-				String numTelefono = rs.getString("NumTelefono");
-				String email = rs.getString("Email");
-				compañias.add(new Compañia(id, nombre, paginaWeb, pais, numTelefono, email));
-			}
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return compañias;
-	}
 	
 	@Override
 	public boolean addCompañia(Compañia compañia) {
@@ -268,7 +337,6 @@ public class JDBCManager implements DBManager{
 				return false;
 			}	
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		try {
@@ -328,6 +396,52 @@ public class JDBCManager implements DBManager{
 		return aeropuerto;
 	}
 	
+	
+	
+	@Override
+	//TODO
+	public Aeropuerto getAeropuertoPorId(int idAeropuerto) {
+		Aeropuerto aeropuerto = null;
+		try {
+			ResultSet rs = stmt.executeQuery(sqlBuscarIdAeropuerto + idAeropuerto + "';"); 
+			if(rs.next()) {
+				int id = rs.getInt("Id");
+				String nombre = rs.getString("Nombre");
+				String codigo = rs.getString("Codigo");
+				aeropuerto = new Aeropuerto(id, nombre, codigo);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return aeropuerto;
+	}
+	
+	@Override
+	//TODO
+	public Empleado getEmpleadoPorId(String idEmpleado) {
+		Empleado empleado = null;
+		try {
+			ResultSet rs = stmt.executeQuery(sqlBuscarIdEmpleado + idEmpleado + "';"); 
+			if(rs.next()) {
+				int id = rs.getInt("Id");
+				String nombre = rs.getString("Nombre");
+				String apellido = rs.getString("Apellido");
+				String correo = rs.getString("Correo");
+				String password = rs.getString("Password");
+				String puesto = rs.getString("Puesto");
+				int sueldo = rs.getInt("Sueldo");
+				String dni = rs.getString("DNI");
+				Aeropuerto aeropuerto = new Aeropuerto();
+				int idAeropuerto = rs.getInt("IdAeropuerto");
+				aeropuerto = getAeropuertoPorId(idAeropuerto);
+				
+				empleado = new Empleado(id, nombre, apellido, correo, password, puesto, sueldo, dni, aeropuerto);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return empleado;
+	}
 	@Override
 	public int eliminarAeropuerto(Aeropuerto aeropuerto) {
 		int result = 0;
@@ -337,7 +451,6 @@ public class JDBCManager implements DBManager{
 			prepEliminarAeropuerto.setInt(1, aeropuerto.getId());
 			result = prepEliminarAeropuerto.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(result == 1) {
@@ -349,6 +462,26 @@ public class JDBCManager implements DBManager{
 	}
 	
 	@Override
+	public int eliminarEmpleado(Empleado empleado) {
+		int result = 0;
+		try {
+			prepEliminarEmpleado = c.prepareStatement(sqlEliminarEmpleado);
+
+			prepEliminarEmpleado.setInt(1, empleado.getId());
+			result = prepEliminarEmpleado.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(result == 1) {
+			TERM.info(empleado + " eliminado con éxito");
+		} else {
+			TERM.info("No existe el " + empleado);
+		}
+		return result;
+	}
+	
+	
+	@Override
 	public int eliminarCompañia(Compañia compañia) {
 		int result = 0;
 		try {
@@ -357,7 +490,6 @@ public class JDBCManager implements DBManager{
 			prepEliminarAeropuerto.setInt(1, compañia.getId());
 			result = prepEliminarAeropuerto.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if(result == 1) {
