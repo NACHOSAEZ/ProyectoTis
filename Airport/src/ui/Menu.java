@@ -31,6 +31,8 @@ public class Menu {
 	private static final String[] MENU_COMPAÑIAS = {"Salir", "Listar compañias", "Añadir compañia", "Consultar compañia por nombre", "Eliminar compañia"};
 	private static final String[] MENU_EMPLEADOS = {"Salir", "Añadir Empleado", "Eliminar empleado", "Listar Empleados", "Buscar empleado por Id"};
 	private static final String[] MENU_CLIENTES = {"Salir", "Listar Clientes", "Buscar Cliente por Id" , "Eliminar Cliente"};
+	private static final String[] MENU_BILLETES = {"Salir", "Comprar billete"};
+
 
 
 
@@ -89,13 +91,28 @@ public class Menu {
 			case 2 -> compañias();
 			case 3 -> empleados();
 			case 4 -> clientes();
+			case 5 -> billete();
 			}
 		}while(bucle != 0);
 		
 	}
-	//"Salir", "Listar Clientes", "Eliminar Cliente", "Añadir Cliente"
+	
+	
+	private static void billete() {
+		// TODO Auto-generated method stub
+		int bucle =-1;
+		do {
+			bucle = showmenu(MENU_CLIENTES);
+			switch(bucle) {
+			case 1 -> listarClientes();
+			case 2 -> buscarClientePorId();
+			case 3 -> eliminarCliente();
+
+			}
+		}while(bucle!=0);
+	}
+
 	private static void clientes() {
-		//TODO
 		int bucle =-1;
 		do {
 			bucle = showmenu(MENU_CLIENTES);

@@ -9,13 +9,14 @@ public class Billete {
 	private String numAsiento;
 	private boolean pagado;
 	private Cliente cliente;
+	private Vuelo vuelo;
 	
 	public Billete() {
 		super();
 	}
 
 	public Billete(int id, String categoria, int precio, int numReserva, String numAsiento, boolean pagado,
-			Cliente cliente) {
+			Cliente cliente, Vuelo vuelo) {
 		super();
 		this.id = id;
 		Categoria = categoria;
@@ -24,6 +25,7 @@ public class Billete {
 		this.numAsiento = numAsiento;
 		this.pagado = pagado;
 		this.cliente = cliente;
+		this.vuelo = vuelo;
 	}
 
 	public int getId() {
@@ -62,8 +64,8 @@ public class Billete {
 		return numAsiento;
 	}
 
-	public void setNumAsiento(String numasiento) {
-		this.numAsiento = numasiento;
+	public void setNumAsiento(String numAsiento) {
+		this.numAsiento = numAsiento;
 	}
 
 	public boolean isPagado() {
@@ -82,9 +84,20 @@ public class Billete {
 		this.cliente = cliente;
 	}
 
+	public Vuelo getVuelo() {
+		return vuelo;
+	}
+
+	public void setVuelo(Vuelo vuelo) {
+		this.vuelo = vuelo;
+	}
+
 	@Override
 	public String toString() {
 		return "Billete [id=" + id + ", Categoria=" + Categoria + ", precio=" + precio + ", numReserva=" + numReserva
-				+ ", numasiento=" + numAsiento + ", pagado=" + pagado + ", cliente=" + cliente + "]";
-		}
+				+ ", numAsiento=" + numAsiento + ", pagado=" + pagado + ", cliente=" + cliente + ", vuelo=" + vuelo
+				+ "]";
+	}
+
+
 }

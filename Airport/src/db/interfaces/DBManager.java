@@ -54,4 +54,6 @@ public interface DBManager {
 
 	int eliminarCliente(Cliente cliente);
 
+	boolean addBillete(Billete billete);
+
 }
