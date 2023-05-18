@@ -14,6 +14,7 @@ import pojos.Aeropuerto;
 import pojos.Cliente;
 import pojos.Compañia;
 import pojos.Empleado;
+import pojos.Vuelo;
 
 
 public class Menu {
@@ -32,6 +33,7 @@ public class Menu {
 	private static final String[] MENU_EMPLEADOS = {"Salir", "Añadir Empleado", "Eliminar empleado", "Listar Empleados", "Buscar empleado por Id"};
 	private static final String[] MENU_CLIENTES = {"Salir", "Listar Clientes", "Buscar Cliente por Id" , "Eliminar Cliente"};
 	private static final String[] MENU_BILLETES = {"Salir", "Comprar billete"};
+	private static final String[] MENU_VUELOS = {"Salir", "Listar Vuelos", "Buscar vuelon por Id", "Eliminar Vuelo", "Añadir vuelo"};
 
 
 
@@ -92,6 +94,7 @@ public class Menu {
 			case 3 -> empleados();
 			case 4 -> clientes();
 			case 5 -> billete();
+			case 6 -> vuelos();
 			}
 		}while(bucle != 0);
 		
@@ -273,6 +276,91 @@ public class Menu {
 	}
 	 
 	 */
+	
+	private static void vuelos() {
+		int bucle =-1;
+		do {
+			bucle = showmenu(MENU_VUELOS);
+			switch(bucle) {
+			case 1 -> listarVuelos();
+			case 2 -> buscarVueloPorId();
+			case 3 -> eliminarVuelo();
+			case 4 -> añadirVuelo();
+			}
+		}while(bucle!=0);
+	}
+	
+	private static void listarVuelos() {
+		ArrayList<Vuelo> vuelos = dbman.getVuelos();
+		int size=vuelos.size();
+		for(int i = 0; i < size ; i++) {
+			System.out.println("\n" + vuelos.get(i) + "\n");
+		}
+	}
+	
+	private static void buscarVueloPorId() {
+		try {
+			System.out.println("Introduzca el id del vuelo: \n");
+			int idVuelo = br.read();
+			Vuelo vuelo = dbman.getVueloPorId(idVuelo);
+			System.out.println(vuelo);
+
+		}catch(IOException e) {
+			LOGGER.warning("ERROR" + e);
+		}		
+	}
+	
+	private static void eliminarVuelo() {
+		ArrayList<Vuelo> vuelos = dbman.getVuelos(); 
+		System.out.println("\nSeleccione el id del vuelo que desea eliminar: \n");
+		Vuelo vuelo = seleccionarVuelo(vuelos);
+		int result1 = dbman.eliminarVuelo(vuelo);
+		
+		if(result1 == 1) {
+			System.out.println("\nEl " + vuelo.getIdVuelo() + " se ha eliminado\n");
+		}else {
+			LOGGER.warning("Error al intentar eliminar el vuelo " + vuelo);
+		}
+	}
+		
+	private static Vuelo seleccionarVuelo(ArrayList<Vuelo> vuelos) {
+			String[] opciones = new String[vuelos.size() + 1];
+			opciones[0] = "Cancelar";
+			for(int i=0; i<vuelos.size();i++) {
+				opciones[i+1] = "" + vuelos.get(i).getIdVuelo();
+			}
+			int resultado = showmenu(opciones);
+			if(resultado == 0) {
+				return null;
+			}
+			return vuelos.get(resultado-1);
+			
+		}
+	private static void añadirVuelo() {
+		try {
+		System.out.println("Indique la hora del vuelo:\n");
+		String hora = br.readLine();
+		
+		System.out.println("Indique el numero de asientos del vuelo:\n");
+		int asientos = br.read();
+		
+		System.out.println("Indique el origen del vuelo:\n");
+		String origen = br.readLine();
+		
+		System.out.println("Indique el destino del vuelo:\n");
+		String destino = br.readLine();
+		
+		System.out.println("Indique el id de la compañia del vuelo:\n");
+		ArrayList<Compañia> compañias = dbman.getCompañias();
+		Compañia compañia = seleccionarCompañia(compañias);
+
+		Vuelo vuelo = new Vuelo(0,hora, asientos, origen, destino, compañia);		
+		dbman.addVuelo(vuelo);
+
+		}catch(IOException e) {
+			LOGGER.warning("ERROR" + e);
+		}
+	}
 
 	private static void compañias() {
 		int bucle =-1;

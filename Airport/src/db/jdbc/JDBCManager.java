@@ -25,6 +25,7 @@ public class JDBCManager implements DBManager{
 	private PreparedStatement prepAddAeropuerto;
 	private PreparedStatement prepAddCompañia;
 	private PreparedStatement prepEliminarAeropuerto;
+	private PreparedStatement prepEliminarVuelo;
 	private PreparedStatement prepEliminarCompañia;
 	private PreparedStatement prepEliminarEmpleado;
 	private PreparedStatement prepEliminarCliente;
@@ -48,6 +49,8 @@ public class JDBCManager implements DBManager{
     private static final String sqlAddAeropuerto = "INSERT INTO Aeropuertos(Nombre,Codigo) VALUES (?,?);";
     private static final String sqlAddCompañia = "INSERT INTO Compañias(Nombre,PaginaWeb,Pais, NumTelefono, Email) VALUES (?,?,?,?,?);";
     private static final String sqlAddBillete = "INSERT INTO Billetes(Categoria,Precio,NumReserva, NumAsiento, Pagado, IdCliente) VALUES (?,?,?,?,?,?);";
+    private static final String sqlAddVuelo = "INSERT INTO Vuelos(Hora,Asientos,Origen, Destino, IdCompañia) VALUES (?,?,?,?,?);";
+
 
     
     
@@ -62,6 +65,7 @@ public class JDBCManager implements DBManager{
     private static final String sqlBuscarNombreCompañia = "SELECT * FROM Compañias WHERE Nombre='";
     private static final String sqlBuscarIdEmpleado = "SELECT * FROM Empleados WHERE Id='";
     private static final String sqlBuscarIdCliente = "SELECT * FROM Clientes WHERE Id='";
+    private static final String sqlBuscarVuelosId = "SELECT * FROM Vuelos WHERE Id='";
 
 
     
@@ -69,6 +73,8 @@ public class JDBCManager implements DBManager{
     private static final String sqlEliminarCompañia = "DELETE FROM Compañias WHERE Id= ?;";
     private static final String sqlEliminarEmpleado = "DELETE FROM Empleados WHERE Id= ?;";
     private static final String sqlEliminarCliente = "DELETE FROM Clientes WHERE Id= ?;";
+    private static final String sqlEliminarVuelo = "DELETE FROM Vuelos WHERE Id= ?;";
+
 
 
 
@@ -633,6 +639,99 @@ public class JDBCManager implements DBManager{
 		}
 		return result;
 	}
+	@Override
+	//TODO
+	public Vuelo getVueloPorId(int numVuelo) {
+		Vuelo vuelo = null;
+		try {
+			ResultSet rs = stmt.executeQuery(sqlBuscarVuelosId + numVuelo + "';"); 
+			if(rs.next()) {
+				int idVuelo = rs.getInt("NumVuelo");
+				String hora = rs.getString("Hora");
+				int asientos = rs.getInt("Asientos");
+				String origen = rs.getString("Origen");
+				String destino = rs.getString("Destino");
+
+				vuelo = new Vuelo(idVuelo, hora, asientos, origen, destino, null);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return vuelo;
+	}
+	
+	@Override
+	public ArrayList<Vuelo> getVuelos(){
+		String sql = "SELECT * FROM Vuelos;";
+		ArrayList<Vuelo> vuelos = new ArrayList<>();
+		try {
+			
+	        Statement stmt1 = c.createStatement();
+			ResultSet rs = stmt1.executeQuery(sql);
+			while(rs.next()) {
+				int idVuelo = rs.getInt("NumVuelo");
+				String hora = rs.getString("Hora");
+				int asientos = rs.getInt("Asientos");
+				String origen = rs.getString("Origen");
+				String destino = rs.getString("Destino");
+				Compañia compañis = new Compañia();
+				/*int idCompañia = rs.getInt("IdAeropuerto");
+				aeropuerto = getAeropuertoPorId(idAeropuerto);
+				vuelos.add(new Vuelo(idVuelo, hora, asientos));*/
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return vuelos;
+	}
+
+	
+	@Override
+	public int eliminarVuelo(Vuelo vuelo) {
+		int result = 0;
+		try {
+			prepEliminarVuelo = c.prepareStatement(sqlEliminarVuelo);
+
+			prepEliminarVuelo.setInt(1, vuelo.getIdVuelo());
+			result = prepEliminarVuelo.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(result == 1) {
+			TERM.info(vuelo + " eliminado con éxito");
+		} else {
+			TERM.info("No existe el " + vuelo);
+		}
+		return result;
+	}
+	
+	@Override
+	public boolean addVuelo(Vuelo vuelo) {
+		try {
+			ResultSet rs = stmt.executeQuery(sqlBuscarVuelosId + vuelo.getIdVuelo()+ "';");
+			while(rs.next()) {
+				return false;
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		try {
+			PreparedStatement prep = c.prepareStatement(sqlAddVuelo);
+			prep.setInt(1, vuelo.getIdVuelo());
+			prep.setString(2, vuelo.getHora());
+			prep.setInt(3, vuelo.getAsientos());
+			prep.setString(4, vuelo.getOrigen());
+			prep.setString(5, vuelo.getDestino());
+			//FALTA COMPAÑIA
+
+			prep.executeUpdate();
+			prep.close();
+		}catch(SQLException e) {
+			TERM.warning("Error al añadir un vuelo\n" + e.toString());
+		}
+		return true;
+		}
+
 
 	
 	}

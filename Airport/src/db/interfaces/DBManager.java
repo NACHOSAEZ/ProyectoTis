@@ -7,6 +7,7 @@ import pojos.Billete;
 import pojos.Cliente;
 import pojos.Compañia;
 import pojos.Empleado;
+import pojos.Vuelo;
 
 public interface DBManager {
 
@@ -55,5 +56,13 @@ public interface DBManager {
 	int eliminarCliente(Cliente cliente);
 
 	boolean addBillete(Billete billete);
+
+	Vuelo getVueloPorId(int numVuelo);
+
+	ArrayList<Vuelo> getVuelos();
+
+	int eliminarVuelo(Vuelo vuelo);
+
+	boolean addVuelo(Vuelo vuelo);
 
 }
