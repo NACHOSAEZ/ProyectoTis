@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2023-05-17T14:39:12.760127100Z</date>
-  <millis>1684334352760</millis>
-  <nanos>127100</nanos>
+  <date>2023-05-18T15:58:48.523514800Z</date>
+  <millis>1684425528523</millis>
+  <nanos>514800</nanos>
   <sequence>2</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -14,9 +14,9 @@
   <message>Logger is configured</message>
 </record>
 <record>
-  <date>2023-05-17T14:39:13.132598200Z</date>
-  <millis>1684334353132</millis>
-  <nanos>598200</nanos>
+  <date>2023-05-18T15:58:48.743228600Z</date>
+  <millis>1684425528743</millis>
+  <nanos>228600</nanos>
   <sequence>3</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -26,9 +26,9 @@
   <message>Se ha inicializado la base de datos</message>
 </record>
 <record>
-  <date>2023-05-17T14:39:13.138590800Z</date>
-  <millis>1684334353138</millis>
-  <nanos>590800</nanos>
+  <date>2023-05-18T15:58:48.747100Z</date>
+  <millis>1684425528747</millis>
+  <nanos>100000</nanos>
   <sequence>4</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -38,9 +38,9 @@
   <message>Tablas inicializadas correctamente</message>
 </record>
 <record>
-  <date>2023-05-17T14:39:13.144899700Z</date>
-  <millis>1684334353144</millis>
-  <nanos>899700</nanos>
+  <date>2023-05-18T15:58:48.750998Z</date>
+  <millis>1684425528750</millis>
+  <nanos>998000</nanos>
   <sequence>5</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -50,9 +50,9 @@
   <message>La tabla de compañias ya esta iniciada</message>
 </record>
 <record>
-  <date>2023-05-17T14:39:13.145899600Z</date>
-  <millis>1684334353145</millis>
-  <nanos>899600</nanos>
+  <date>2023-05-18T15:58:48.751997500Z</date>
+  <millis>1684425528751</millis>
+  <nanos>997500</nanos>
   <sequence>6</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -62,9 +62,9 @@
   <message>La tabla de aeropuertos ya esta iniciada</message>
 </record>
 <record>
-  <date>2023-05-17T14:39:13.147900500Z</date>
-  <millis>1684334353147</millis>
-  <nanos>900500</nanos>
+  <date>2023-05-18T15:58:48.752998100Z</date>
+  <millis>1684425528752</millis>
+  <nanos>998100</nanos>
   <sequence>7</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -74,9 +74,9 @@
   <message>Tablas inicializadas</message>
 </record>
 <record>
-  <date>2023-05-17T14:39:14.089586600Z</date>
-  <millis>1684334354089</millis>
-  <nanos>586600</nanos>
+  <date>2023-05-18T15:58:55.447424300Z</date>
+  <millis>1684425535447</millis>
+  <nanos>424300</nanos>
   <sequence>8</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -87,15 +87,32 @@
 </message>
 </record>
 <record>
-  <date>2023-05-17T14:39:15.772557800Z</date>
-  <millis>1684334355772</millis>
-  <nanos>557800</nanos>
+  <date>2023-05-18T15:58:56.551363Z</date>
+  <millis>1684425536551</millis>
+  <nanos>363000</nanos>
   <sequence>9</sequence>
   <logger>global</logger>
   <level>INFO</level>
   <class>ui.Menu</class>
   <method>registrarse</method>
   <thread>1</thread>
-  <message>USTED HA ELEGIDO 3
+  <message>USTED HA ELEGIDO 2
 </message>
+</record>
+<record>
+  <date>2023-05-18T15:59:36.709982900Z</date>
+  <millis>1684425576709</millis>
+  <nanos>982900</nanos>
+  <sequence>10</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>db.jdbc.JDBCManager</class>
+  <method>eliminarCliente</method>
+  <thread>1</thread>
+  <message>Cliente 49
+DERECK ARGOTE CHAOUI
+Dni: 10893688Z
+Correo: DERECKARGOTE.CHAOUI@gmail.com
+Password=r2vt;ZkU}A
+Numero de telefono: 3005809653 eliminado con éxito</message>
 </record>

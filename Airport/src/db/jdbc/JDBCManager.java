@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import db.interfaces.DBManager;
 import defaultValues.DefaultValues;
 import pojos.Aeropuerto;
+import pojos.Billete;
 import pojos.Cliente;
 import pojos.Compañia;
 import pojos.Empleado;
@@ -25,6 +26,7 @@ public class JDBCManager implements DBManager{
 	private PreparedStatement prepEliminarAeropuerto;
 	private PreparedStatement prepEliminarCompañia;
 	private PreparedStatement prepEliminarEmpleado;
+	private PreparedStatement prepEliminarCliente;
 
 	
 
@@ -54,11 +56,15 @@ public class JDBCManager implements DBManager{
     private static final String sqlBuscarCodigoAeropuerto = "SELECT * FROM Aeropuertos WHERE Codigo='";
     private static final String sqlBuscarNombreCompañia = "SELECT * FROM Compañias WHERE Nombre='";
     private static final String sqlBuscarIdEmpleado = "SELECT * FROM Empleados WHERE Id='";
+    private static final String sqlBuscarIdCliente = "SELECT * FROM Clientes WHERE Id='";
+
 
     
     private static final String sqlEliminarAeropuerto = "DELETE FROM Aeropuertos WHERE Id= ?;";
     private static final String sqlEliminarCompañia = "DELETE FROM Compañias WHERE Id= ?;";
     private static final String sqlEliminarEmpleado = "DELETE FROM Empleados WHERE Id= ?;";
+    private static final String sqlEliminarCliente = "DELETE FROM Clientes WHERE Id= ?;";
+
 
 
 
@@ -327,6 +333,58 @@ public class JDBCManager implements DBManager{
 		return aeropuertos;
 	}
 	
+	@Override
+	public ArrayList<Cliente> getClientes(){
+		String sql = "SELECT * FROM Clientes;";
+		ArrayList<Cliente> clientes = new ArrayList<>();
+		try {
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
+				
+				int id = rs.getInt("Id");
+				String nombre = rs.getString("Nombre");
+				String apellido = rs.getString("Apellido");
+				String dni = rs.getString("Dni");
+				String email = rs.getString("Email");
+				String numTelefono = rs.getString("NumTelefono");
+				String password = rs.getString("Password");
+				clientes.add(new Cliente(id, nombre, apellido, dni, email, numTelefono, password));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return clientes;
+	}
+	
+	@Override
+	public ArrayList<Billete> getBilletes(){
+		String sql = "SELECT * FROM Billetes;";
+
+		ArrayList<Billete> billetes = new ArrayList<>();
+		try {
+	        Statement stmt1 = c.createStatement();
+			ResultSet rs = stmt1.executeQuery(sql);
+
+			while(rs.next()) {
+				
+				int id = rs.getInt("Id");
+				String categoria = rs.getString("Categoria");
+				int precio = rs.getInt("Precio");
+				String numReserva = rs.getString("NumReserva");
+				String numAsiento = rs.getString("NumAsiento");
+				Boolean pagado = rs.getBoolean("Pagado");
+				Cliente cliente = new Cliente();
+				String idCliente = rs.getString("IdCliente");
+				cliente = getClientePorId(idCliente);
+				
+				billetes.add(new Billete(id, categoria, precio, precio, numAsiento, pagado, cliente));
+				}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return billetes;
+	}
+	
 	
 	@Override
 	public boolean addCompañia(Compañia compañia) {
@@ -399,7 +457,6 @@ public class JDBCManager implements DBManager{
 	
 	
 	@Override
-	//TODO
 	public Aeropuerto getAeropuertoPorId(int idAeropuerto) {
 		Aeropuerto aeropuerto = null;
 		try {
@@ -417,7 +474,27 @@ public class JDBCManager implements DBManager{
 	}
 	
 	@Override
-	//TODO
+	public Cliente getClientePorId(String idCliente) {
+		Cliente cliente = null;
+		try {
+			ResultSet rs = stmt.executeQuery(sqlBuscarIdCliente + idCliente + "';"); 
+			if(rs.next()) {
+				int id = rs.getInt("Id");
+				String nombre = rs.getString("Nombre");
+				String apellido = rs.getString("Apellido");
+				String dni = rs.getString("Dni");
+				String email = rs.getString("Email");
+				String numTelefono = rs.getString("NumTelefono");
+				String password = rs.getString("Password");
+				cliente = new Cliente(id, nombre, apellido, dni, email, numTelefono, password);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return cliente;
+	}
+	
+	@Override
 	public Empleado getEmpleadoPorId(String idEmpleado) {
 		Empleado empleado = null;
 		try {
@@ -442,6 +519,8 @@ public class JDBCManager implements DBManager{
 		}
 		return empleado;
 	}
+	
+	
 	@Override
 	public int eliminarAeropuerto(Aeropuerto aeropuerto) {
 		int result = 0;
@@ -476,6 +555,25 @@ public class JDBCManager implements DBManager{
 			TERM.info(empleado + " eliminado con éxito");
 		} else {
 			TERM.info("No existe el " + empleado);
+		}
+		return result;
+	}
+	
+	@Override
+	public int eliminarCliente(Cliente cliente) {
+		int result = 0;
+		try {
+			prepEliminarCliente = c.prepareStatement(sqlEliminarCliente);
+
+			prepEliminarCliente.setInt(1, cliente.getId());
+			result = prepEliminarCliente.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		if(result == 1) {
+			TERM.info(cliente + " eliminado con éxito");
+		} else {
+			TERM.info("No existe el " + cliente);
 		}
 		return result;
 	}

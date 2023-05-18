@@ -8,7 +8,6 @@ public class Aeropuerto {
 	private int id;
 	private String nombre;
 	private String codigo;
-	private ArrayList<Empleado> listaEmpeados;
 	
 	public Aeropuerto() {
 		super();

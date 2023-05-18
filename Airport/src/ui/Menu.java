@@ -23,11 +23,15 @@ public class Menu {
 	private static DBManager dbman = new JDBCManager();
 	
 	private static final String[] MENU_START = {"Salir", "Registrarse", "Iniciar Sesion"};
-	private static final String[] MENU_ROL = {"Salir", "Empleado", "Cliente", "menuEmpleado"};
-	private static final String[] MENU_EMPLEADO = {"Salir", "Aeropuertos", "Compañias", "Empleado"};
+	private static final String[] MENU_ROL = {"Salir", "Registar Cliente", "menuEmpleado"};
+	
+	
+	private static final String[] MENU_EMPLEADO = {"Salir", "Aeropuertos", "Compañias", "Empleado", "Cliente"};
 	private static final String[] MENU_AEROPUERTO = {"Salir", "Listar aeropuertos", "Añadir aeropuerto", "Consultar aeropuerto por codigo", "Eliminar aeropuerto"};
 	private static final String[] MENU_COMPAÑIAS = {"Salir", "Listar compañias", "Añadir compañia", "Consultar compañia por nombre", "Eliminar compañia"};
 	private static final String[] MENU_EMPLEADOS = {"Salir", "Añadir Empleado", "Eliminar empleado", "Listar Empleados", "Buscar empleado por Id"};
+	private static final String[] MENU_CLIENTES = {"Salir", "Listar Clientes", "Buscar Cliente por Id" , "Eliminar Cliente"};
+
 
 
 
@@ -69,15 +73,13 @@ public class Menu {
 
 			switch(bucle) {
 			
-			case 1: registroEmpleado();
-			case 2: registroCliente();
-			case 3: menuEmpleado();
+			case 1: registroCliente();
+			case 2: menuEmpleado();
 			}
 		}while(bucle != 0);
 	}
 
 	private static void menuEmpleado() {
-		// TODO Auto-generated method stub
 		System.out.println("\nMENU EMPLEADO\n");
 		int bucle;
 		do {
@@ -86,11 +88,60 @@ public class Menu {
 			case 1 -> aeropuertos();
 			case 2 -> compañias();
 			case 3 -> empleados();
+			case 4 -> clientes();
 			}
 		}while(bucle != 0);
 		
 	}
+	//"Salir", "Listar Clientes", "Eliminar Cliente", "Añadir Cliente"
+	private static void clientes() {
+		//TODO
+		int bucle =-1;
+		do {
+			bucle = showmenu(MENU_CLIENTES);
+			switch(bucle) {
+			case 1 -> listarClientes();
+			case 2 -> buscarClientePorId();
+			case 3 -> eliminarCliente();
+
+			}
+		}while(bucle!=0);
 	
+	}
+
+	private static void eliminarCliente() {
+		ArrayList<Cliente> clientes = dbman.getClientes();
+		System.out.println("\nSeleccione el id del cliente que desea eliminar: \n");
+		Cliente cliente = seleccionarCliente(clientes);
+		int result1 = dbman.eliminarCliente(cliente);
+		
+		if(result1 == 1) {
+			System.out.println("\nLa compañia " + cliente.getNombre() + " se ha eliminado\n");
+		}else {
+			LOGGER.warning("Error al intentar eliminar la compañia " + cliente);
+		} 
+	}
+
+	private static void buscarClientePorId() {
+		try {
+			System.out.println("Introduzca el id del cliente: \n");
+			String idCliente = br.readLine();
+			Cliente cliente = dbman.getClientePorId(idCliente);
+			System.out.println(cliente);
+
+		}catch(IOException e) {
+			LOGGER.warning("ERROR" + e);
+		}	
+	}
+
+	private static void listarClientes() {
+		ArrayList<Cliente> clientes = dbman.getClientes();
+		int size=clientes.size();
+		for(int i = 0; i < size ; i++) {
+			System.out.println("\n" + clientes.get(i) + "\n");
+		}	
+	}
+
 	//"Salir", "Listar empleados", "Añadir empleado", "Eliminar empleado", "Buscar Empleado por Id"
 	private static void empleados() {
 		int bucle =-1;
@@ -138,6 +189,19 @@ public class Menu {
 			return null;
 		}
 		return empleados.get(resultado-1);
+	}
+
+	private static Cliente seleccionarCliente(ArrayList<Cliente> clientes) {
+		String[] opciones = new String[clientes.size() + 1];
+		opciones[0] = "Cancelar";
+		for(int i=0; i<clientes.size();i++) {
+			opciones[i+1] = clientes.get(i).getNombre();
+		}
+		int resultado = showmenu(opciones);
+		if(resultado == 0) {
+			return null;
+		}
+		return clientes.get(resultado-1);
 	}
 
 
@@ -378,19 +442,12 @@ public class Menu {
 		try {
 			resultado = br.readLine();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return resultado;
 	}
 
 
-
-
-	private static void registroEmpleado() {
-		// TODO Auto-generated method stub
-		
-	}
 
 	private static void registroCliente(){
 		try {

@@ -5,26 +5,26 @@ public class Billete {
 	private int id;
 	private String Categoria;
 	private int precio;
-	private int numreserva;
-	private String numasiento;
+	private int numReserva;
+	private String numAsiento;
 	private boolean pagado;
+	private Cliente cliente;
 	
 	public Billete() {
 		super();
 	}
 
-
-	public Billete(int id, String categoria, int precio, int numreserva, String numasiento, boolean pagado) {
+	public Billete(int id, String categoria, int precio, int numReserva, String numAsiento, boolean pagado,
+			Cliente cliente) {
 		super();
 		this.id = id;
 		Categoria = categoria;
 		this.precio = precio;
-		this.numreserva = numreserva;
-		this.numasiento = numasiento;
+		this.numReserva = numReserva;
+		this.numAsiento = numAsiento;
 		this.pagado = pagado;
+		this.cliente = cliente;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -50,20 +50,20 @@ public class Billete {
 		this.precio = precio;
 	}
 
-	public int getNumreserva() {
-		return numreserva;
+	public int getNumReserva() {
+		return numReserva;
 	}
 
-	public void setNumreserva(int numreserva) {
-		this.numreserva = numreserva;
+	public void setNumReserva(int numReserva) {
+		this.numReserva = numReserva;
 	}
 
-	public String getNumasiento() {
-		return numasiento;
+	public String getNumAsiento() {
+		return numAsiento;
 	}
 
-	public void setNumasiento(String numasiento) {
-		this.numasiento = numasiento;
+	public void setNumAsiento(String numasiento) {
+		this.numAsiento = numasiento;
 	}
 
 	public boolean isPagado() {
@@ -73,13 +73,18 @@ public class Billete {
 	public void setPagado(boolean pagado) {
 		this.pagado = pagado;
 	}
-	
-	@Override
-	public String toString() {
-		return "Billete [id=" + id + ", Categoria=" + Categoria + ", precio=" + precio + ", numreserva=" + numreserva
-				+ ", numasiento=" + numasiento + ", pagado=" + pagado + "]";
+
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	
-	
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	@Override
+	public String toString() {
+		return "Billete [id=" + id + ", Categoria=" + Categoria + ", precio=" + precio + ", numReserva=" + numReserva
+				+ ", numasiento=" + numAsiento + ", pagado=" + pagado + ", cliente=" + cliente + "]";
+		}
 }

@@ -21,9 +21,10 @@ CREATE TABLE IF NOT EXISTS Billetes(
 Id INTEGER UNIQUE NOT NULL PRIMARY KEY,
 Categoria TEXT,
 Precio INTEGER,
-Reservado NUMERIC,
+NumReserva TEXT,
+NumAsiento TEXT,
 Pagado NUMERIC,
-Confirmado NUMERIC);
+IdCliente INTEGER REFERECES Clientes);
 
 CREATE TABLE IF NOT EXISTS Clientes(
 Id INTEGER UNIQUE NOT NULL PRIMARY KEY,
@@ -34,7 +35,7 @@ Email TEXT,
 NumTelefono TEXT,
 Password TEXT);
 
-CREATE TABLE IF NOT EXISTS "Comapñias-Vuelos"(
+CREATE TABLE IF NOT EXISTS "Compañias-Vuelos"(
 IdCompañia INTEGER REFERENCES Compañias,
 IdVuelo INTEGER REFERENCES Vuelos);
 
