@@ -353,8 +353,8 @@ public class Menu {
 		System.out.println("Indique el id de la compañia del vuelo:\n");
 		ArrayList<Compañia> compañias = dbman.getCompañias();
 		Compañia compañia = seleccionarCompañia(compañias);
-
-		Vuelo vuelo = new Vuelo(0,hora, asientos, origen, destino, compañia);		
+		//TODO
+		//Vuelo vuelo = new Vuelo(0,hora, asientos, origen, destino, compañia);		
 		dbman.addVuelo(vuelo);
 
 		}catch(IOException e) {

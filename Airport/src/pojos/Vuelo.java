@@ -8,8 +8,8 @@ public class Vuelo {
 	private int idVuelo;
 	private String hora;
 	private int asientos;
-	private String origen;
-	private String destino;
+	private Aeropuerto origen;
+	private Aeropuerto destino;
 	private Compañia compañia;
 
 	
@@ -18,14 +18,14 @@ public class Vuelo {
 	}
 
 
-	public Vuelo(int idVuelo, String hora, int asientos, String origen, String destino, Compañia compañia) {
+	public Vuelo(int idVuelo, String hora, int asientos, Aeropuerto origen, Aeropuerto destino, Compañia compañia) {
 		super();
 		this.idVuelo = idVuelo;
 		this.hora = hora;
 		this.asientos = asientos;
 		this.origen = origen;
 		this.destino = destino;
-		this.setCompañia(compañia);
+		this.compañia = compañia;
 	}
 
 
@@ -37,7 +37,6 @@ public class Vuelo {
 	public void setIdVuelo(int idVuelo) {
 		this.idVuelo = idVuelo;
 	}
-
 
 
 	public String getHora() {
@@ -60,22 +59,22 @@ public class Vuelo {
 	}
 
 
-	public String getOrigen() {
+	public Aeropuerto getOrigen() {
 		return origen;
 	}
 
 
-	public void setOrigen(String origen) {
+	public void setOrigen(Aeropuerto origen) {
 		this.origen = origen;
 	}
 
 
-	public String getDestino() {
+	public Aeropuerto getDestino() {
 		return destino;
 	}
 
 
-	public void setDestino(String destino) {
+	public void setDestino(Aeropuerto destino) {
 		this.destino = destino;
 	}
 
@@ -92,14 +91,9 @@ public class Vuelo {
 
 	@Override
 	public String toString() {
-		return "Vuelo [idVuelo=" + idVuelo + ", hora=" + hora + ", asientos=" + asientos
-				+ ", origen=" + origen + ", destino=" + destino + ", compañia=" + compañia + "]";
+		return "Vuelo [idVuelo=" + idVuelo + ", hora=" + hora + ", asientos=" + asientos + ", origen=" + origen
+				+ ", destino=" + destino + ", compañia=" + compañia + "]";
 	}
-	
-	
-	
-	
-	
-	
-	
+
+
 }

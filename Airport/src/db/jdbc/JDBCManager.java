@@ -649,10 +649,14 @@ public class JDBCManager implements DBManager{
 				int idVuelo = rs.getInt("NumVuelo");
 				String hora = rs.getString("Hora");
 				int asientos = rs.getInt("Asientos");
-				String origen = rs.getString("Origen");
-				String destino = rs.getString("Destino");
-
-				vuelo = new Vuelo(idVuelo, hora, asientos, origen, destino, null);
+				int origen = rs.getInt("AeropuertoOrigen");
+				Aeropuerto aeropuertoOrigen = new Aeropuerto();
+				aeropuertoOrigen = getAeropuertoPorId(origen);
+				int destino = rs.getInt("AeropuertoOrigen");
+				Aeropuerto aeropuertoDestino = new Aeropuerto();
+				aeropuertoDestino = getAeropuertoPorId(destino);
+				//Obtener compañia
+				vuelo = new Vuelo(idVuelo, hora, asientos, aeropuertoOrigen, aeropuertoDestino, null);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -662,6 +666,8 @@ public class JDBCManager implements DBManager{
 	
 	@Override
 	public ArrayList<Vuelo> getVuelos(){
+		//TODO 
+		//Objeto aeropuertos (origen/destino)
 		String sql = "SELECT * FROM Vuelos;";
 		ArrayList<Vuelo> vuelos = new ArrayList<>();
 		try {
@@ -672,12 +678,14 @@ public class JDBCManager implements DBManager{
 				int idVuelo = rs.getInt("NumVuelo");
 				String hora = rs.getString("Hora");
 				int asientos = rs.getInt("Asientos");
-				String origen = rs.getString("Origen");
-				String destino = rs.getString("Destino");
-				Compañia compañis = new Compañia();
-				/*int idCompañia = rs.getInt("IdAeropuerto");
-				aeropuerto = getAeropuertoPorId(idAeropuerto);
-				vuelos.add(new Vuelo(idVuelo, hora, asientos));*/
+				int origen = rs.getInt("IdAeropuertoOrigen");
+				Aeropuerto aeropuertoOrigen = new Aeropuerto();
+				aeropuertoOrigen = getAeropuertoPorId(origen);
+				int destino = rs.getInt("IdAeropuertoDestino");
+				Aeropuerto aeropuertoDestino = new Aeropuerto();
+				aeropuertoDestino = getAeropuertoPorId(destino);
+				//Obtener compañia
+				vuelo = new Vuelo(idVuelo, hora, asientos, aeropuertoOrigen, aeropuertoDestino, null);
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
