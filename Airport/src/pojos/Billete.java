@@ -14,6 +14,7 @@ public class Billete {
 	public Billete() {
 		super();
 	}
+	
 
 	public Billete(int id, String categoria, int precio, int numReserva, int numAsiento, boolean pagado,
 			Cliente cliente, Vuelo vuelo) {

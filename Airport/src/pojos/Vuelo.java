@@ -24,6 +24,15 @@ public class Vuelo {
 
 
 
+	public Vuelo(int idVuelo) {
+		super();
+		this.idVuelo = idVuelo;
+	}
+
+
+
+
+
 	public Vuelo(int idVuelo, String hora, int asientos, Aeropuerto origen, Aeropuerto destino) {
 		super();
 		this.idVuelo = idVuelo;
@@ -151,9 +160,7 @@ public class Vuelo {
 				"\nHora: " + hora + 
 				"\nAsientos: " + asientos +
 				"\nOrigen: " + origen +
-				"\nDestino " + destino +
-				"\nCompañia: " + compañia +
-				"\nCompañias: " + compañias;
+				"\nDestino " + destino;
 	}
 
 

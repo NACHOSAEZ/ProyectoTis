@@ -11,6 +11,7 @@ import db.interfaces.DBManager;
 import db.jdbc.JDBCManager;
 import logging.MyLogger;
 import pojos.Aeropuerto;
+import pojos.Billete;
 import pojos.Cliente;
 import pojos.Compañia;
 import pojos.Empleado;
@@ -29,10 +30,10 @@ public class Menu {
 	
 	private static final String[] MENU_EMPLEADO = {"Salir", "Aeropuertos", "Compañias", "Empleado", "Cliente", "billete","vuelos"};
 	private static final String[] MENU_AEROPUERTO = {"Salir", "Listar aeropuertos", "Añadir aeropuerto", "Consultar aeropuerto por codigo", "Eliminar aeropuerto"};
-	private static final String[] MENU_COMPAÑIAS = {"Salir", "Listar compañias", "Añadir compañia", "Consultar compañia por nombre", "Eliminar compañia"};
+	private static final String[] MENU_COMPAÑIAS = {"Salir", "Listar compañias", "Añadir compañia", "Consultar compañia por nombre", "Eliminar compañia","Listar vuelos de una compañia"};
 	private static final String[] MENU_EMPLEADOS = {"Salir", "Añadir Empleado", "Eliminar empleado", "Listar Empleados", "Buscar empleado por Id"};
 	private static final String[] MENU_CLIENTES = {"Salir", "Listar Clientes", "Buscar Cliente por Id" , "Eliminar Cliente"};
-	private static final String[] MENU_BILLETES = {"Salir", "Comprar billete"};
+	private static final String[] MENU_BILLETES = {"Salir", "Comprar billete","Listar billetes de un cliente"};
 	private static final String[] MENU_VUELOS = {"Salir", "Listar Vuelos", "Buscar vuelon por Id", "Eliminar Vuelo", "Añadir vuelo"};
 
 
@@ -105,14 +106,18 @@ public class Menu {
 		// TODO Auto-generated method stub
 		int bucle =-1;
 		do {
-			bucle = showmenu(MENU_CLIENTES);
+			bucle = showmenu(MENU_BILLETES);
 			switch(bucle) {
-			case 1 -> listarClientes();
-			case 2 -> buscarClientePorId();
-			case 3 -> eliminarCliente();
+			case 1 -> comprarBillete();
 
 			}
 		}while(bucle!=0);
+	}
+
+	private static void comprarBillete() {
+		ArrayList<Cliente> clientes = dbman.getClientes();
+		Cliente cliente = seleccionarCliente(clientes);
+		ArrayList<Billete> billetes = dbman.getBilletes();
 	}
 
 	private static void clientes() {
@@ -386,10 +391,23 @@ public class Menu {
 			case 2 -> añadirCompañia();
 			case 3 -> buscarCompañiaPorNombre();
 			case 4 -> eliminarCompañia();
+			case 5 -> listarVuelosCompañia();
 			}
 		}while(bucle!=0);
 	}
 	
+	private static void listarVuelosCompañia() {
+		// TODO Auto-generated method stub
+		ArrayList<Compañia>	compañias = dbman.getCompañias();
+		Compañia compañia = seleccionarCompañia(compañias);
+		ArrayList<Vuelo> vuelosCompañia = dbman.getVuelosPorCompañia(compañia.getId());
+		int size=vuelosCompañia.size();
+		for(int i = 0; i < size ; i++) {
+			System.out.println("\n" + vuelosCompañia.get(i) + "\n");
+		}
+		
+	}
+
 	private static void eliminarCompañia() {
 		ArrayList<Compañia> compañias = dbman.getCompañias();
 		System.out.println("\nSeleccione el id de la compañia que desea eliminar: \n");

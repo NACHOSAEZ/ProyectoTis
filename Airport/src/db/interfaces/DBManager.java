@@ -55,8 +55,6 @@ public interface DBManager {
 
 	int eliminarCliente(Cliente cliente);
 
-	boolean addBillete(Billete billete);
-
 	Vuelo getVueloPorId(int numVuelo);
 
 	ArrayList<Vuelo> getVuelos();
@@ -70,5 +68,15 @@ public interface DBManager {
 	Compañia getCompañiaPorId(int idAeropuerto);
 
 	boolean addVuelo_Compañia(Vuelo vuelo);
+	
+	ArrayList<Vuelo> getVuelosPorCompañia(int idCompañia);
+
+	boolean addBilleteCliente(Billete billete);
+
+	int getNumeroAsientosUltimoVuelo();
+
+	boolean addBillete(Billete billete);
+
+	boolean addBilleteDefault(Billete billete);
 
 }

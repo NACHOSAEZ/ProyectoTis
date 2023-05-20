@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2023-05-20T11:10:10.473153900Z</date>
-  <millis>1684581010473</millis>
-  <nanos>153900</nanos>
+  <date>2023-05-20T19:15:49.453141600Z</date>
+  <millis>1684610149453</millis>
+  <nanos>141600</nanos>
   <sequence>2</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -14,9 +14,9 @@
   <message>Logger is configured</message>
 </record>
 <record>
-  <date>2023-05-20T11:10:10.758063900Z</date>
-  <millis>1684581010758</millis>
-  <nanos>63900</nanos>
+  <date>2023-05-20T19:15:49.692297700Z</date>
+  <millis>1684610149692</millis>
+  <nanos>297700</nanos>
   <sequence>3</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -26,9 +26,9 @@
   <message>Se ha inicializado la base de datos</message>
 </record>
 <record>
-  <date>2023-05-20T11:10:10.804102200Z</date>
-  <millis>1684581010804</millis>
-  <nanos>102200</nanos>
+  <date>2023-05-20T19:15:49.737889300Z</date>
+  <millis>1684610149737</millis>
+  <nanos>889300</nanos>
   <sequence>4</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -38,9 +38,9 @@
   <message>Tablas inicializadas correctamente</message>
 </record>
 <record>
-  <date>2023-05-20T11:10:10.818101700Z</date>
-  <millis>1684581010818</millis>
-  <nanos>101700</nanos>
+  <date>2023-05-20T19:15:49.747219700Z</date>
+  <millis>1684610149747</millis>
+  <nanos>219700</nanos>
   <sequence>5</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -50,9 +50,9 @@
   <message>Se ha introducido los datos predeterminado a la tabla de compañias</message>
 </record>
 <record>
-  <date>2023-05-20T11:10:10.827104900Z</date>
-  <millis>1684581010827</millis>
-  <nanos>104900</nanos>
+  <date>2023-05-20T19:15:49.754238400Z</date>
+  <millis>1684610149754</millis>
+  <nanos>238400</nanos>
   <sequence>6</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -62,9 +62,9 @@
   <message>Se ha introducido los datos predeterminado a la tabla de aeropuertos</message>
 </record>
 <record>
-  <date>2023-05-20T11:10:11.519396900Z</date>
-  <millis>1684581011519</millis>
-  <nanos>396900</nanos>
+  <date>2023-05-20T19:15:50.557906700Z</date>
+  <millis>1684610150557</millis>
+  <nanos>906700</nanos>
   <sequence>7</sequence>
   <logger>global</logger>
   <level>INFO</level>
