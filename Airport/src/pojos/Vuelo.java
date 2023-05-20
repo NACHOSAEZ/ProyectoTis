@@ -1,6 +1,7 @@
 
 package pojos;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Vuelo {
@@ -11,11 +12,29 @@ public class Vuelo {
 	private Aeropuerto origen;
 	private Aeropuerto destino;
 	private Compañia compañia;
+	private ArrayList<Compañia> compañias;
 
 	
 	public Vuelo() {
 		super();
+		compañias = new ArrayList<>();
 	}
+
+
+
+
+
+	public Vuelo(int idVuelo, String hora, int asientos, Aeropuerto origen, Aeropuerto destino) {
+		super();
+		this.idVuelo = idVuelo;
+		this.hora = hora;
+		this.asientos = asientos;
+		this.origen = origen;
+		this.destino = destino;
+	}
+
+
+
 
 
 	public Vuelo(int idVuelo, String hora, int asientos, Aeropuerto origen, Aeropuerto destino, Compañia compañia) {
@@ -29,6 +48,25 @@ public class Vuelo {
 	}
 
 
+
+
+
+
+	public Vuelo(int idVuelo, String hora, int asientos, Aeropuerto origen, Aeropuerto destino,
+			ArrayList<Compañia> compañias) {
+		super();
+		this.idVuelo = idVuelo;
+		this.hora = hora;
+		this.asientos = asientos;
+		this.origen = origen;
+		this.destino = destino;
+		this.compañias = compañias;
+	}
+
+
+
+
+
 	public int getIdVuelo() {
 		return idVuelo;
 	}
@@ -39,14 +77,22 @@ public class Vuelo {
 	}
 
 
+
+
 	public String getHora() {
 		return hora;
 	}
 
 
+
+
+
 	public void setHora(String hora) {
 		this.hora = hora;
 	}
+
+
+
 
 
 	public int getAsientos() {
@@ -89,11 +135,29 @@ public class Vuelo {
 	}
 
 
+	public ArrayList<Compañia> getCompañias() {
+		return compañias;
+	}
+
+
+	public void setCompañias(ArrayList<Compañia> compañias) {
+		this.compañias = compañias;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Vuelo [idVuelo=" + idVuelo + ", hora=" + hora + ", asientos=" + asientos + ", origen=" + origen
-				+ ", destino=" + destino + ", compañia=" + compañia + "]";
+		return " ("+ idVuelo +") " + "Vuelo" +
+				"\nHora: " + hora + 
+				"\nAsientos: " + asientos +
+				"\nOrigen: " + origen +
+				"\nDestino " + destino +
+				"\nCompañia: " + compañia +
+				"\nCompañias: " + compañias;
 	}
+
+
+	
 
 
 }

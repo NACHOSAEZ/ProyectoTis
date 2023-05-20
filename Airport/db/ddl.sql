@@ -5,10 +5,11 @@ Codigo TEXT);
 
 CREATE TABLE IF NOT EXISTS Vuelos(
 NumVuelo INTEGER UNIQUE NOT NULL PRIMARY KEY,
-Hora NUMERIC,
+Hora TEXT,
 Asientos INTEGER,
 IdAeropuertoOrigen INTEGER REFERECES Aeropuertos,
-IdAeropuertoDestino INTEGER REFERECES Aeropuertos);
+IdAeropuertoDestino INTEGER REFERECES Aeropuertos
+);
 
 CREATE TABLE IF NOT EXISTS Compañias(
 Id INTEGER UNIQUE NOT NULL PRIMARY KEY,
@@ -23,7 +24,7 @@ Id INTEGER UNIQUE NOT NULL PRIMARY KEY,
 Categoria TEXT,
 Precio INTEGER,
 NumReserva TEXT,
-NumAsiento TEXT,
+NumAsiento INTEGER,
 Pagado NUMERIC,
 IdCliente INTEGER REFERECES Clientes,
 IdVuelo INTEGER REFERENCES Vuelo);
@@ -37,7 +38,7 @@ Email TEXT,
 NumTelefono TEXT,
 Password TEXT);
 
-CREATE TABLE IF NOT EXISTS "Compañias-Vuelos"(
+CREATE TABLE IF NOT EXISTS "Compañias_Vuelos"(
 IdCompañia INTEGER REFERENCES Compañias,
 IdVuelo INTEGER REFERENCES Vuelos);
 

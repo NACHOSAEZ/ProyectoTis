@@ -8,11 +8,14 @@ public class Aeropuerto {
 	private int id;
 	private String nombre;
 	private String codigo;
+	private ArrayList<Empleado> empleados;
 	
 	public Aeropuerto() {
 		super();
+		empleados = new ArrayList<>();
 
 	}
+	
 	
 
 	public Aeropuerto(int id, String nombre, String codigo) {
@@ -22,6 +25,15 @@ public class Aeropuerto {
 		this.codigo = codigo;
 	}
 
+
+
+	public Aeropuerto(int id, String nombre, String codigo, ArrayList<Empleado> empleados) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.codigo = codigo;
+		this.empleados = empleados;
+	}
 
 	public int getId() {
 		return id;
@@ -47,16 +59,18 @@ public class Aeropuerto {
 		this.codigo = codigo;
 	}
 
+	public ArrayList<Empleado> getEmpleados() {
+		return empleados;
+	}
 
+	public void setEmpleados(ArrayList<Empleado> empleados) {
+		this.empleados = empleados;
+	}
 
 	@Override
 	public String toString() {
-		return "" + id + "." + nombre + 
-				"\n Codigo: " + codigo;
+		return id + "." + nombre + "(" + codigo + ")"+ "\n"+ empleados;
 	}
+	
 
-
-	
-	
-	
 }

@@ -27,7 +27,7 @@ public class Menu {
 	private static final String[] MENU_ROL = {"Salir", "Registar Cliente", "menuEmpleado"};
 	
 	
-	private static final String[] MENU_EMPLEADO = {"Salir", "Aeropuertos", "Compañias", "Empleado", "Cliente"};
+	private static final String[] MENU_EMPLEADO = {"Salir", "Aeropuertos", "Compañias", "Empleado", "Cliente", "billete","vuelos"};
 	private static final String[] MENU_AEROPUERTO = {"Salir", "Listar aeropuertos", "Añadir aeropuerto", "Consultar aeropuerto por codigo", "Eliminar aeropuerto"};
 	private static final String[] MENU_COMPAÑIAS = {"Salir", "Listar compañias", "Añadir compañia", "Consultar compañia por nombre", "Eliminar compañia"};
 	private static final String[] MENU_EMPLEADOS = {"Salir", "Añadir Empleado", "Eliminar empleado", "Listar Empleados", "Buscar empleado por Id"};
@@ -301,7 +301,7 @@ public class Menu {
 	private static void buscarVueloPorId() {
 		try {
 			System.out.println("Introduzca el id del vuelo: \n");
-			int idVuelo = br.read();
+			int idVuelo = Integer.parseInt(br.readLine());
 			Vuelo vuelo = dbman.getVueloPorId(idVuelo);
 			System.out.println(vuelo);
 
@@ -327,7 +327,7 @@ public class Menu {
 			String[] opciones = new String[vuelos.size() + 1];
 			opciones[0] = "Cancelar";
 			for(int i=0; i<vuelos.size();i++) {
-				opciones[i+1] = "" + vuelos.get(i).getIdVuelo();
+				opciones[i+1] = "" + vuelos.get(i);
 			}
 			int resultado = showmenu(opciones);
 			if(resultado == 0) {
@@ -336,7 +336,7 @@ public class Menu {
 			return vuelos.get(resultado-1);
 			
 		}
-	private static void añadirVuelo() {
+	private static void añadirVuelo() { 
 		try {
 		System.out.println("Indique la hora del vuelo:\n");
 		String hora = br.readLine();
@@ -344,24 +344,39 @@ public class Menu {
 		System.out.println("Indique el numero de asientos del vuelo:\n");
 		int asientos = br.read();
 		
-		System.out.println("Indique el origen del vuelo:\n");
-		String origen = br.readLine();
+		ArrayList<Aeropuerto> aeropuertos = dbman.getAeropuertos();
 		
-		System.out.println("Indique el destino del vuelo:\n");
-		String destino = br.readLine();
-		
-		System.out.println("Indique el id de la compañia del vuelo:\n");
+		//TODO SALEN LAS DOS SELECCIONAR AEROPUERTOS A LA VEZ
+		Aeropuerto origen= seleccionarAeropuerto(aeropuertos);
+		System.out.println("\nIndique el origen del vuelo:\n");
+		Aeropuerto destino = seleccionarAeropuerto(aeropuertos);
+
+		System.out.println("\nIndique el destino del vuelo:\n");
+
 		ArrayList<Compañia> compañias = dbman.getCompañias();
 		Compañia compañia = seleccionarCompañia(compañias);
-		//TODO
-		//Vuelo vuelo = new Vuelo(0,hora, asientos, origen, destino, compañia);		
-		dbman.addVuelo(vuelo);
+		System.out.println("\nIndique el id de la compañia del vuelo:\n");
 
+		//TODO
+		Vuelo vuelo = new Vuelo(0,hora, asientos, origen, destino, compañia);		
+		dbman.addVuelo(vuelo);
+		dbman.addVuelo_Compañia(vuelo);   //TODO
 		}catch(IOException e) {
 			LOGGER.warning("ERROR" + e);
 		}
 	}
 
+    public static void metodoConRetardo() {
+        try {
+            // Pausa durante 3 segundos (3000 milisegundos)
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Código que se ejecuta después de la pausa
+        System.out.println("Método reanudado después del retardo");
+    }
 	private static void compañias() {
 		int bucle =-1;
 		do {
@@ -468,7 +483,7 @@ public class Menu {
 		System.out.println("Indique el correo de contacto de la compañia:\n");
 		String email = br.readLine();
 		
-		Compañia compañia = new Compañia(0, nombre, paginaWeb, pais, numTelefono, email);
+		Compañia compañia = new Compañia(0, email, numTelefono, nombre, paginaWeb, pais);
 		dbman.addCompañia(compañia);
 
 		}catch(IOException e) {
@@ -505,11 +520,12 @@ public class Menu {
 	}
 
 	private static void consultarInformacionAeropuerto() {
-		ArrayList<Aeropuerto> pedidos = dbman.getAeropuertos();
+		ArrayList<Aeropuerto> aeropuertos = dbman.getAeropuertos();
 		//pedidos.indexOf(pedidos)//devuelve el objetivo
-		int size = pedidos.size();
+		int size = aeropuertos.size();
+		System.out.println(size);
 		for (int i = 0; i < size; i++) {
-			System.out.println("\n" + pedidos.get(i) + "\n");
+			System.out.println("\n" + aeropuertos.get(i) + "\n");
 		}
 	}
 
@@ -531,9 +547,9 @@ public class Menu {
 		String nombre = br.readLine();
 		
 		System.out.println("Indique el codigo del aeropuerto:\n");
-		String codigo = br.readLine();
+		String codigo = br.readLine().toUpperCase();
 		
-		Aeropuerto aeropuerto = new Aeropuerto(0, nombre, codigo);
+		Aeropuerto aeropuerto = new Aeropuerto(0, nombre, codigo, null);
 		dbman.addAeropuerto(aeropuerto);
 		}catch(IOException e) {
 			LOGGER.warning("ERROR" + e);
@@ -600,6 +616,8 @@ public class Menu {
 				bucle = Integer.parseInt(br.readLine());
 			}catch(IOException e) {
 			}catch(NumberFormatException e){
+			
+				e.printStackTrace();
 			}
 			
 		}while(bucle >= opciones.length || bucle < 0);

@@ -1,5 +1,7 @@
 package pojos;
 
+import java.util.ArrayList;
+
 public class Cliente {
 	
 	private int id;
@@ -9,12 +11,15 @@ public class Cliente {
 	private String correo;
 	private String numtelf;
 	private String password;
+	private ArrayList<Billete> billetes;
 
 	
 	
 	public Cliente() {
 		super();
+		billetes = new ArrayList<>();
 	}
+
 
 
 	public Cliente(int id, String nombre, String apellido, String dni, String correo, String numtelf, String password) {
@@ -24,9 +29,25 @@ public class Cliente {
 		this.apellido = apellido;
 		this.dni = dni;
 		this.correo = correo;
-		this.password = password;
 		this.numtelf = numtelf;
+		this.password = password;
 	}
+
+
+
+	public Cliente(int id, String nombre, String apellido, String dni, String correo, String numtelf, String password,
+			ArrayList<Billete> billetes) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.dni = dni;
+		this.correo = correo;
+		this.numtelf = numtelf;
+		this.password = password;
+		this.billetes = billetes;
+	}
+
 
 
 	public int getId() {
@@ -34,9 +55,11 @@ public class Cliente {
 	}
 
 
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 
 
 	public String getNombre() {
@@ -44,9 +67,11 @@ public class Cliente {
 	}
 
 
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 
 
 	public String getApellido() {
@@ -54,9 +79,11 @@ public class Cliente {
 	}
 
 
+
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
+
 
 
 	public String getDni() {
@@ -64,9 +91,11 @@ public class Cliente {
 	}
 
 
+
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
+
 
 
 	public String getCorreo() {
@@ -74,19 +103,11 @@ public class Cliente {
 	}
 
 
+
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
 
-
-	public String getPassword() {
-		return password;
-	}
-
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 
 	public String getNumtelf() {
@@ -94,21 +115,48 @@ public class Cliente {
 	}
 
 
+
 	public void setNumtelf(String numtelf) {
 		this.numtelf = numtelf;
 	}
 
 
-	@Override
-	public String toString() {
-		return "Cliente "+ id + 
-				"\n" + nombre + " " + apellido +
-				"\nDni: " + dni + 
-				"\nCorreo: " + correo + 
-				"\nPassword=" + password + 
-				"\nNumero de telefono: " + numtelf;
+
+	public String getPassword() {
+		return password;
 	}
 
 
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+
+	public ArrayList<Billete> getBilletes() {
+		return billetes;
+	}
+
+
+
+	public void setBilletes(ArrayList<Billete> billetes) {
+		this.billetes = billetes;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return id + ". Cliente [" + nombre + " " + apellido +
+				"\nDNI = " + dni +
+				"\nCorreo=" + correo + 
+				"\nNumero de telefono: " + numtelf + 
+				"\nPassword=" + password + 
+				"\nBilletes: " + billetes + "]";
+	}
+
+
+	
 	
 }

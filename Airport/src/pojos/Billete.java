@@ -6,7 +6,7 @@ public class Billete {
 	private String Categoria;
 	private int precio;
 	private int numReserva;
-	private String numAsiento;
+	private int numAsiento;
 	private boolean pagado;
 	private Cliente cliente;
 	private Vuelo vuelo;
@@ -15,7 +15,7 @@ public class Billete {
 		super();
 	}
 
-	public Billete(int id, String categoria, int precio, int numReserva, String numAsiento, boolean pagado,
+	public Billete(int id, String categoria, int precio, int numReserva, int numAsiento, boolean pagado,
 			Cliente cliente, Vuelo vuelo) {
 		super();
 		this.id = id;
@@ -60,11 +60,11 @@ public class Billete {
 		this.numReserva = numReserva;
 	}
 
-	public String getNumAsiento() {
+	public int getNumAsiento() {
 		return numAsiento;
 	}
 
-	public void setNumAsiento(String numAsiento) {
+	public void setNumAsiento(int numAsiento) {
 		this.numAsiento = numAsiento;
 	}
 
@@ -94,10 +94,18 @@ public class Billete {
 
 	@Override
 	public String toString() {
-		return "Billete [id=" + id + ", Categoria=" + Categoria + ", precio=" + precio + ", numReserva=" + numReserva
-				+ ", numAsiento=" + numAsiento + ", pagado=" + pagado + ", cliente=" + cliente + ", vuelo=" + vuelo
+		return id + "Billete " + 
+				"\nCategoria=" + Categoria +
+				"\nPrecio=" + precio + 
+				"\nNumero de Reserva: " + numReserva
+				+ "\nNumero de Asiento: " + numAsiento + 
+				"\nPagado: " + pagado + 
+				"\nCliente=" + cliente + 
+				"\nVuelo=" + vuelo
 				+ "]";
 	}
+
+	
 
 
 }

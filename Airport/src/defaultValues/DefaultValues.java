@@ -2,7 +2,9 @@ package defaultValues;
 
 import pojos.Aeropuerto;
 import pojos.Cliente;
+import pojos.Compañia;
 import pojos.Empleado;
+import pojos.Vuelo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -85,7 +87,6 @@ public class DefaultValues {
 	
 	
 	public Empleado generarEmpleado() {
-		Random rand = new Random();
 		Empleado empleado = new Empleado();		 
 		String nombre = "" + nombres[randomInt(nombres.length)];
 		empleado.setNombre(nombre);
@@ -103,6 +104,36 @@ public class DefaultValues {
 		
 	}
 	
+	public Vuelo generarVuelo() {
+        Vuelo vuelo = new Vuelo();
+        int hora = rand.nextInt(24);  // Genera un número aleatorio entre 0 y 23
+        int minutos = rand.nextInt(60);  // Genera un número aleatorio entre 0 y 59
+        String tiempo = hora + ":" + minutos;
+        vuelo.setHora(tiempo);
+        int asiento = rand.nextInt(100);
+        vuelo.setAsientos(asiento);
+        ArrayList<Aeropuerto> aeropuertos = dbman.getAeropuertos();
+        Aeropuerto origen = obtenerAeropuertoAleatorio(aeropuertos);
+        vuelo.setOrigen(origen);
+        Aeropuerto destino = obtenerAeropuertoAleatorio(aeropuertos);
+        vuelo.setDestino(destino);
+        ArrayList<Compañia> compañias = dbman.getCompañias();
+        Compañia compañia = obtenerCompañiaAleatorio(compañias);
+        vuelo.setCompañia(compañia);
+        
+        return vuelo;        
+        
+	}
+	
+	public Aeropuerto obtenerAeropuertoAleatorio(ArrayList<Aeropuerto> aeropuertos) {
+        int randomIndex = rand.nextInt(aeropuertos.size());
+        return aeropuertos.get(randomIndex);
+    }
+	
+	public Compañia obtenerCompañiaAleatorio(ArrayList<Compañia> compañias) {
+        int randomIndex = rand.nextInt(compañias.size());
+        return compañias.get(randomIndex);
+    }
 	
 	//generarVuelosAleatorios
 

@@ -65,4 +65,10 @@ public interface DBManager {
 
 	boolean addVuelo(Vuelo vuelo);
 
+	ArrayList<Empleado> getEmpleadoPorAeropuerto(int idAeropuerto);
+
+	Compañia getCompañiaPorId(int idAeropuerto);
+
+	boolean addVuelo_Compañia(Vuelo vuelo);
+
 }

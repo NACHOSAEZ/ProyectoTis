@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2023-05-18T15:45:41.885933400Z</date>
-  <millis>1684424741885</millis>
-  <nanos>933400</nanos>
+  <date>2023-05-20T11:06:08.858240300Z</date>
+  <millis>1684580768858</millis>
+  <nanos>240300</nanos>
   <sequence>2</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -14,9 +14,9 @@
   <message>Logger is configured</message>
 </record>
 <record>
-  <date>2023-05-18T15:45:42.124886400Z</date>
-  <millis>1684424742124</millis>
-  <nanos>886400</nanos>
+  <date>2023-05-20T11:06:09.105266500Z</date>
+  <millis>1684580769105</millis>
+  <nanos>266500</nanos>
   <sequence>3</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -26,9 +26,9 @@
   <message>Se ha inicializado la base de datos</message>
 </record>
 <record>
-  <date>2023-05-18T15:45:42.129595500Z</date>
-  <millis>1684424742129</millis>
-  <nanos>595500</nanos>
+  <date>2023-05-20T11:06:09.160270300Z</date>
+  <millis>1684580769160</millis>
+  <nanos>270300</nanos>
   <sequence>4</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -38,33 +38,33 @@
   <message>Tablas inicializadas correctamente</message>
 </record>
 <record>
-  <date>2023-05-18T15:45:42.135594400Z</date>
-  <millis>1684424742135</millis>
-  <nanos>594400</nanos>
+  <date>2023-05-20T11:06:09.177230500Z</date>
+  <millis>1684580769177</millis>
+  <nanos>230500</nanos>
   <sequence>5</sequence>
   <logger>global</logger>
   <level>INFO</level>
   <class>db.jdbc.JDBCManager</class>
   <method>startTables</method>
   <thread>1</thread>
-  <message>La tabla de compañias ya esta iniciada</message>
+  <message>Se ha introducido los datos predeterminado a la tabla de compañias</message>
 </record>
 <record>
-  <date>2023-05-18T15:45:42.136596800Z</date>
-  <millis>1684424742136</millis>
-  <nanos>596800</nanos>
+  <date>2023-05-20T11:06:09.190248800Z</date>
+  <millis>1684580769190</millis>
+  <nanos>248800</nanos>
   <sequence>6</sequence>
   <logger>global</logger>
   <level>INFO</level>
   <class>db.jdbc.JDBCManager</class>
   <method>startTables</method>
   <thread>1</thread>
-  <message>La tabla de aeropuertos ya esta iniciada</message>
+  <message>Se ha introducido los datos predeterminado a la tabla de aeropuertos</message>
 </record>
 <record>
-  <date>2023-05-18T15:45:42.138597500Z</date>
-  <millis>1684424742138</millis>
-  <nanos>597500</nanos>
+  <date>2023-05-20T11:06:09.880734800Z</date>
+  <millis>1684580769880</millis>
+  <nanos>734800</nanos>
   <sequence>7</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -72,30 +72,4 @@
   <method>startTables</method>
   <thread>1</thread>
   <message>Tablas inicializadas</message>
-</record>
-<record>
-  <date>2023-05-18T15:45:42.938251800Z</date>
-  <millis>1684424742938</millis>
-  <nanos>251800</nanos>
-  <sequence>8</sequence>
-  <logger>global</logger>
-  <level>INFO</level>
-  <class>ui.Menu</class>
-  <method>main</method>
-  <thread>1</thread>
-  <message>USTED HA ELEGIDO 1
-</message>
-</record>
-<record>
-  <date>2023-05-18T15:45:43.719957200Z</date>
-  <millis>1684424743719</millis>
-  <nanos>957200</nanos>
-  <sequence>9</sequence>
-  <logger>global</logger>
-  <level>INFO</level>
-  <class>ui.Menu</class>
-  <method>registrarse</method>
-  <thread>1</thread>
-  <message>USTED HA ELEGIDO 3
-</message>
 </record>

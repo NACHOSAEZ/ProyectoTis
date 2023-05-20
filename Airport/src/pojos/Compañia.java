@@ -1,5 +1,7 @@
 package pojos;
 
+import java.util.ArrayList;
+
 public class Compañia {
 
 	
@@ -9,21 +11,44 @@ public class Compañia {
 	private String nombre;
 	private String paginaweb;
 	private String pais;
+	private ArrayList<Vuelo> vuelos;
 	
 	
 	public Compañia() {
 		super();
+		vuelos = new ArrayList<>();
 	}
 
 
-	public Compañia(int id, String nombre, String paginaWeb, String pais, String numtelf, String correo) {
+
+
+
+
+	public Compañia(int id, String correo, String numtelf, String nombre, String paginaweb, String pais) {
 		super();
 		this.id = id;
 		this.correo = correo;
 		this.numtelf = numtelf;
 		this.nombre = nombre;
-		this.paginaweb = paginaWeb;
+		this.paginaweb = paginaweb;
 		this.pais = pais;
+	}
+
+
+
+
+
+
+	public Compañia(int id, String correo, String numtelf, String nombre, String paginaweb, String pais,
+			ArrayList<Vuelo> vuelos) {
+		super();
+		this.id = id;
+		this.correo = correo;
+		this.numtelf = numtelf;
+		this.nombre = nombre;
+		this.paginaweb = paginaweb;
+		this.pais = pais;
+		this.vuelos = vuelos;
 	}
 
 
@@ -72,6 +97,16 @@ public class Compañia {
 	}
 
 
+	public ArrayList<Vuelo> getVuelos() {
+		return vuelos;
+	}
+
+
+	public void setVuelos(ArrayList<Vuelo> vuelos) {
+		this.vuelos = vuelos;
+	}
+
+
 	public void setPaginaweb(String paginaweb) {
 		this.paginaweb = paginaweb;
 	}
@@ -93,7 +128,8 @@ public class Compañia {
 				"\nPagina Web: " + paginaweb + 
 				"\nPais: " + pais + 
 				"\nNumero de telefono: " + numtelf + 
-				"\nEmail de contacto: " + correo;
+				"\nEmail de contacto: " + correo +
+				vuelos;
 	}
 	
 	
