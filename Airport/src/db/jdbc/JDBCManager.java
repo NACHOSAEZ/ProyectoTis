@@ -900,7 +900,7 @@ public class JDBCManager implements DBManager{
 	}
 	
 	@Override
-	public boolean addBilleteCliente(Billete billete) {
+	public boolean addBilleteCliente(Billete billete,Cliente cliente) {
 		try {
 			ResultSet rs = stmt.executeQuery(sqlBuscarIdBillete + billete.getId() + "';");
 			if(rs.next()) {
@@ -916,7 +916,7 @@ public class JDBCManager implements DBManager{
 			prep.setInt(3, billete.getNumReserva());
 			prep.setInt(4, billete.getNumAsiento());
 			prep.setBoolean(5, billete.isPagado());
-			prep.setInt(6, billete.getCliente().getId());
+			prep.setInt(6,cliente.getId());
 			prep.setInt(7, billete.getVuelo().getIdVuelo());
 
 			prep.executeUpdate();

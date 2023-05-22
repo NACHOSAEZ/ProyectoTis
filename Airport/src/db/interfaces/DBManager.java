@@ -71,12 +71,13 @@ public interface DBManager {
 	
 	ArrayList<Vuelo> getVuelosPorCompañia(int idCompañia);
 
-	boolean addBilleteCliente(Billete billete);
 
 	int getNumeroAsientosUltimoVuelo();
 
 	boolean addBillete(Billete billete);
 
 	boolean addBilleteDefault(Billete billete);
+
+	boolean addBilleteCliente(Billete billete, Cliente cliente);
 
 }

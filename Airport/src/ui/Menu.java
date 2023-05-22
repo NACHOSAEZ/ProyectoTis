@@ -4,12 +4,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import db.interfaces.DBManager;
+import db.interfaces.UsuariosManager;
 import db.jdbc.JDBCManager;
+import db.jpa.JPAUsuariosManager;
 import logging.MyLogger;
+import pojos.Rol;
+import pojos.Usuario;
 import pojos.Aeropuerto;
 import pojos.Billete;
 import pojos.Cliente;
@@ -23,9 +28,15 @@ public class Menu {
 	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private static DBManager dbman = new JDBCManager();
+	private static UsuariosManager userman;
+
 	
 	private static final String[] MENU_START = {"Salir", "Registrarse", "Iniciar Sesion"};
 	private static final String[] MENU_ROL = {"Salir", "Registar Cliente", "menuEmpleado"};
+	private static final String[] MENU_USUARIO = {"Salir", "Listar Vuelos", "Buscar Vuelo","Listar aeropuertos","Buscar aeropuerto","Listar billetes","Comprar billetes"};
+
+	private static Usuario usuario;
+
 	
 	
 	private static final String[] MENU_EMPLEADO = {"Salir", "Aeropuertos", "Compañias", "Empleado", "Cliente", "billete","vuelos"};
@@ -44,8 +55,10 @@ public class Menu {
 
 	public static void main (String[] args) throws IOException{
 		MyLogger.setupFromFile();
+		userman = new JPAUsuariosManager();
+		userman.connect();
+		dbman = new JDBCManager();
 		dbman.connect();
-		
 		System.out.println("\n *** BIENVENIDO A LA BASE DE DATOS DE LOS AEROPUERTOS DE ESPAÑA *** \n");
 		int bucle=-1;
 		do {
@@ -54,7 +67,7 @@ public class Menu {
 
 			switch(bucle) {
 			
-			case 1 : registrarse();
+			case 1 : register();
 			case 2 : inicioSesion();
 			}
 		}while(bucle != 0);
@@ -63,10 +76,75 @@ public class Menu {
 		dbman.disconnect();
 	}
 	
+	private static void register() {
+		// TODO Auto-generated method stub
+		try {
+			String email = usuarioTexto("Indique su email:");
+			String pass = usuarioTexto("Indique su contraseña:");
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(pass.getBytes());
+			byte[] hash = md.digest();
+			String nombre = usuarioTexto("Indique su nombre:");
+			String apellido = usuarioTexto("Indique su apellido:");
+			String dni = usuarioTexto("Indique su dni:");
+			
+			System.out.println(userman.getRoles());
+			int rolId = Integer.parseInt(usuarioTexto("Indique el id del rol:"));
+			//TODO Asegurarse que el id es válido
+			Rol rol = userman.getRolById(rolId);
+			Usuario usuario = new Usuario(email, hash, rol);
+			rol.addUsuario(usuario);
+			userman.addUsuario(usuario);
+			if(rol.getNombre().equals("cliente")) {
+				String telefono = usuarioTexto("Indique su teléfono:");
+
+				Cliente cliente = new Cliente(usuario.getId(), nombre, apellido, dni, email, telefono,pass);
+				dbman.addCliente(cliente);
+				LOGGER.info("Cliente añadido correctamente");
+
+			} else {
+				String puesto = usuarioTexto("Indique su puesto:");
+				int sueldo = Integer.parseInt(usuarioTexto("Indique su sueldo:"));
+				ArrayList<Aeropuerto> aeropuertos = dbman.getAeropuertos();
+				Aeropuerto aeropuerto = seleccionarAeropuerto(aeropuertos);
+				Empleado empleado = new Empleado(usuario.getId(), nombre, apellido, email, pass, puesto, sueldo, dni, aeropuerto);
+				dbman.addEmpleado(empleado);
+				LOGGER.info("Empleado añadido correctamente");
+			}
+		} catch(NoSuchAlgorithmException e) {
+			LOGGER.warning("Error en el registro\n" + e);
+		}
+	}
+
 	private static void inicioSesion() {
 		// TODO Auto-generated method stub
-		
+		String email = usuarioTexto("Indique su email:");
+		String pass = usuarioTexto("Indique su contraseña:");
+		usuario = userman.checkLogin(email, pass);
+		if (usuario == null) {
+			System.out.println("Email o contraseña incorrectos");
+		} else {
+			switch(usuario.getRol().getNombre()) {
+				case "cliente" -> menuCliente();
+				case "empleado" -> menuEmpleado();
+			}
+		}
 	}
+
+	private static void menuCliente() {
+		// TODO Auto-generated method stub
+		int bucle=-1;
+		do {
+			System.out.println("\n***** MENU PRINCIPAL USUARIO *****");
+			bucle = showmenu(MENU_USUARIO);
+			LOGGER.info("USTED HA ELEGIDO " + bucle + "\n");
+
+			switch(bucle) {
+			
+			case 1: registroCliente();
+			case 2: menuEmpleado();
+			}
+		}while(bucle != 0);	}
 
 	private static void registrarse() {
 

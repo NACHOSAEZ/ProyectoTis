@@ -2,9 +2,9 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2023-05-20T19:06:01.395401Z</date>
-  <millis>1684609561395</millis>
-  <nanos>401000</nanos>
+  <date>2023-05-22T09:31:22.627828200Z</date>
+  <millis>1684747882627</millis>
+  <nanos>828200</nanos>
   <sequence>2</sequence>
   <logger>global</logger>
   <level>INFO</level>
@@ -14,10 +14,190 @@
   <message>Logger is configured</message>
 </record>
 <record>
-  <date>2023-05-20T19:06:01.625600Z</date>
-  <millis>1684609561625</millis>
-  <nanos>600000</nanos>
+  <date>2023-05-22T09:31:22.662827Z</date>
+  <millis>1684747882662</millis>
+  <nanos>827000</nanos>
   <sequence>3</sequence>
+  <logger>global</logger>
+  <level>FINER</level>
+  <class>ArchiveFactoryImpl</class>
+  <method>createArchive</method>
+  <thread>1</thread>
+  <message>ENTRY file:/C:/Users/f.perez46/Desktop/Bases%20de%20datos/Proyecto/Airport/bin/ META-INF/persistence.xml</message>
+</record>
+<record>
+  <date>2023-05-22T09:31:22.664826900Z</date>
+  <millis>1684747882664</millis>
+  <nanos>826900</nanos>
+  <sequence>4</sequence>
+  <logger>global</logger>
+  <level>FINER</level>
+  <class>ArchiveFactoryImpl</class>
+  <method>createArchive</method>
+  <thread>1</thread>
+  <message>protocol = file</message>
+</record>
+<record>
+  <date>2023-05-22T09:31:22.690828600Z</date>
+  <millis>1684747882690</millis>
+  <nanos>828600</nanos>
+  <sequence>5</sequence>
+  <logger>global</logger>
+  <level>FINER</level>
+  <class>DirectoryArchive</class>
+  <method>DirectoryArchive</method>
+  <thread>1</thread>
+  <message>ENTRY C:\Users\f.perez46\Desktop\Bases de datos\Proyecto\Airport\bin</message>
+</record>
+<record>
+  <date>2023-05-22T09:31:22.690828600Z</date>
+  <millis>1684747882690</millis>
+  <nanos>828600</nanos>
+  <sequence>6</sequence>
+  <logger>global</logger>
+  <level>FINER</level>
+  <class>DirectoryArchive</class>
+  <method>DirectoryArchive</method>
+  <thread>1</thread>
+  <message>rootURL = file:/C:/Users/f.perez46/Desktop/Bases%20de%20datos/Proyecto/Airport/bin/</message>
+</record>
+<record>
+  <date>2023-05-22T09:31:22.694826500Z</date>
+  <millis>1684747882694</millis>
+  <nanos>826500</nanos>
+  <sequence>7</sequence>
+  <logger>global</logger>
+  <level>FINER</level>
+  <class>ArchiveFactoryImpl</class>
+  <method>createArchive</method>
+  <thread>1</thread>
+  <message>RETURN DirectoryArchive(file:/C:/Users/f.perez46/Desktop/Bases%20de%20datos/Proyecto/Airport/bin/)</message>
+</record>
+<record>
+  <date>2023-05-22T09:31:22.861827800Z</date>
+  <millis>1684747882861</millis>
+  <nanos>827800</nanos>
+  <sequence>8</sequence>
+  <logger>global</logger>
+  <level>FINER</level>
+  <class>ArchiveFactoryImpl</class>
+  <method>createArchive</method>
+  <thread>1</thread>
+  <message>ENTRY file:/C:/Users/f.perez46/Desktop/Bases%20de%20datos/Proyecto/Airport/bin/ null</message>
+</record>
+<record>
+  <date>2023-05-22T09:31:22.861827800Z</date>
+  <millis>1684747882861</millis>
+  <nanos>827800</nanos>
+  <sequence>9</sequence>
+  <logger>global</logger>
+  <level>FINER</level>
+  <class>ArchiveFactoryImpl</class>
+  <method>createArchive</method>
+  <thread>1</thread>
+  <message>protocol = file</message>
+</record>
+<record>
+  <date>2023-05-22T09:31:22.861827800Z</date>
+  <millis>1684747882861</millis>
+  <nanos>827800</nanos>
+  <sequence>10</sequence>
+  <logger>global</logger>
+  <level>FINER</level>
+  <class>DirectoryArchive</class>
+  <method>DirectoryArchive</method>
+  <thread>1</thread>
+  <message>ENTRY C:\Users\f.perez46\Desktop\Bases de datos\Proyecto\Airport\bin</message>
+</record>
+<record>
+  <date>2023-05-22T09:31:22.862852400Z</date>
+  <millis>1684747882862</millis>
+  <nanos>852400</nanos>
+  <sequence>11</sequence>
+  <logger>global</logger>
+  <level>FINER</level>
+  <class>DirectoryArchive</class>
+  <method>DirectoryArchive</method>
+  <thread>1</thread>
+  <message>rootURL = file:/C:/Users/f.perez46/Desktop/Bases%20de%20datos/Proyecto/Airport/bin/</message>
+</record>
+<record>
+  <date>2023-05-22T09:31:22.864826200Z</date>
+  <millis>1684747882864</millis>
+  <nanos>826200</nanos>
+  <sequence>12</sequence>
+  <logger>global</logger>
+  <level>FINER</level>
+  <class>ArchiveFactoryImpl</class>
+  <method>createArchive</method>
+  <thread>1</thread>
+  <message>RETURN DirectoryArchive(file:/C:/Users/f.perez46/Desktop/Bases%20de%20datos/Proyecto/Airport/bin/)</message>
+</record>
+<record>
+  <date>2023-05-22T09:31:22.865826700Z</date>
+  <millis>1684747882865</millis>
+  <nanos>826700</nanos>
+  <sequence>13</sequence>
+  <logger>global</logger>
+  <level>FINER</level>
+  <class>ArchiveFactoryImpl</class>
+  <method>createArchive</method>
+  <thread>1</thread>
+  <message>ENTRY file:/C:/Users/f.perez46/Desktop/Bases%20de%20datos/Proyecto/Airport/bin/ null</message>
+</record>
+<record>
+  <date>2023-05-22T09:31:22.865826700Z</date>
+  <millis>1684747882865</millis>
+  <nanos>826700</nanos>
+  <sequence>14</sequence>
+  <logger>global</logger>
+  <level>FINER</level>
+  <class>ArchiveFactoryImpl</class>
+  <method>createArchive</method>
+  <thread>1</thread>
+  <message>protocol = file</message>
+</record>
+<record>
+  <date>2023-05-22T09:31:22.865826700Z</date>
+  <millis>1684747882865</millis>
+  <nanos>826700</nanos>
+  <sequence>15</sequence>
+  <logger>global</logger>
+  <level>FINER</level>
+  <class>DirectoryArchive</class>
+  <method>DirectoryArchive</method>
+  <thread>1</thread>
+  <message>ENTRY C:\Users\f.perez46\Desktop\Bases de datos\Proyecto\Airport\bin</message>
+</record>
+<record>
+  <date>2023-05-22T09:31:22.865826700Z</date>
+  <millis>1684747882865</millis>
+  <nanos>826700</nanos>
+  <sequence>16</sequence>
+  <logger>global</logger>
+  <level>FINER</level>
+  <class>DirectoryArchive</class>
+  <method>DirectoryArchive</method>
+  <thread>1</thread>
+  <message>rootURL = file:/C:/Users/f.perez46/Desktop/Bases%20de%20datos/Proyecto/Airport/bin/</message>
+</record>
+<record>
+  <date>2023-05-22T09:31:22.868826Z</date>
+  <millis>1684747882868</millis>
+  <nanos>826000</nanos>
+  <sequence>17</sequence>
+  <logger>global</logger>
+  <level>FINER</level>
+  <class>ArchiveFactoryImpl</class>
+  <method>createArchive</method>
+  <thread>1</thread>
+  <message>RETURN DirectoryArchive(file:/C:/Users/f.perez46/Desktop/Bases%20de%20datos/Proyecto/Airport/bin/)</message>
+</record>
+<record>
+  <date>2023-05-22T09:31:23.358792700Z</date>
+  <millis>1684747883358</millis>
+  <nanos>792700</nanos>
+  <sequence>18</sequence>
   <logger>global</logger>
   <level>INFO</level>
   <class>db.jdbc.JDBCManager</class>
@@ -26,10 +206,10 @@
   <message>Se ha inicializado la base de datos</message>
 </record>
 <record>
-  <date>2023-05-20T19:06:01.672600300Z</date>
-  <millis>1684609561672</millis>
-  <nanos>600300</nanos>
-  <sequence>4</sequence>
+  <date>2023-05-22T09:31:23.397792Z</date>
+  <millis>1684747883397</millis>
+  <nanos>792000</nanos>
+  <sequence>19</sequence>
   <logger>global</logger>
   <level>INFO</level>
   <class>db.jdbc.JDBCManager</class>
@@ -38,10 +218,10 @@
   <message>Tablas inicializadas correctamente</message>
 </record>
 <record>
-  <date>2023-05-20T19:06:01.685607Z</date>
-  <millis>1684609561685</millis>
-  <nanos>607000</nanos>
-  <sequence>5</sequence>
+  <date>2023-05-22T09:31:23.405791700Z</date>
+  <millis>1684747883405</millis>
+  <nanos>791700</nanos>
+  <sequence>20</sequence>
   <logger>global</logger>
   <level>INFO</level>
   <class>db.jdbc.JDBCManager</class>
@@ -50,10 +230,10 @@
   <message>Se ha introducido los datos predeterminado a la tabla de compañias</message>
 </record>
 <record>
-  <date>2023-05-20T19:06:01.700602200Z</date>
-  <millis>1684609561700</millis>
-  <nanos>602200</nanos>
-  <sequence>6</sequence>
+  <date>2023-05-22T09:31:23.412792700Z</date>
+  <millis>1684747883412</millis>
+  <nanos>792700</nanos>
+  <sequence>21</sequence>
   <logger>global</logger>
   <level>INFO</level>
   <class>db.jdbc.JDBCManager</class>
@@ -62,10 +242,10 @@
   <message>Se ha introducido los datos predeterminado a la tabla de aeropuertos</message>
 </record>
 <record>
-  <date>2023-05-20T19:06:02.477220200Z</date>
-  <millis>1684609562477</millis>
-  <nanos>220200</nanos>
-  <sequence>7</sequence>
+  <date>2023-05-22T09:31:24.387874700Z</date>
+  <millis>1684747884387</millis>
+  <nanos>874700</nanos>
+  <sequence>22</sequence>
   <logger>global</logger>
   <level>INFO</level>
   <class>db.jdbc.JDBCManager</class>
@@ -73,3 +253,17 @@
   <thread>1</thread>
   <message>Tablas inicializadas</message>
 </record>
+<record>
+  <date>2023-05-22T09:31:36.534512700Z</date>
+  <millis>1684747896534</millis>
+  <nanos>512700</nanos>
+  <sequence>23</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>ui.Menu</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>USTED HA ELEGIDO 1
+</message>
+</record>
+</log>

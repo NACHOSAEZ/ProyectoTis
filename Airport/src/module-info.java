@@ -5,10 +5,9 @@
  * @author paquerras
  *
  */
-module Airport {
+open module Airport {
 	requires java.sql;
-	requires java.instrument;
+	requires java.logging;
 	requires jakarta.persistence;
-	//requires eclipselink;
-	requires java.xml.bind;
+	requires java.instrument;
 }
