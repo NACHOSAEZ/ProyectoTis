@@ -69,12 +69,11 @@ public class JDBCManager implements DBManager{
     private static final String sqlBuscarIdEmpleado = "SELECT * FROM Empleados WHERE Id='";
     private static final String sqlBuscarIdAeropuertoEmpleado = "SELECT * FROM Empleados WHERE IdAeropuerto='";
     private static final String sqlBuscarIdClienteBillete = "SELECT * FROM Billetes WHERE IdCliente='";
-
     private static final String sqlBuscarIdVueloCompañia = "SELECT * FROM Vuelos JOIN Compañias_Vuelos ON Vuelos.NumVuelo = Compañias_Vuelos.IdVuelo JOIN Compañias ON Compañias.Id = Compañias_Vuelos.IdCompañia WHERE Compañias.Id ='";
-
-
     private static final String sqlBuscarIdCliente = "SELECT * FROM Clientes WHERE Id='";
     private static final String sqlBuscarVuelosId = "SELECT * FROM Vuelos WHERE NumVuelo='";
+    private static final String sqlBuscarBilletePorIdVuelo = "SELECT * FROM Billetes WHERE IdVuelo='";
+
 
 
 
@@ -196,13 +195,16 @@ public class JDBCManager implements DBManager{
 				}
 			}	
 			if(countElements("Vuelos") == 0) {
-				for(int i = 0 ; i < 15 ; i++) {
+				//TODO
+				for(int i = 0 ; i < 10 ; i++) {
+					TERM.info(Integer.toString(i));//solo añade el primer vuelo
 					Vuelo vuelo = defaultvalues.generarVuelo();
 					addVuelo(vuelo);
 					addVuelo_Compañia(vuelo);
-					for(int j=0; i<vuelo.getAsientos();i++) {
-						addBilleteDefault(defaultvalues.generarBilleteVuelo(vuelo));//no añade correctamente el idVuelo
+					for(int j=0; j<vuelo.getAsientos();j++) {
+						addBilleteDefault(defaultvalues.generarBilleteVuelo(vuelo));
 					}
+					
 				}
 			}
 			
@@ -512,7 +514,7 @@ public class JDBCManager implements DBManager{
 			PreparedStatement prep = c.prepareStatement(sqlAddVuelo);
 			prep.setString(1, vuelo.getHora());
 			prep.setInt(2, vuelo.getAsientos());
-			prep.setInt(3, vuelo.getOrigen().getId());
+			prep.setInt(3, vuelo.getOrigen().getId());//valor null
 			prep.setInt(4, vuelo.getDestino().getId());
 
 			prep.executeUpdate();
@@ -547,7 +549,7 @@ public class JDBCManager implements DBManager{
 	}
 
 	@Override
-	public ArrayList<Vuelo> getVuelos() {
+	public ArrayList<Vuelo> getVuelos() { //me devuelve solo un vuelo
 		String sql = "SELECT * FROM Vuelos;";
 		ArrayList<Vuelo> vuelos = new ArrayList<>();
 		Aeropuerto aeropuertoOrigen = null;
@@ -667,7 +669,7 @@ public class JDBCManager implements DBManager{
 				int id = rs.getInt("Id");
 				String nombre = rs.getString("Nombre");
 				String apellido = rs.getString("Apellido");
-				String dni = rs.getString("Dni");
+				String dni = rs.getString("DNI");
 				String email = rs.getString("Email");
 				String numTelefono = rs.getString("NumTelefono");
 				String password = rs.getString("Password");
@@ -691,11 +693,11 @@ public class JDBCManager implements DBManager{
 				int id = rs.getInt("Id");
 				String nombre = rs.getString("Nombre");
 				String apellido = rs.getString("Apellido");
-				String dni = rs.getString("Dni");
+				String dni = rs.getString("DNI");
 				String email = rs.getString("Email");
 				String numTelefono = rs.getString("NumTelefono");
 				String password = rs.getString("Password");
-				cliente = new Cliente(id, nombre, apellido, dni, email, numTelefono, password,getBilletes());//LEER TODOS LOS BILLETES DEL CLIENTE
+				cliente = new Cliente(id, nombre, apellido, dni, email, numTelefono, password,null);//LEER TODOS LOS BILLETES DEL CLIENTE
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -703,6 +705,7 @@ public class JDBCManager implements DBManager{
 		return cliente;
 	}
 	
+	@Override
 	public ArrayList<Billete> getBilletesCliente(int idCliente){
 		ArrayList<Billete> billetes = new ArrayList<>();
 		try {
@@ -728,6 +731,72 @@ public class JDBCManager implements DBManager{
 		return billetes;		
 	}
 	
+	@Override
+	public ArrayList<Billete> getBilletesPorVuelo(int idVueloo){
+		ArrayList<Billete> billetes = new ArrayList<>();
+		try {
+			Statement stm1 = c.createStatement();
+			ResultSet rs = stm1.executeQuery(sqlBuscarBilletePorIdVuelo +idVueloo+ "';");
+			while(rs.next()) {
+				int id= rs.getInt("Id");
+				String categoria = rs.getString("Categoria");
+				int precio = rs.getInt("Precio");
+				int numReserva = rs.getInt("NumReserva");
+				int numAsiento = rs.getInt("NumAsiento");
+				boolean pagado = rs.getBoolean("Pagado");
+				int idClientee = rs.getInt("IdCliente");
+				Cliente cliente = getClientePorId(Integer.toString(idClientee));
+				int idVuelo = rs.getInt("IdVuelo");
+				Vuelo vuelo = getVueloPorId(idVuelo);
+				billetes.add(new Billete(id, categoria, precio, numReserva, numAsiento, pagado, cliente	, vuelo));
+			}
+			stm1.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return billetes;		
+	}
+	
+	@Override
+	public boolean addBilleteACliente(int idCliente, int idBillete) {
+		try {
+            String sql = "UPDATE Billetes SET IdCliente = ? WHERE id = ?";
+            PreparedStatement prep = c.prepareStatement(sql);
+            prep.setInt(1, idCliente);
+            prep.setInt(2, idBillete);
+            int filasActualizadas = prep.executeUpdate();
+            if (filasActualizadas > 0) {
+                TERM.info("El IdCliente se ha actualizado correctamente para el billete con id " + idBillete);
+            } else {
+                TERM.info("No se encontró ningún billete con el id " + idBillete);
+            }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
+	@Override
+	public Cliente getClientePorEmail(String email) {
+		Cliente cliente = null;
+		String sql = sqlBuscarEmailCliente + email + "';";
+		try {
+			ResultSet rs = stmt.executeQuery(sql); 
+			if(rs.next()) {
+				int id = rs.getInt("Id");
+				String nombre = rs.getString("Nombre");
+				String apellido = rs.getString("Apellido");
+				String dni = rs.getString("DNI");
+				String correo = rs.getString("Email");
+				String numTelefono = rs.getString("NumTelefono");
+				String password = rs.getString("Password");
+				cliente = new Cliente(id, nombre, apellido, dni, correo, numTelefono, password,getBilletes());
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return cliente;
+	}
 	@Override
 	public boolean addCompañia(Compañia compañia) {
 		try {
@@ -894,12 +963,6 @@ public class JDBCManager implements DBManager{
 	
 
 	@Override
-	public ArrayList<Billete> getBilletes() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
 	public boolean addBilleteCliente(Billete billete,Cliente cliente) {
 		try {
 			ResultSet rs = stmt.executeQuery(sqlBuscarIdBillete + billete.getId() + "';");
@@ -927,7 +990,7 @@ public class JDBCManager implements DBManager{
 		return true;
 		}
 	
-/*
+
 	@Override
 	public ArrayList<Billete> getBilletes(){
 		//TODO
@@ -944,16 +1007,16 @@ public class JDBCManager implements DBManager{
 				String categoria = rs.getString("Categoria");
 				int precio = rs.getInt("Precio");
 				int numReserva = rs.getInt("NumReserva");
-				String numAsiento = rs.getString("NumAsiento");
+				int numAsiento = rs.getInt("NumAsiento");
 				Boolean pagado = rs.getBoolean("Pagado");
 				Cliente cliente = new Cliente();
 				String idCliente = rs.getString("IdCliente");
 				cliente = getClientePorId(idCliente);
 				Vuelo vuelo = new Vuelo();
-				String idVuelo = rs.getString("IdVuelo");
-				//vuelo = getVueloPorId(idVuelo);
+				int idVuelo = rs.getInt("IdVuelo");
+				vuelo = getVueloPorId(idVuelo);
 				
-				//billetes.add(new Billete(id, categoria, precio, numReserva, numAsiento, pagado, cliente,vuelo));
+				billetes.add(new Billete(id, categoria, precio, numReserva, numAsiento, pagado, cliente, vuelo));
 				}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -961,7 +1024,9 @@ public class JDBCManager implements DBManager{
 		return billetes;
 	}
 	
-*/	
+	
+	
+	
 	
 	}
 

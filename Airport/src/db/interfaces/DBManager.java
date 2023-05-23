@@ -80,4 +80,12 @@ public interface DBManager {
 
 	boolean addBilleteCliente(Billete billete, Cliente cliente);
 
+	ArrayList<Billete> getBilletesPorVuelo(int idVueloo);
+
+	boolean addBilleteACliente(int idCliente, int idBillete);
+
+	Cliente getClientePorEmail(String email);
+
+	ArrayList<Billete> getBilletesCliente(int idCliente);
+
 }

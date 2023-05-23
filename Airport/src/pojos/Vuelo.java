@@ -101,12 +101,12 @@ public class Vuelo {
 	}
 
 
-
-
-
 	public int getAsientos() {
 		return asientos;
 	}
+
+
+
 
 
 	public void setAsientos(int asientos) {

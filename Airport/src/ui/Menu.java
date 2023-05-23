@@ -8,6 +8,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
+import javax.xml.bind.JAXBException;
+
 import db.interfaces.DBManager;
 import db.interfaces.UsuariosManager;
 import db.jdbc.JDBCManager;
@@ -21,6 +23,7 @@ import pojos.Cliente;
 import pojos.Compañia;
 import pojos.Empleado;
 import pojos.Vuelo;
+import xml.AeropuertoAleatorio;
 
 
 public class Menu {
@@ -29,17 +32,19 @@ public class Menu {
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private static DBManager dbman = new JDBCManager();
 	private static UsuariosManager userman;
+	private final static AeropuertoAleatorio altA = new AeropuertoAleatorio();
+
 
 	
 	private static final String[] MENU_START = {"Salir", "Registrarse", "Iniciar Sesion"};
 	private static final String[] MENU_ROL = {"Salir", "Registar Cliente", "menuEmpleado"};
-	private static final String[] MENU_USUARIO = {"Salir", "Listar Vuelos", "Buscar Vuelo","Listar aeropuertos","Buscar aeropuerto","Listar billetes","Comprar billetes"};
 
 	private static Usuario usuario;
 
+	private static final String[] MENU_USUARIO = {"Salir", "Listar Vuelos", "Buscar Vuelo","Listar aeropuertos","Buscar aeropuerto","Listar todos billetes","Comprar billetes", "Listar mis billetes"};
+	private static final String[] MENU_EMPLEADO = {"Salir", "Vuelos", "Compañias", "Aeropuertos", "Empleados", "Clientes","Marshalling","Unmarshalling"};
+
 	
-	
-	private static final String[] MENU_EMPLEADO = {"Salir", "Aeropuertos", "Compañias", "Empleado", "Cliente", "billete","vuelos"};
 	private static final String[] MENU_AEROPUERTO = {"Salir", "Listar aeropuertos", "Añadir aeropuerto", "Consultar aeropuerto por codigo", "Eliminar aeropuerto"};
 	private static final String[] MENU_COMPAÑIAS = {"Salir", "Listar compañias", "Añadir compañia", "Consultar compañia por nombre", "Eliminar compañia","Listar vuelos de una compañia"};
 	private static final String[] MENU_EMPLEADOS = {"Salir", "Añadir Empleado", "Eliminar empleado", "Listar Empleados", "Buscar empleado por Id"};
@@ -53,7 +58,7 @@ public class Menu {
 
 
 
-	public static void main (String[] args) throws IOException{
+	public static void main (String[] args) throws IOException, JAXBException{
 		MyLogger.setupFromFile();
 		userman = new JPAUsuariosManager();
 		userman.connect();
@@ -116,8 +121,9 @@ public class Menu {
 		}
 	}
 
-	private static void inicioSesion() {
+	private static void inicioSesion() throws JAXBException {
 		// TODO Auto-generated method stub
+		System.out.println("INICIO DE SESION");
 		String email = usuarioTexto("Indique su email:");
 		String pass = usuarioTexto("Indique su contraseña:");
 		usuario = userman.checkLogin(email, pass);
@@ -130,6 +136,8 @@ public class Menu {
 			}
 		}
 	}
+	
+	//"Salir", "Listar Vuelos", "Buscar Vuelo","Listar aeropuertos","Buscar aeropuerto","Listar billetes","Comprar billetes"};
 
 	private static void menuCliente() {
 		// TODO Auto-generated method stub
@@ -138,64 +146,68 @@ public class Menu {
 			System.out.println("\n***** MENU PRINCIPAL USUARIO *****");
 			bucle = showmenu(MENU_USUARIO);
 			LOGGER.info("USTED HA ELEGIDO " + bucle + "\n");
-
 			switch(bucle) {
 			
-			case 1: registroCliente();
-			case 2: menuEmpleado();
+			case 1-> listarVuelos();
+			case 2-> buscarVueloPorId();
+			case 3-> consultarInformacionAeropuerto();
+			case 4-> buscarAeropuertoCodigo();
+			case 5-> listarBilletes();
+			case 6-> comprarBillete();
+			case 7 -> listarMisBilletes();
+
 			}
 		}while(bucle != 0);	}
 
-	private static void registrarse() {
-
-		int bucle=-1;
-		do {
-			System.out.println("Seleccione uno de los siguientes roles para registrarse\n");
-			bucle = showmenu(MENU_ROL);
-			LOGGER.info("USTED HA ELEGIDO " + bucle + "\n");
-
-			switch(bucle) {
-			
-			case 1: registroCliente();
-			case 2: menuEmpleado();
-			}
-		}while(bucle != 0);
+	private static void listarMisBilletes() {
+		// TODO Auto-generated method stub
+		Cliente cliente = dbman.getClientePorEmail(usuario.getEmail());
+		ArrayList<Billete> billetes = dbman.getBilletesCliente(cliente.getId());
+		int size=billetes.size();
+		System.out.println(size);
+		for(int i = 0; i < size ; i++) {
+			System.out.println("\n" + billetes.get(i) + "\n");
+		}
 	}
 
-	private static void menuEmpleado() {
+	private static void listarBilletes() {
+		ArrayList<Billete> billetes = dbman.getBilletes();
+		int size=billetes.size();
+		for(int i = 0; i < size ; i++) {
+			System.out.println("\n" + billetes.get(i) + "\n");
+		}
+	}
+
+
+	private static void menuEmpleado() throws JAXBException {
 		System.out.println("\nMENU EMPLEADO\n");
 		int bucle;
 		do {
 			bucle = showmenu(MENU_EMPLEADO);
 			switch(bucle) {
-			case 1 -> aeropuertos();
+			case 1 -> vuelos();
 			case 2 -> compañias();
-			case 3 -> empleados();
-			case 4 -> clientes();
-			case 5 -> billete();
-			case 6 -> vuelos();
+			case 3 -> aeropuertos();
+			case 4 -> empleados();
+			case 5 -> clientes();
+			case 6 -> altA.marshalling();
+			case 7 -> altA.unMarshalling();
+
 			}
 		}while(bucle != 0);
 		
 	}
 	
-	
-	private static void billete() {
-		// TODO Auto-generated method stub
-		int bucle =-1;
-		do {
-			bucle = showmenu(MENU_BILLETES);
-			switch(bucle) {
-			case 1 -> comprarBillete();
 
-			}
-		}while(bucle!=0);
-	}
 
-	private static void comprarBillete() {
-		ArrayList<Cliente> clientes = dbman.getClientes();
-		Cliente cliente = seleccionarCliente(clientes);
-		ArrayList<Billete> billetes = dbman.getBilletes();
+	private static void comprarBillete() { //introducir el cliente
+		//TODO
+		ArrayList<Vuelo> vuelos = dbman.getVuelos();
+		Vuelo vuelo = seleccionarVuelo(vuelos);
+		ArrayList<Billete> billetes = dbman.getBilletesPorVuelo(vuelo.getIdVuelo());
+		Billete billete = seleccionarBillete(billetes);
+		Cliente cliente = dbman.getClientePorEmail(usuario.getEmail()); //devuelve NULL
+		dbman.addBilleteACliente(cliente.getId(), billete.getId());
 	}
 
 	private static void clientes() {
@@ -343,22 +355,6 @@ public class Menu {
 		}
 	}
 	
-	/*
-	 
-	 	private static void eliminarCompañia() {
-		ArrayList<Compañia> compañias = dbman.getCompañias();
-		System.out.println("\nSeleccione el id de la compañia que desea eliminar: \n");
-		Compañia compañia = seleccionarCompañia(compañias);
-		int result1 = dbman.eliminarCompañia(compañia);
-		
-		if(result1 == 1) {
-			System.out.println("\nLa compañia " + compañia.getNombre() + " se ha eliminado\n");
-		}else {
-			LOGGER.warning("Error al intentar eliminar la compañia " + compañia);
-		}	
-	}
-	 
-	 */
 	
 	private static void vuelos() {
 		int bucle =-1;
@@ -376,6 +372,7 @@ public class Menu {
 	private static void listarVuelos() {
 		ArrayList<Vuelo> vuelos = dbman.getVuelos();
 		int size=vuelos.size();
+		System.out.println(size);
 		for(int i = 0; i < size ; i++) {
 			System.out.println("\n" + vuelos.get(i) + "\n");
 		}
@@ -448,6 +445,21 @@ public class Menu {
 			LOGGER.warning("ERROR" + e);
 		}
 	}
+	
+	public static int getIdEleccionVuelo(ArrayList<Aeropuerto> aeropuertos) {
+		String[] opciones = new String[aeropuertos.size() + 1];
+		opciones[0] = "Cancelar";
+		for(int i=0; i<aeropuertos.size();i++) {
+			opciones[i+1] = aeropuertos.get(i).getNombre();
+		}
+		int resultado = showmenu(opciones);
+		if(resultado == 0) {
+			return 0;
+		}
+		Aeropuerto obj=aeropuertos.get(resultado-1);
+		int dev=obj.getId();
+		return dev;
+	}
 
     public static void metodoConRetardo() {
         try {
@@ -472,6 +484,21 @@ public class Menu {
 			case 5 -> listarVuelosCompañia();
 			}
 		}while(bucle!=0);
+	}
+	
+	
+	private static Billete seleccionarBillete(ArrayList<Billete> billetes) {
+		String[] opciones = new String[billetes.size() + 1];
+		opciones[0] = "Cancelar";
+		for(int i=0; i<billetes.size();i++) {
+			opciones[i+1] = billetes.get(i).toString();
+		}
+		int resultado = showmenu(opciones);
+		if(resultado == 0) {
+			return null;
+		}
+		return billetes.get(resultado-1);
+		
 	}
 	
 	private static void listarVuelosCompañia() {
@@ -545,7 +572,7 @@ public class Menu {
 	private static void buscarCompañiaPorNombre() {
 		try {
 			System.out.println("Introduzca el nombre de la compañia: \n");
-			String idNombre = br.readLine();
+			String idNombre = br.readLine().toUpperCase();
 			Compañia compañia = dbman.getCompañiaPorNombre(idNombre);
 			System.out.println(compañia);
 
@@ -565,7 +592,7 @@ public class Menu {
 	private static void añadirCompañia() {
 		try {
 		System.out.println("Indique el nombre de la compañia:\n");
-		String nombre = br.readLine();
+		String nombre = br.readLine().toUpperCase();
 		
 		System.out.println("Indique la pagina web de la compañia:\n");
 		String paginaWeb = br.readLine();
@@ -617,7 +644,6 @@ public class Menu {
 
 	private static void consultarInformacionAeropuerto() {
 		ArrayList<Aeropuerto> aeropuertos = dbman.getAeropuertos();
-		//pedidos.indexOf(pedidos)//devuelve el objetivo
 		int size = aeropuertos.size();
 		System.out.println(size);
 		for (int i = 0; i < size; i++) {

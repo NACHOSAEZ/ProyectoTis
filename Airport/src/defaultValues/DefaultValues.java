@@ -28,7 +28,6 @@ public class DefaultValues {
 	private final static String [] CATEGORIA = {"First class","Business Class", "Tourist Class"};
 	//PROGRAMAR MAS TARDE COMO UN ENUM, PARA ASOCIAR EL ID DE VUELOS (IB1292)
 	private final static String [] PUESTOEMPLEADO = {"Tecnico administrativo", "Auxiliar de vuelo", "Controlador aero", "Piloto", "Operario de logistica"};
-	private final static String [] AEROPUERTOS = {"Aeropuerto Adolfo Suárez Madrid-Barajas", "Aeropuerto Josep Tarradellas Barcelona-El Prat", "Aeropuerto de Málaga-Costa del Sol"};
 	private final static String [] CORREOS = {"@gmail.com", "@hotmail.com", "@usp.ceu.es", "@yahoo.es", "@outlook.com"};
 	
 	private static DBManager dbman = new JDBCManager();
@@ -93,7 +92,7 @@ public class DefaultValues {
 		int precio = randomInt(500);
 		billete.setPrecio(precio);
 		int numeroReserva=randomInt(100000);
-		billete.setNumAsiento(numeroReserva);
+		billete.setNumReserva(numeroReserva);
 		int numAsiento = randomInt(vuelo.getAsientos());
 		billete.setNumAsiento(numAsiento);
 		boolean pagado = false;
@@ -127,7 +126,7 @@ public class DefaultValues {
         int minutos = rand.nextInt(60);  // Genera un número aleatorio entre 0 y 59
         String tiempo = hora + ":" + minutos;
         vuelo.setHora(tiempo);
-        int asiento = rand.nextInt(100);
+        int asiento = rand.nextInt(20);
         vuelo.setAsientos(asiento);
         ArrayList<Aeropuerto> aeropuertos = dbman.getAeropuertos();
         Aeropuerto origen = obtenerAeropuertoAleatorio(aeropuertos);

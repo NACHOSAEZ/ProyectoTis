@@ -95,15 +95,15 @@ public class Billete {
 
 	@Override
 	public String toString() {
-		return id + "Billete " + 
+		return "\n"+id+". " + "Billete " + 
 				"\nCategoria=" + Categoria +
 				"\nPrecio=" + precio + 
-				"\nNumero de Reserva: " + numReserva
-				+ "\nNumero de Asiento: " + numAsiento + 
+				"\nNumero de Reserva: " + numReserva +
+				"\nNumero de Asiento: " + numAsiento + 
 				"\nPagado: " + pagado + 
 				"\nCliente=" + cliente + 
 				"\nVuelo=" + vuelo
-				+ "]";
+				+ "]\n";
 	}
 
 	

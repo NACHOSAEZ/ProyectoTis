@@ -10,4 +10,5 @@ open module Airport {
 	requires java.logging;
 	requires jakarta.persistence;
 	requires java.instrument;
+	requires java.xml.bind;
 }

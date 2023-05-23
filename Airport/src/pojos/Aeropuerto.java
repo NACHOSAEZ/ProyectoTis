@@ -1,13 +1,29 @@
 package pojos;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Aeropuerto {
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
-	
+@XmlRootElement(name = "Aeropuerto")
+@XmlAccessorType(XmlAccessType.FIELD)
+
+
+public class Aeropuerto implements Serializable{
+
+	private static final long serialVersionUID = -3871659483164277914L;
+	@XmlElement
 	private int id;
+	@XmlElement
 	private String nombre;
+	@XmlElement
 	private String codigo;
+	@XmlElement(name = "Empleados")
+	@XmlElementWrapper(name = "Empleados")
 	private ArrayList<Empleado> empleados;
 	
 	public Aeropuerto() {
@@ -69,7 +85,7 @@ public class Aeropuerto {
 
 	@Override
 	public String toString() {
-		return id + "." + nombre + "(" + codigo + ")"+ "\n"+ empleados;
+		return "\n"+id + "." + nombre + "(" + codigo + ")"+ "\n"+ empleados + "\n";
 	}
 	
 
