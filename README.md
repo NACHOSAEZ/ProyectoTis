@@ -39,3 +39,5 @@ Billete: Sus atributos: Reservado, Pagado, Confirmado, Precio, Categoría e Id (
 
 Cliente: Sus atributos son: NumTelefono, Contraseña, Correo, Apellido, Nombre, Dni e Id (la primary key). ESta entidad tiene solo una relación de tipo 1-n con la entidad Billete.
 
+
+## **DIAGRAMA INTERFAZ**
