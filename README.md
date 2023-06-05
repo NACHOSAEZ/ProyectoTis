@@ -46,3 +46,4 @@ Cliente: Sus atributos son: NumTelefono, Contraseña, Correo, Apellido, Nombre, 
 ![DiagramaInterfaz2](https://github.com/NACHOSAEZ/ProyectoTis/blob/main/doc/DiagramaInterfaz2.png)
 ![DiagramaInterfaz3](https://github.com/NACHOSAEZ/ProyectoTis/blob/main/doc/DiagramaInterfaz3.png)
 ![DiagramaInterfaz4](https://github.com/NACHOSAEZ/ProyectoTis/blob/main/doc/DiagramaInterfaz4.png)
+
