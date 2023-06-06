@@ -14,6 +14,7 @@ import db.interfaces.DBManager;
 import db.interfaces.UsuariosManager;
 import db.jdbc.JDBCManager;
 import db.jpa.JPAUsuariosManager;
+import defaultValues.DefaultValues;
 import logging.MyLogger;
 import pojos.Rol;
 import pojos.Usuario;
@@ -33,6 +34,8 @@ public class Menu {
 	private static DBManager dbman = new JDBCManager();
 	private static UsuariosManager userman;
 	private final static AeropuertoAleatorio altA = new AeropuertoAleatorio();
+	private final static DefaultValues defaultV = new DefaultValues();
+
 
 
 	
@@ -422,25 +425,28 @@ public class Menu {
 		String hora = br.readLine();
 		
 		System.out.println("Indique el numero de asientos del vuelo:\n");
-		int asientos = br.read();
+		int asientos = Integer.parseInt(br.readLine());
 		
 		ArrayList<Aeropuerto> aeropuertos = dbman.getAeropuertos();
 		
 		//TODO SALEN LAS DOS SELECCIONAR AEROPUERTOS A LA VEZ
-		Aeropuerto origen= seleccionarAeropuerto(aeropuertos);
+		
 		System.out.println("\nIndique el origen del vuelo:\n");
+		Aeropuerto origen= seleccionarAeropuerto(aeropuertos);		
+		System.out.println("\nIndique el destino del vuelo:\n");
 		Aeropuerto destino = seleccionarAeropuerto(aeropuertos);
 
-		System.out.println("\nIndique el destino del vuelo:\n");
 
 		ArrayList<Compañia> compañias = dbman.getCompañias();
 		Compañia compañia = seleccionarCompañia(compañias);
-		System.out.println("\nIndique el id de la compañia del vuelo:\n");
 
 		//TODO
 		Vuelo vuelo = new Vuelo(0,hora, asientos, origen, destino, compañia);		
 		dbman.addVuelo(vuelo);
-		dbman.addVuelo_Compañia(vuelo);   //TODO
+		dbman.addVuelo_Compañia(vuelo);  
+		for(int i=0;i<asientos;i++) {
+			dbman.addBilleteDefault(defaultV.generarBilleteVuelo(vuelo));
+		}
 		}catch(IOException e) {
 			LOGGER.warning("ERROR" + e);
 		}
@@ -726,7 +732,7 @@ public class Menu {
 		
 		do {
 			
-			System.out.println("\nELIGA UNA OPCION:\n");
+			System.out.println("\nELIJA UNA OPCION:\n");
 			
 			for(int i=1; i<opciones.length;i++) {
 				System.out.println(i + "." + opciones[i]);

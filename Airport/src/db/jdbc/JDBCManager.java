@@ -514,7 +514,7 @@ public class JDBCManager implements DBManager{
 			PreparedStatement prep = c.prepareStatement(sqlAddVuelo);
 			prep.setString(1, vuelo.getHora());
 			prep.setInt(2, vuelo.getAsientos());
-			prep.setInt(3, vuelo.getOrigen().getId());//valor null
+			prep.setInt(3, vuelo.getOrigen().getId());
 			prep.setInt(4, vuelo.getDestino().getId());
 
 			prep.executeUpdate();
@@ -582,7 +582,7 @@ public class JDBCManager implements DBManager{
             PreparedStatement statement = c.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-            	numAsiento = resultSet.getInt("NumVuelo");
+            	numAsiento = resultSet.getInt("Asientos");
             }
         } catch (SQLException e) {
             e.printStackTrace();

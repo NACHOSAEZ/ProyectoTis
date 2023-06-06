@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Aeropuerto implements Serializable{
 
 	private static final long serialVersionUID = -3871659483164277914L;
+	
 	@XmlElement
 	private int id;
 	@XmlElement

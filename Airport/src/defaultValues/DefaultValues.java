@@ -24,9 +24,7 @@ public class DefaultValues {
 	private final String F_NOMBRES = "./db/nombres.csv";
 	private final String F_APELLIDOS = "./db/apellidos.csv";
 	
-	//PROGRAMAR MAS TARDE COMO UN ENUM!!!! PARA ASOCIAR LOS ASIENTOS PARA CADA CATEGORIA
 	private final static String [] CATEGORIA = {"First class","Business Class", "Tourist Class"};
-	//PROGRAMAR MAS TARDE COMO UN ENUM, PARA ASOCIAR EL ID DE VUELOS (IB1292)
 	private final static String [] PUESTOEMPLEADO = {"Tecnico administrativo", "Auxiliar de vuelo", "Controlador aero", "Piloto", "Operario de logistica"};
 	private final static String [] CORREOS = {"@gmail.com", "@hotmail.com", "@usp.ceu.es", "@yahoo.es", "@outlook.com"};
 	

@@ -19,7 +19,7 @@ public class AeropuertoAleatorio {
 	 final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	 private static DBManager dbman = new JDBCManager();
 
-		public static Aeropuerto getAeropuertosAleatorio() {
+		public static Aeropuerto getAeropuertosAleatorio() { //OBTENER AEROPUERTO PARA EL MARSHALLING
 			Random rand = new Random();
 			ArrayList <Aeropuerto> aeropuertos = dbman.getAeropuertos();
 			Aeropuerto aeropuerto = null;
